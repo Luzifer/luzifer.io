@@ -4,8 +4,9 @@ baseurl: https://blog.knut.me/
 config: config.yaml
 metaDataFormat: yaml
 permalinks:
-  post: /:slug.html
+  oldpost: /:slug.html
   page: /:slug.html
+  post: /:year/:month/:slug.html
 theme: blogknutme
 title: Knuts Blog
 uglyUrls: true
