@@ -1,0 +1,24 @@
+---
+title: "Windows Mobile und Mail-Probleme"
+date: "2008-11-22T23:04:00+00:00"
+slug: "windows-mobile-und-mail-probleme"
+---
+
+Heute habe ich mir den Abend damit um die Ohren geschlagen heraus zu finden, warum ich von meinem Smartphone keine E-Mails mehr senden kann. Dabei bin ich gleich auf zwei Probleme gesto&szlig;en. Hier mal eine kleine Zusammenfassung davon. Vielleicht hilft sie ja irgendwem ein &auml;hnliches Problem zu erschlagen.
+<h4><!--more-->Problem 1: Es wird keine Verbindung zum SMTP-Server hergestellt</h4>
+Der Grund f&uuml;r dieses Problem ist ein Bug in Windows Mobile, bei dem die Mail-Server Konfiguration zerschrottet wird, wenn der Mailserver nicht ansprechbar ist.</p><p>Die L&ouml;sung ist ein Hot-Fix von Microsoft, der genau dieses Problem behebt. Mehr dazu <a href="http://www.intomobile.com/2008/11/11/microsoft-releases-windows-mobile-61-send-mail-patch.html">hier</a>.
+<h4>Problem 2: Die TLS-Verbindung kann nicht aufgebaut werden</h4>
+Nachdem dann wieder Verbindungen zum Server m&ouml;glich waren gab es das n&auml;chste Problem. Mein Postfix Server konnte absolut nicht verstehen, was das Smartphone ihm via TLSv1 zu sagen versuchte und bewarf mich mit Fehlermeldungen:
+<pre>postfix/smtpd[16145]: connect from unknown[92.116.9.104]
+postfix/smtpd[16145]: setting up TLS connection from unknown[92.116.9.104]
+postfix/smtpd[16145]: unknown[92.116.9.104]: TLS cipher list "ALL:!EXPORT:!LOW:+RC4:@STRENGTH"
+postfix/smtpd[16145]: SSL_accept:before/accept initialization
+postfix/smtpd[16145]: SSL_accept:error in SSLv2/v3 read client hello A
+postfix/smtpd[16145]: SSL_accept error from unknown[92.116.9.104]: -1
+postfix/smtpd[16145]: warning: TLS library problem: 16145:error:140760FC:SSL routines:SSL23_GET_CLIENT_HELLO:unknown protocol:s23_srvr.c:562:
+postfix/smtpd[16145]: lost connection after CONNECT from unknown[92.116.9.104]</pre>
+Meine L&ouml;sung hierf&uuml;r: Dem Postfix einfach verbieten weiterhin TLSv1 zu sprechen:
+<pre>smtpd_tls_mandatory_ciphers = low
+smtpd_tls_security_level = may
+smtpd_tls_mandatory_protocols = !TLSv1, SSLv2, SSLv3</pre>
+Somit k&ouml;nnen sich die Clients jetzt aussuchen, ob sie es weg lassen oder gleich SSL verwenden. Damit sollten alle Clients (Sogar der Kram aus dem Hause Microsoft) in der Lage sein, mit dem Server zu sprechen und das Smartphone steigt brav von TLSv1-unverst&auml;ndlich auf SSLv2 um.</p><p>Alle sind gl&uuml;cklich und ich kann wieder Mails &uuml;ber mein Smartphone schicken!

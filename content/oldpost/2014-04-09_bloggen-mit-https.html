@@ -1,0 +1,19 @@
+---
+title: "Bloggen mit HTTPs"
+date: "2014-04-09T19:47:33+00:00"
+slug: "bloggen-mit-https"
+vgwort: "d5023451bdda4e1382940bcd6e8d62d5"
+---
+
+<p>
+	<img alt="" src="/uploads/2014/04/09/df4f002d5ac1c499db0c6a5aec7932b5_padlock-200.png" style="width: 178px; float:right; margin: 0 0 0.5em 0.5em;" /></p>
+<p>
+	Nachdem mein Blog ja schon seit laengerem nicht mehr auf einem eigenen Server liegt sondern durch die Amazon Server (S3 &amp; CloudFront) ausgeliefert wird, habe ich mich heute damit beschaeftigt, wie man es hinbekommt, dass der Blog auch ueber eine gesicherte Verbindung ausgeliefert werden kann.</p>
+<p>
+	Seit Amazon Anfang Maerz angekuendigt hat, dass die CloudFront jetzt auch SSL in guenstig ueber SNI ausliefern kann, war die erste Huerde (<a href="http://aws.amazon.com/cloudfront/custom-ssl-domains/">600 USD / Monat</a> fuer die &quot;normale&quot; SSL-Variante) geschafft. SNI erlaubt es auf der gleichen IP-Adresse mehrere verschiedene Zertifikate auszuliefern, da das Zertifikat nicht mehr per IP sondern nach dem Hostname ausgewaehlt wird. Dadurch muss natuerlich nicht in jeder Edge-Location eine separate IP-Adresse bereit gestellt werden sondern die normale CloudFront-Infrastruktur kann SSL fuer verschiedene Domains sprechen.</p>
+<p>
+	Eine zweite kleinere Huerde stellte sich heute, als ich das Zertifikat fuer die CloudFront vorbereitet habe: Zwar unterstuetzt AWS generell private-keys bis 4096bit Laenge, die CloudFront selbst kann allerdings nur Keys mit einer maximalen Laenge von 2048bit verarbeiten. Natuerlich hatte mein Zertifikat die maximale Key-Laenge von 4096bit. Dank der Moeglichkeit bei <a href="https://www.rapidsslonline.com/rapidssl-certificates.aspx">RapidSSL</a> ein Zertifikat noch einmal neu auszustellen konnte ich das Problem allerdings schnell loesen, nachdem ich es dank der Mithilfe eines AWS Technikers erst einmal gefunden hatte&hellip;</p>
+<p>
+	Nun wird mein Blog also auch ueber eine gesicherte Verbindung ausgeliefert. Da ich hier zwar keine wirklich geheimen Daten veroeffentliche, aendert es fuer diesen Blog im Speziellen nicht wirklich viel aber es ist eine Seite mehr im Netz, die SSL unterstuetzt.</p>
+<p>
+	Das einzige verbleibende Problem ist, dass nicht alle externen Dienste, die hier zum Einsatz kommen, SSL unterstuetzen. Ein Beispiel waeren da die Zaehlmarken der VGWort, welche ausschliesslich ueber HTTP (also ohne SSL) ausgeliefert werden. Dadurch werden alle aktuellen Browser die SSL-Verschluesselung hier zwar erkennen aber eine entsprechende Warnung anzeigen, dass Inhalte von einer unsicheren Verbindung geladen werden. Ich hoffe die VGWort wird da bald nachbessern und sich ein SSL-Zertifikat fuer die Zaehlmarken-Server leisten&hellip;</p>

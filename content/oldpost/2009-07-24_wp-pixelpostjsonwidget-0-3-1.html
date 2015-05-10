@@ -1,0 +1,12 @@
+---
+title: "WP-PixelpostJSONWidget 0.3.1"
+date: "2009-07-24T17:37:00+00:00"
+slug: "wp-pixelpostjsonwidget-0-3-1"
+---
+
+Nachdem die <a href="http://blog.knut.me/2009/07/wp-pixelpostjsonwidget-02/">Version 0.2</a> meines Plugins doch einen recht guten Anklang gefunden hat und ich von mehreren Leuten gefragt wurde, ob es m&ouml;glich ist das Plugin auch ohne Widget-f&auml;hige Themes zu nutzen habe ich mich daran gemacht schnellstm&ouml;glich - also jetzt - eine Funktion f&uuml;r die Nutzung ohne Widgets nachzuschieben.</p><p>Die Anleitung hier gilt f&uuml;r alle Nutzer, die keine Widgets nutzen k&ouml;nnen. Alle anderen halten sich auch in dieser Version bitte an die Anleitung f&uuml;r <a href="http://blog.knut.me/2009/07/wp-pixelpostjsonwidget-02/">Version 0.2</a>, da sich f&uuml;r sie nichts ge&auml;ndert hat.</p><p>Um die Bilder im Theme anzeigen zu lassen ohne auf die Widgets zur&uuml;ck zu greifen muss einfach an der gew&uuml;nschten Stelle im Theme folgende Zeile eingebunden werden, nachdem das Plugin aktiviert wurde:
+<pre>&lt;?php WPPixelpostJSONOutput(&lt;url begin&gt;, &lt;number of images&gt;); ?&gt;</pre>
+Dabei m&uuml;ssen die spitzen Klammern durch die entsprechenden Parameter ersetzt werden. Der URL-Beginn ist wie im Widget auch die URL eures Fotoblogs ohne das abschlie&szlig;ende "/". Die Anzahl der Bilder wie gehabt.</p><p>F&uuml;r mein Fotoblog unter "http://fotos.knut.me/" mit 3 Bildern w&auml;re also der Funktionaufruf der folgende:
+<pre>&lt;?php WPPixelpostJSONOutput('http://fotos.knut.me', 3); ?&gt;</pre>
+Wie auch bei der Version mit Widgets: Fehler, Anmerkungen und Lob bitte einfach in die Kommentare schreiben.</p><p><a href="http://github.com/Luzifer/kscripts/raw/master/WP-Widgets/wp_pixelpost_json_widget.php" target="_blank">Download letzte Version von GitHub</a>
+<a href="http://github.com/Luzifer/kscripts/raw/master/WP-Widgets/wp_pixelpost_json_widget.php.changelog" target="_blank">Changelog der letzten Version</a>

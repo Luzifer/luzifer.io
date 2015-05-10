@@ -1,0 +1,20 @@
+---
+title: "[Technologie] Live-Kontakt-Button auf der eigenen Seite"
+date: "2010-03-18T11:11:00+00:00"
+slug: "technologie-live-kontakt-button-auf-der-eigenen-seite"
+---
+
+<p style="text-align: center;"><img class="aligncenter" title="Internet &amp; Technologie" src="http://cdn.knut.me/header/internet.png" alt="" width="506" height="176" /></p>
+Seit einiger Zeit habe ich jetzt auf der rechten Seiten hier im Blog einen "Live Kontakt"-Button, mit dem man direkten Kontakt mit mir aufnehmen kann, wenn ich online bin. Das ist in letzter Zeit ein bisschen weniger der Fall aber generell eigentlich recht oft. Da dazu schon einige Fragen kamen, wie man so etwas selber auf der eigenen Seite realisieren kann, m&ouml;chte ich dazu ein paar Worte fallen lassen.</p><p><!--more-->
+<h5>Voraussetzung</h5>
+Die Voraussetzung f&uuml;r das Ganze ist ein Google-Talk Account. Also entweder eine normale "*@googlemail.com" oder aber Google Apps E-Mail Adresse. Bei der Google-Apps-Methode muss der Administrator der Domain im Dashboard Google Talk freigeben, falls das noch nicht geschehen ist.
+<h5>Die einfache Methode</h5>
+Bei der einfachen Methode k&ouml;nnt Ihr euch den ganzen Code f&uuml;r eure Webseite einfach von Google generieren lassen. Das geht f&uuml;r die Nutzer des &ouml;ffentlichen Google Talk auf <a rel="external nofollow" target="_blank" href="http://www.google.com/talk/service/badge/New">dieser Seite</a>. Die Google-Apps Nutzer m&uuml;ssen die URL ein wenig anpassen, damit es auch ein "Badge" f&uuml;r ihren Apps-Account wird:
+<pre>http://www.google.com/talk/service/a/&lt;DOMAIN&gt;/badge/New</pre>
+Damit k&ouml;nnt Ihr euch einen Button mit Statusanzeige generieren und diesen &uuml;ber den angezeigten Code direkt im Blog einbinden.
+<h5>Meine Methode</h5>
+Wenn Ihr nun die einfache Methode angesehen habt, es euch aber nicht reicht, wenn der Standard-Badge verwendet wird, sondern Ihr wie ich einen eigenen Badge haben m&ouml;chtet, muss ein wenig Programmiergeschick dazu gemischt werden.</p><p>Dazu braucht Ihr die ID eures Chats, den Google euch generiert. Dazu lasst Ihr euch wie in der einfachen Methode einen Badge generieren, w&auml;hlt unter "Edit" allerdings "URL only (no frame)" aus. Das gibt euch einen Text &auml;hnlich dem folgenden:
+<pre>Chat with [...]: http://www.google.com/talk/service/badge/Start?tk=z01[...]m9u</pre>
+F&uuml;r euch nat&uuml;rlich ungek&uuml;rzt und damit einen gef&uuml;hlten Kilometer l&auml;nger. Wir brauchen davon den Teil hinter "tk=" zur weiteren Verwendung. Der Rest ist M&uuml;ll.</p><p>F&uuml;r das Script k&ouml;nnt Ihr mein Beispiel (<a rel="external nofollow" target="_blank" href="http://gist.github.com/335502">http://gist.github.com/335502</a>) benutzen. Das Script ist komplett kommentiert und l&auml;uft als CGI auf einem Server, der Ruby unterst&uuml;tzt. Ansonsten sollte aber die Implementierung in PHP auch nicht allzu schwer fallen. (Wer sich eine schreibt, kann mir gerne einen Link zu einem Gist zukommen lassen, dann ver&ouml;ffentliche ich den hier.)</p><p>Nachdem Ihr das Script nun zum Laufen gebracht habt, bindet Ihr es einfach nur noch als Javascript in eure Webseite ein:
+<pre>&lt;script type="text/javascript" src="http://url.zum/script.cgi?chat=[...]"&gt;&lt;/script&gt;</pre>
+Die Parameter, die ich hier jetzt nur angedeutet habe, sind in meinem Script noch n&auml;her erkl&auml;rt und m&uuml;ssen nat&uuml;rlich wenn Ihr das Script umschreibt auch ge&auml;ndert werden.

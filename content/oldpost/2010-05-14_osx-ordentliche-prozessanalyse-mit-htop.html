@@ -1,0 +1,21 @@
+---
+title: "[OSX] Ordentliche Prozessanalyse mit htop"
+date: "2010-05-14T18:52:00+00:00"
+slug: "osx-ordentliche-prozessanalyse-mit-htop"
+---
+
+<p style="text-align: center;"><img class="aligncenter" title="Internet &amp; Technologie" src="http://cdn.knut.me/header/internet.png" alt="" width="506" height="176" /></p>
+Heute habe ich mich aufgrund eines <a href="http://code.google.com/p/chromium/issues/detail?id=44178">Problems</a> mit meinem Browser ein wenig damit besch&auml;ftigt, wie man ordentliche Informationen &uuml;ber die laufenden Prozesse auf einem Mac bekommt. Dabei steht nat&uuml;rlich ganz oben auf der Liste die standardm&auml;&szlig;ig installierte Aktivit&auml;tsanzeige von OSX. Ganz ehrlich: Was mir das Ding liefert finde ich schlichtweg unbrauchbar.</p><p>Also war meine n&auml;chste Intention mein gewohntes und "geliebtes" htop auf OSX zum Laufen zu bringen. MacPorts wollte ich daf&uuml;r nicht extra installieren also selber kompilieren. Sollte eigentlich nicht so das Problem sein, da ich aufgrund meiner Entwicklung von Programmen f&uuml;r OSX sowieso ein Xcode installiert habe.</p><p>Im Folgenden mal eine kleine Anleitung f&uuml;r jeden, der htop auch mag und es sich "eben" selber auf den Mac bringen m&ouml;chte. Es gibt eigentlich nur zwei Voraussetzungen: Bei der Installation vom Xcode muss drauf geachtet worden sein, dass die Option f&uuml;r "Unix Development" angehakt ist. Wenn Ihr das nicht habt: Vergesst es! (Es geht aber ist ein elendes Gefrickel, was ich nicht erkl&auml;ren m&ouml;chte.) Die zweite Voraussetzung ist ein installiertes GIT. (Inzwischen sollte das Abrufen auch mit SVN gehen aber das m&uuml;sst Ihr euch dann selber eben f&uuml;r das <a href="http://github.com/AndyA/htop-osx">Repository</a> raussuchen.)</p><p>Ab jetzt ist es eigentlich recht einfach und mit den folgenden Befehlen sollte ein fertiges und laufendes htop auf eurem System liegen. Zu einem Befehl sage ich sp&auml;ter noch etwas.
+<pre>git clone git://github.com/AndyA/htop-osx.git
+cd htop-osx
+git checkout -b osx origin/osx
+./autogen.sh
+export CFLAGS="-m32"
+./configure
+make
+sudo make install</pre>
+Wenn bis dahin keine Fehler aufgetreten sind sollte ein "htop" im Terminal euch ein laufendes htop auf den Bildschirm zaubern.</p><p>Was die Befehle angeht sollte eigentlich so ziemlich alles klar sein bis auf die CFLAGS-Variable: Die muss auf "-m32" gesetzt werden, da sonst unter SnowLeopard ein 64bit-Binary erzeugt wird. H&ouml;rt sich im ersten Moment zwar gut an, geht aber im zweiten Moment schief. Der Sourcecode ist nicht auf 64bit optimiert und euch fliegt das htop beim Starten wunderbar mit folgender Fehlermeldung um die Ohren:
+<pre>htop(6175) malloc: *** error for object 0x100e00: pointer being freed was not allocated
+*** set a breakpoint in malloc_error_break to debug
+Abort trap</pre>
+Somit habt Ihr ein lauff&auml;higes htop und k&ouml;nnt schauen was die Prozesse f&uuml;r einen Unsinn treiben.

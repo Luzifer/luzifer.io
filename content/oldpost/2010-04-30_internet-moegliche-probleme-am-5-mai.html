@@ -1,0 +1,22 @@
+---
+title: "[Internet] Mögliche Probleme am 5. Mai"
+date: "2010-04-30T23:22:00+00:00"
+slug: "internet-moegliche-probleme-am-5-mai"
+---
+
+<p style="text-align: center;"><img class="aligncenter" title="Internet &amp; Technologie" src="http://cdn.knut.me/header/internet.png" alt="" width="506" height="176" /></p>
+Laut einem <a rel="external nofollow" href="http://www.itnews.com.au/News/173412,warning-why-your-internet-might-fail-on-may-5.aspx">Bericht im Australischen itnews-Blog</a> k&ouml;nnten einige von uns am 5. Mai auf Probleme mit ihrem Internet sto&szlig;en. Der Grund daf&uuml;r ist eine Umstellung in der Namensaufl&ouml;sung (dem DNS), deren erste Phase am 5. Mai von der ICANN, der US-Regierung, Verisign und ein paar weiteren Unternehmen abgeschlossen werden soll.</p><p><!--more-->Bei der Umstellung handelt es sich um die Einf&uuml;hrung von DNSSEC, welches jeder DNS-Anfrage eine digitale Signatur hinzuf&uuml;gt um zu verifizieren, dass die Namensaufl&ouml;sung wie gew&uuml;nscht funktioniert hat und nicht durch dritte Manipuliert wurde.</p><p>Mit dieser Umstellung kann allerdings die Gr&ouml;&szlig;e der DNS-Pakete deutlich ansteigen, so dass sie statt den bisherigen 512 Byte dann bis zu 2 KB gro&szlig; werden. Das hat den Effekt, dass alle alten Ger&auml;te (und Software), die sich in dem Bereich noch im Einsatz befinden, die Antworten nicht mehr verarbeiten k&ouml;nnen und somit die Namensaufl&ouml;sung fehl schl&auml;gt.</p><p>Viele der Internetprovider haben daf&uuml;r gesorgt, dass es keine Probleme geben wird, indem sie ihre Infrastruktur schon entsprechend umgestellt haben. Allerding kann es bei privat betriebenen DNS-Servern / DNS-Caches zu Problemen kommen, wenn sie nur die alte Gr&ouml;&szlig;e unterst&uuml;tzen.</p><p>Um zu testen, ob man betroffen ist, gibt es aus den <a rel="external nofollow" href="http://labs.ripe.net/content/testing-your-resolver-dns-reply-size-issues">RIPE Labs</a> ein kleines Java-Programm, mit welchem man seinen DNS-Server testen kann. Nach dem Download der Datei wird diese einfach mit einem Doppelklick gestartet. Im darauf folgenden Dialog kann die Voreinstellung beibehalten werden. Nachdem der Test durchgef&uuml;hrt wurde zeigt das Programm den entsprechenden Status des Servers an.</p><p>Aufgrund eines Problems mit der Anwendung hier kann ich nur auf die <a rel="external nofollow" href="https://www.dns-oarc.net/oarc/services/replysizetest">alternative Testmethode</a> mit dem Tool "dig" zur&uuml;ckgreifen.</p><p>So sollte es aussehen:
+<pre>rst.x3827.rs.dns-oarc.net.
+rst.x3837.x3827.rs.dns-oarc.net.
+rst.x3843.x3837.x3827.rs.dns-oarc.net.
+"212.6.108.157 DNS reply size limit is at least 3843"
+"Tested at 2010-04-30 20:58:12 UTC"
+"212.6.108.157 sent EDNS buffer size 4096"</pre>
+Und so sieht es bei mir leider aus (IP rausgenommen, da das kein &ouml;ffentlicher Server ist):
+<pre>rst.x476.rs.dns-oarc.net.
+rst.x485.x476.rs.dns-oarc.net.
+rst.x490.x485.x476.rs.dns-oarc.net.
+"xxx.xxx.xxx.xxx DNS reply size limit is at least 490"
+"xxx.xxx.xxx.xxx lacks EDNS, defaults to 512"
+"Tested at 2010-04-30 20:17:48 UTC"</pre>
+Wie man daran schon sehen kann, ist der Server definitiv vom Problem betroffen und ich werde mich mal um eine L&ouml;sung bem&uuml;hen m&uuml;ssen. Bei der im zweiten Resultat verwendeten Software handelt es sich um einen pdnsd, der - zumindest nach meiner bisherigen Recherche - keine Einstellm&ouml;glichkeiten in diese Richtung besitzt und so wahrscheinlich Probleme verursachen wird...

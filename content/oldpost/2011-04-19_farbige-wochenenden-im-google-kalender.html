@@ -1,0 +1,25 @@
+---
+title: "Farbige Wochenenden im Google Kalender"
+date: "2011-04-19T11:09:38+00:00"
+slug: "farbige-wochenenden-im-google-kalender"
+---
+
+<p>
+	Diesmal nur eine Kurzanleitung, wie Ihr mit Google Chrome und einer Extension eure Wochenenden im Google Kalender farbig zum Rest abgesetzt bekommt. Daf&uuml;r n&ouml;tig sind ein Google Kalender, die Extension &quot;<a href="https://chrome.google.com/extensions/detail/plcnnpdmhobdfbponjpedobekiogmbco">Personalized Web</a>&quot; und ein minimaler Konfigurationsaufwand.</p>
+<p>
+	Nach der Installation der Extension findet Ihr unter &quot;chrome://extensions/&quot; die Extension mit einem &quot;Options&quot;-Link. Dort konfiguriert Ihr wie im folgenden Screenshot gezeigt die Einstellungen und speichert die Regel dann ab. Nach der n&auml;chsten Aktualisierung des Kalender-Tabs wird euer Kalender entsprechend eingef&auml;rbt.</p>
+<p style="text-align: center; ">
+	<img alt="Konfigurationsdialog" src="/uploads/2011/04/20110419-130241.jpg" style="width: 800px; height: 161px; border-top-color: rgb(153, 153, 153); border-right-color: rgb(153, 153, 153); border-bottom-color: rgb(153, 153, 153); border-left-color: rgb(153, 153, 153); border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; " /></p>
+<p>
+	Damit Ihr nicht die CSS-Anweisungen aus dem Screenshot erraten m&uuml;sst hier noch einmal zum direkten kopieren:</p>
+<pre>
+.tg-weekend, /* Wochenansicht */
+div.month-row &gt; table.st-bg-table tr &gt; td:nth-child(6), /* Samstag */
+div.month-row &gt; table.st-bg-table tr &gt; td:nth-child(7)  /* Sonntag */
+{ 
+  background-color:#f2f5fe; 
+}</pre>
+<p>
+	Solltet Ihr einen amerikanischen Kalender nutzen muss es anstatt der 6 in der zweiten Zeile eine 1 sein. (Euer Sonntag steht dann vorne und nicht wie beim deutschen Kalender hinten.) Die Farbe f&uuml;r die Zellen k&ouml;nnt Ihr nat&uuml;rlich auch anpassen. Bei mir ist es ein Blau mit 5% Deckkraft.</p>
+<p>
+	<strong>Nachtrag: </strong>Hier auf Nachfrage in den Kommentaren nochmal ein <a href="/uploads/2011/04/20110419-125604.png" rel="lightbox[gcalwe]" title="Vor dem Umfärben">Vorher</a>-<a href="/uploads/2011/04/20110419-125525.png" rel="lightbox[gcalwe]" title="Mit umgefärbten Wochenenden">Nachher</a>-Vergleich. (Einfach auf die Links klicken.) Au&szlig;erdem gibt es f&uuml;r die Firefox-User auch eine M&ouml;glichkeit mit &quot;Stylish&quot; und einem entsprechenden <a href="http://userstyles.org/styles/14847/google-calendar-colorize-weekends-mon-sun">Userstyle</a> daf&uuml;r (Danke an <a href="https://twitter.com/alexs77">@alexs77</a> daf&uuml;r).</p>

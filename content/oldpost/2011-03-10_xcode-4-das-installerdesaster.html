@@ -1,0 +1,23 @@
+---
+title: "XCode 4 - Das Installerdesaster"
+date: "2011-03-10T21:34:14+00:00"
+slug: "xcode-4-das-installerdesaster"
+---
+
+<p>
+	Seit kurzem ist es jetzt so weit. XCode, die Entwicklungsumgebung von Apple f&uuml;r Mac OS und iOS steht in der Version 4 im <a href="http://itunes.apple.com/de/app/xcode/id422352214?mt=12" rel="nofollow">Mac-Appstore</a> zum Download f&uuml;r 3,99&euro; zur Verf&uuml;gung. Viele h&uuml;bsche Neuerungen wurden uns angek&uuml;ndigt und eingebaut. Anstatt die hier alle aufzuz&auml;hlen lasse ich da einfach mal die <a href="http://developer.apple.com/technologies/tools/whats-new.html" rel="nofollow">Apple-Webseite</a> sprechen.</p>
+<p>
+	Worauf ich hier eigentlich raus will ist der Punkt, dass nach dem Kauf im Appstore eine mehr als 4 GB gro&szlig;e Installationsdatei heruntergeladen wird. Im Gegensatz zu den normalen Apps, die fertig nutzbar aus dem Appstore kommen wird XCode nicht direkt installiert, da hier deutlich kompliziertere Aktionen im System n&ouml;tig sind, die durch ein Installer-Paket ausgef&uuml;hrt werden.</p>
+<p>
+	Wer den Installer dann allerdings ausf&uuml;hrt wird bei etwa 95% (&uuml;ber den genauen Stand streiten sich die Gelehrten noch) feststellen, dass auch nach endlosen 6 Stunden Wartezeit der Installer nicht mehr weiter macht. 3x habe ich den Installer inzwischen ausgef&uuml;hrt und 3x habe ich festgestellt, dass der Installer spinnt. Bevor jetzt allerdings der Kommentar kommt, dass das sicher an meinem Rechner liegen wird: <a href="http://discussions.apple.com/thread.jspa?threadID=2777241" rel="nofollow">Tut es nicht.</a></p>
+<p>
+	Inzwischen hat allerdings im gleichen Thread ein findiger Mensch eine <a href="http://discussions.apple.com/message.jspa?messageID=13195694#13195694" rel="nofollow">L&ouml;sung</a> f&uuml;r das Problem gefunden: In der Installer-App, die heruntergeladen wurde, liegt ein Meta-Package (Im Prinzip ein Sammel-Installer, der mehrere kleine Installer aufruft und die Installationen so zusammen fasst), mit welchem sich XCode installieren l&auml;sst.</p>
+<p>
+	Ihr findet das Meta-Package an folgender Stelle:<br />
+	<span style="font-family:monospace;">/Applications/Install\ Xcode.app/Contents/Resources/Xcode\ and\ iOS\ SDK.mpkg</span></p>
+<p>
+	Wenn Ihr das Paket einfach ausf&uuml;hrt, kommt Ihr in den Installer, den Ihr aus XCode 3 auch schon gew&ouml;hnt seid und in dem Ihr z.B. auch die Unix-Developement-Tools aktivieren k&ouml;nnt. (Braucht Ihr z.B. wenn Ihr MacPorts nutzen wollt)</p>
+<p>
+	Nach der gewohnt ewig dauernden Installationsprozedur habt Ihr es dann also endlich geschafft und k&ouml;nnt ein frisch installiertes XCode 4 begr&uuml;&szlig;en:</p>
+<p style="text-align: center; ">
+	<img alt="XCode 4" src="/uploads/2011/03/20110310-223123.png" style="width: 500px; height: 341px; " /></p>

@@ -1,0 +1,28 @@
+---
+title: "Warum man bei Hetzner kein IPv6 nutzen möchte..."
+date: "2011-02-27T17:52:17+00:00"
+slug: "warum-man-bei-hetzner-kein-ipv6-nutzen-moechte"
+---
+
+<p>
+	<img alt="5 vor 12" src="/uploads/2011/02/5vor12.png" style="width: 200px; height: 202px; float:right; margin: 0 0 1em 1em;" />Das ganze Wochenende schon bin ich dabei mein von Hetzner zugewiesenes IPv6-Subnetz (/64) auf meine virtuellen Maschinen zu verteilen, damit diese auch &uuml;ber IPv6 zu erreichen sind und somit ein wenig zukunftssicherer werden. So langsam bin ich auf einem Stand, an dem ich mir einen Golfschl&auml;ger w&uuml;nsche um die IP-Adressen damit irgendwo hinzupr&uuml;geln.</p>
+<p>
+	Aber fangen wir am Anfang an: Bei Hetzner ist es die &quot;nette&quot; Angewohnheit IP-Subnetze (egal ob IPv4 oder IPv6) auf bestimmte MAC-Adressen (also auf bestimmte (virtuelle) Netzwerkkarten) zu binden. Das macht es schon bei einer IPv4-Konfiguration in einem VSphere Hypervisor n&ouml;tig eine Router-VM einzusetzen, die dann IP-Adressen weiterverteilen kann, da die Server sonst nicht auf das Netzwerk zugreifen k&ouml;nnen.</p>
+<p>
+	Bekommt man dann sein IPv6-Netz, ist das nicht wirklich stark gebunden, denn zum Teil konnten VMs mit fremden MAC-Adressen die IPs nutzen, die meisten allerdings konnten das nicht. Also auch hier muss wieder ein Router-Setup eingesetzt werden, welches daf&uuml;r sorgt, dass die Anfrage im Endeffekt von einer der registrierten MAC-Adressen kommt. (Das sind die gleichen, die man schon f&uuml;r die IPv4-Subnetze bekommen hat.)</p>
+<p>
+	Hier geht der Mist dann los. Die VMs, die man an die vergebenen MACs gebunden hat k&ouml;nnen direkt IPv6-Adressen statisch zugewiesen bekommen und mit ein paar Tricks (manuell vergebene Routen) k&ouml;nnen sie das Netz auch nutzen. Die Maschinen, die allerdings MAC-Adressen haben, die nicht bei Hetzner registriert sind m&uuml;ssen wieder &uuml;ber die Router-VM arbeiten.</p>
+<p>
+	Bei IPv6 gibt es kein NAT mehr, es gibt kein ARP und somit kein Proxy-ARP und &uuml;berhaupt eigentlich nichts was einem normalen Linux-System eine ordentliche Unterst&uuml;tzung f&uuml;r einen IPv6-Router bietet. Sollte eigentlich auch gar nicht mehr n&ouml;tig sein. W&auml;re es auch nicht wenn man nicht gezwungen w&uuml;rde von Bridge-Netzwerken abzusehen und ein Host-Only Netzwerk einzusetzen.</p>
+<p>
+	Nachdem man also im sysctl das IPv6-Forwarding eingeschaltet hat w&auml;re theoretisch alles prima wenn diese Router-VM denn einfach allen Netz-Traffic aus dem IPv6-Subnet abbekommen w&uuml;rde. Damit sind wir an dem Punkt angekommen an dem ich &uuml;ber Hetzner fluche. Der Hetzner-Router selber nutzt eine &quot;neighborhood detection&quot;, die daf&uuml;r da ist, dass ein Router erkennen kann was in seiner N&auml;he los ist und den Traffic dorthin einfach weiter zu leiten.</p>
+<p>
+	Nun ist unser Aufbau aber folgender: VM-X -&gt; Router-VM -&gt; Hetzner Router. Wir sehen: Die Router-VM ist der Nachbar des Hetzner Routers. Die VM nicht mehr und somit f&auml;llt diese auch aus der automatischen Erkennung raus.</p>
+<p>
+	An dieser Stelle kann man einfach verzeifelt aufgeben oder aber man aktiviert einen &quot;neighborhood proxy&quot; auf der Router-VM. Dieser Proxy muss dann nur noch mit den IP-Adressen aller VMs hinter ihm gef&uuml;ttert werden und danach funktioniert das Setup in der Theorie. Leider gibt es keine M&ouml;glichkeiten um ein ganzes Subnetz in den Proxy einzutragen sondern es muss jede einzelne IP einzeln eingetragen werden. (Herzlichen Gl&uuml;ckwunsch! Ist ja nur ein 64er-Subnetz...)</p>
+<p>
+	Eine Anleitung f&uuml;r XEN habe ich <a href="http://blog.kyri0s.org/post/2761309667/native-ipv6-bei-hetzner-mit-xen-in-der-praxis">hier</a> gefunden. Diese Anleitung l&auml;sst sich mit ein wenig Nachdenken auch auf ein VSphere-Setup &uuml;bertragen. Bei mir sind nun zumindest die VMs hinter dem Router via IPv6 erreichbar, wobei dieser Status nicht allzu stabil zu sein scheint. Hin und wieder gibt es Aussetzer und der Router selber hat aus irgend einem Grund auch kein IPv6 mehr...</p>
+<p>
+	Ich glaube man versteht langsam wieso ich geringf&uuml;gig &quot;pissed&quot; bin. Von Hetzner selber gibt es (zumindest im via Google auffindbaren Bereich) keine sinnvollen Anleitungen f&uuml;r diesen Anwendungsfall, so dass das ganze eigentlich mehr ein Im-Dunkeln-Tappen ist als ein ordentliches Konfigurieren.</p>
+<p>
+	Sollte einer meiner Leser da ein besseres Setup f&uuml;r gefunden haben w&uuml;rde ich mich sehr &uuml;ber einen Kommentar zum Thema freuen. Optimal ist meins definitiv nicht... Aber das hat man halt davon wenn man sich fr&uuml;hzeitig und nicht erst um 5 vor 12 Gedanken um die Umsetzung neuer Standards macht...</p>

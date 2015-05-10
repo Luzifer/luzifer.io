@@ -1,0 +1,28 @@
+---
+title: "Wie geht es dem MySQL-Server?"
+date: "2008-09-06T22:48:00+00:00"
+slug: "wie-geht-es-dem-mysql-server"
+---
+
+Diese Frage beantwortet das Tool "<a href="http://rackerhacker.com/mysqltuner/">MySQLTuner</a>" dem Administrator des Servers.</p><p>Die Ausgabe gibt dabei Auskunft &uuml;ber den Status des Server und zus&auml;tzlich gibt es ein paar Tipps, was der Administrator &auml;ndern kann, damit die Effizienz und Performanz des Servers gesteigert wird.</p><p><!--more--></p><p>F&uuml;r eine Liste der Features zitiere ich einfach mal die Seite des Herstellers:
+<blockquote>
+<ul>
+	<li><strong>NEW! Remote server checks:</strong> Connects to remote servers to perform tests.</li>
+	<li><strong>NEW! Convenient MySQL logins:</strong> MySQLTuner will automatically log in to MySQL on servers running Plesk, servers with ~/.my.cnf files, and server without MySQL root passwords. If you need to authenticate manually, you can pass the username and password on the command line or provide the credentials interactively.</li>
+	<li><strong>NEW! Manually set memory sizes:</strong> Users on virtual environments can now specify how much RAM and swap memory are present so that the scripts calculations will be accurate.</li>
+	<li><strong>Memory Usage:</strong> Calculates MySQL memory usage at max load and makes recommendations for increasing or decreasing the MySQL memory footprint. Per-thread and server-wide buffer data is calculated separately for an accurate snapshot of the servers configuration.</li>
+	<li><strong>Slow Queries:</strong> Reviews the amount of slow queries relative to the total queries. Slow query time limits are also analyzed and recommendations are made.</li>
+	<li><strong>Connections:</strong> Current and historical connection counts are reviewed.</li>
+	<li><strong>Key Buffer:</strong> Takes configuration data and compares it to the actual indexes found in MyISAM tables. Key cache hit rates are calculated and variable adjustments are suggested.</li>
+	<li><strong>Query Cache:</strong> Query cache hit rates and usage percentages are used to make recommendations for the query cache configuration variables.</li>
+	<li><strong>Sorting &amp; Joins:</strong> Per-thread buffers that affect sorts and joins are reviewed along with the statistics from the queries run against the server.</li>
+	<li><strong>Temporary Tables:</strong> Variable recommendations are made to reduce temporary tables that are written to the disk.</li>
+	<li><strong>Table Cache:</strong> Compares total tables opened to the currently open tables.  Calculates the table cache hit rate in order to make suggestions.</li>
+	<li><strong>Open Files:</strong> Determines if the server will approach or run into the open file limit set by the operating system or the MySQL server itself.</li>
+	<li><strong>Table Locks:</strong> Finds table locking that forces queries to wait and makes suggestions for reducing locks that require a wait.</li>
+	<li><strong>Thread Cache:</strong> Calculates how many times MySQL must create a new thread to respond to a query.</li>
+	<li><strong>Aborted Connections:</strong> Finds applications that are not closing connections to MySQL properly.</li>
+	<li><strong>Read/Write Ratios:</strong> Calculates the percentage of read and write operations on your MySQL installation.</li>
+</ul>
+(Quelle: <a href="http://rackerhacker.com/mysqltuner/">http://rackerhacker.com/mysqltuner/</a>)</blockquote>
+Nach einigen Tests habe ich mir das Script als Cronjob eingerichtet, damit ich t&auml;glich einen Statusbericht &uuml;ber meinen MySQL-Server in meinem Postfach finde und unter Umst&auml;nden auf Fehler in der Konfiguration oder andere Probleme reagieren kann.

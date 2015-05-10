@@ -1,0 +1,11 @@
+---
+title: "Importing from Google-Reader into Mail.app"
+date: "2008-04-04T20:21:00+00:00"
+slug: "importing-from-google-reader-into-mail-app"
+---
+
+If one wants to import his RSS-feeds from Google-Reader into Mail.app this is not possible with one click as in other newsreaders. To do this task there must be done a little work in the shell.</p><p>For this I modified a little script written by <a href="http://pragdave.blogs.pragprog.com/pragdave/2008/04/importing-rss-f.html">Dave Thomas</a>:
+<blockquote>egrep -o 'xmlUrl="(.*?)"' google-reader-subscriptions.xml | sed "s/.*xmlUrl=\"\([^\"]*\).*/\1/" | pbcopy</blockquote>
+<em>You need to have the whole script in the same line.</em></p><p>This modification isnecessarybecause Googles format can not be read by Dave's script without errors.</p><p>After executing this script you can execute the third step from Dave's task:
+<blockquote>In Mail.App, select Add RSS Feed, and in the text area that pops up, paste in the clipboard.</blockquote>
+Then after a while with high CPU load Mail.app contains all your feeds.

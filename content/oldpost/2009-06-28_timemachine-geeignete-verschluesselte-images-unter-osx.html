@@ -1,0 +1,19 @@
+---
+title: "Timemachine-geeignete, verschlüsselte Images unter OSX"
+date: "2009-06-28T13:17:00+00:00"
+slug: "timemachine-geeignete-verschluesselte-images-unter-osx"
+---
+
+Unter OSX gibt es eine sch&ouml;ne m&ouml;glichkeit die eigenen Daten mit Boardmitteln zu verschl&uuml;sseln. Man legt einfach im "Festplatten-Dienstprogramm" ein neues verschl&uuml;sseltes Image an, &ouml;ffnet dieses und kopiert seine Daten dort hinein. Allerdings wird dabei ein so genanntes "Sparseimage" erzeugt. Das ist ein gro&szlig;er Archivblock, der solange er w&auml;chst immer eine Datei ist. Somit m&uuml;ssen Backup-Programme, wie z.B. Timemachine immer das komplette Image sichern, was bei einer Datenmenge von z.B. 1 GB unn&ouml;tig viel Platz verbraucht.</p><p>Es gibt dazu aber auch eine sch&ouml;nere M&ouml;glichkeit, die f&uuml;r Inkrementelle Backups (Es wird immer nur das gesichert, was sich auch ge&auml;ndert hat) wesentlich besser geeignet sind. <!--more-->Diese Images k&ouml;nnen ebenfalls &uuml;ber eine AES-256bit Verschl&uuml;sselung gesichert werden, legen aber die Daten in vielen kleinen verschl&uuml;sselten Bl&ouml;cken ab. Damit ist zwar immer noch nicht m&ouml;glich exakt die Datei in das Backup zu &uuml;bernehmen, die sich gerade ge&auml;ndert hat, allerdings muss nur der kleine Block ge&auml;ndert werden. So kann z.B. wenn sich in unseren 1GB Daten nur eine 100kb Datei &auml;ndert die Sicherungsgr&ouml;&szlig;e von 1GB auf 8MB verkleinert werden. Die daf&uuml;r genutzte M&ouml;glichkeit sind die so genannten "Sparsebundle"s. Leider k&ouml;nnen diese nicht &uuml;ber das Festplatten-Dienstprogramm angelegt werden.</p><p>Um ein solches Image zu erzeugen ist ein kurzer Befehl im Terminal n&ouml;tig. &Ouml;ffnet dazu das OSX-Terminal und begebt euch z.B. in den Ordner "~/Desktop" (Euer Schreibtisch).</p><p>Zum Anlegen eines Sparsebundles ben&ouml;tigt Ihr nun folgenden Befehl:
+<pre>hdiutil create -size 15g -encryption AES-256 -type SPARSEBUNDLE -nospotlight -volname "Dokumente" -fs "HFS+" Dokumente.sparsebundle</pre>
+Damit wird ein mitwachsendes Image erzeugt, welches eine maximale Gr&ouml;&szlig;e von 15 GB erreichen kann. Starten wird das so erzeugte Image mit ca. 20MB Gr&ouml;&szlig;e. Damit ist die Erstellung prinzipiell schon abgeschlossen und Ihr k&ouml;nnt es mit einem Doppelklick &ouml;ffnen und eure Daten hinein packen.</p><p>Ich m&ouml;chte euch allerdings noch einen kurzen &Uuml;berblick &uuml;ber die Parameter des Befehls geben:
+<ul>
+	<li><strong>-size 15g</strong><em> - Die maximale Gr&ouml;&szlig;e des Images</em></li>
+	<li><strong>-encryption AES-256</strong><em> - Die Verschl&uuml;sselungsmethode f&uuml;r dieses Image. M&ouml;glich w&auml;re auch die schw&auml;chere AES-128 Verschl&uuml;sselung.</em></li>
+	<li><strong>-type SPARSEBUNDLE</strong><em> - Der Typ des Images</em></li>
+	<li><strong>-nospotlight</strong><em> - Spotlight soll die einzelnen Bl&ouml;cke im Image nicht indizieren</em></li>
+	<li><strong>-volname "Dokumente"</strong> <em>- Der Name eures Images (Wird sp&auml;ter im Finder als "Laufwerksname" angezeigt.)</em></li>
+	<li><strong>-fs "HFS+"</strong><em> - Das Dateisystem im Inneren des Images. Denkbar w&auml;re hier auch das Journal des HFS-Dateisystems einzuschalten "HFS+J", was allerdings die initiale Gr&ouml;&szlig;e des Images deutlich erh&ouml;ht.</em></li>
+	<li>Als letztes der Name des Verzeichnisses. Dieser muss immer auf ".sparsebundle" enden, damit der Finder das Bundle &ouml;ffnen kann.</li>
+</ul>
+<p style="text-align: left;">Als kleiner Tip zum Schluss: Wenn Ihr im Finder das Image ausw&auml;hlt und "Command+I" dr&uuml;ckt, k&ouml;nnt Ihr anhaken, dass die Endung versteckt wird. Damit seid Ihr das l&auml;stige ".sparseimage" los, obwohl es weiterhin da ist.</p>

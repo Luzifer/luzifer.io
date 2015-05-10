@@ -1,0 +1,32 @@
+---
+title: "HTTP-Authentifizierung in Ruby-Scripten auf dem Apache"
+date: "2009-10-02T14:50:00+00:00"
+slug: "http-authentifizierung-in-ruby-scripten-auf-dem-apache"
+---
+
+<p style="text-align: center;"><img class="size-full wp-image-2788 aligncenter" title="HowTo" src="/uploads/2009/10/head_httpauth.png" alt="HowTo" width="506" height="176" /></p></p><p>Dieser Artikel richtet sich an Programmierer, die mittels eines Ruby, Perl oder Python-Scripts in der CGI-Umgebung des Apache-Webservers eine Basic-Authentication durchf&uuml;hren m&ouml;chten. Entsprechendes Vorwissen wird vorausgesetzt. Das Codebeispiel ist in Ruby gehalten.</p><p>Heute sah ich mich mit dem Problem konfrontiert, dass ich in einem Ruby-Script, welches in der CGI-Umgebung im Apache laufen soll eine Nutzer-Authentifizierung via HTTP (Die bekannten Passwortdialoge des Browsers selber) nutzen wollte. Dazu gab es zwar entsprechende Codeschnipsel, wie das funktionieren sollte, allerdings funktionierte keins davon.</p><p><!--more-->Das Problem lag daran, dass der Apache-Server im Standardfall die Header, die f&uuml;r diese Authentifizierung ben&ouml;tigt werden nicht an die Scripte weiter gibt. Dazu gibt es dann die M&ouml;glichkeit Startparameter des Apache zu &auml;ndern, das CGI-Modul selber zu patchen oder aber die einfache M&ouml;glichkeit mit einer .htaccess-Datei.</p><p>Die ersten beiden Methoden fallen auf den meisten Webhostingpaketen flach (Mal abgesehen davon, dass kaum irgendwo Ruby unterst&uuml;tzt werden d&uuml;rfte, das Problem existiert in Perl / Python als CGI ebenfalls.), da man keine Servereinstellungen &auml;ndern kann. Auch bei mir wollte ich an meiner normalen Konfiguration so wenig wie m&ouml;glich &auml;ndern und habe somit zur dritten M&ouml;glichkeit gegriffen.</p><p>Um die fehlende Variable zur Verf&uuml;gung zu stellen wird ein kleiner Zweizeiler als ".htaccess" im gleichen Verzeichnis wie das Script gespeichert:
+<pre>RewriteEngine on
+RewriteRule .* - [env=HTTP_AUTHORIZATION:%{HTTP:Authorization},last]</pre>
+Das ist schon alles um die Variable hinzuzuf&uuml;gen.</p><p>Im Script selber wird das Auslesen der Variable dann schon ein wenig schwieriger. Das m&ouml;chte ich hier auch nicht mehr ausf&uuml;hrlich erkl&auml;ren sondern nur mit einem (eigentlich recht gut verst&auml;ndlichen Script) demonstrieren:
+<pre>#!/usr/bin/ruby</p><p>require 'cgi'
+require 'base64'</p><p># Extend the CGI class with extractor for basic-auth credentials
+class CGI
+  # Passes back the credentials as array or nil when no credentials are provided
+  def basic_auth_data
+    if d = %w{REDIRECT_X_HTTP_AUTHORIZATION X-HTTP_AUTHORIZATION HTTP_AUTHORIZATION}.inject([]) \
+    { |d,h| env_table.has_key?(h) and env_table[h].length &gt; 0 ? env_table[h].to_s.split : d }
+      return Base64.decode64(d[1]).split(':')[0..1] if d[0] == 'Basic'
+    end
+  end
+end</p><p># Here's an example usage:
+cgi = CGI.new
+username, password = cgi.basic_auth_data</p><p># If there was no identification force the browser to ask for
+puts cgi.header({
+  "Status" =&gt; "401 Authorization Required",
+  "Type" =&gt; "text/html",
+  "WWW-Authenticate" =&gt; "Basic realm=\"My secret Area\""
+}) if cgi.basic_auth_data.nil?</p><p># Output control data
+puts "Content-Type: text/plain"
+puts</p><p>puts "Usr: '#{username}'"
+puts "Pwd: '#{password}'"</pre>
+Das Script findet sich mit Syntaxhighlighting und Downloadm&ouml;glichkeit auch noch im <a href="http://knopaste.de/?Mjc4Mz">Nopaste</a>.

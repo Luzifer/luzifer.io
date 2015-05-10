@@ -1,0 +1,25 @@
+---
+title: "Puppet-VCSRepo mit mehreren Deploykeys auf einem Server"
+date: "2013-03-19T07:47:26+00:00"
+slug: "puppet-vcsrepo-mit-mehreren-deploykeys-auf-einem-server"
+---
+
+<p>
+	Vor Kurzem stand ich vor dem Problem, dass ich auf einem Server via Puppet mehrere VCSRepos deployen wollte, die allerdings jeder einen Deploy-Key benoetigen. Sowohl Gitlab als auch Github unterstuetzen es nicht einen Deploy-Key mehrfach zu verwenden, so dass man nicht einfach in der SSH-Config einen generellen Key fuer den Gitlab-Server angeben und damit alle Projekte deployen kann.</p>
+<p>
+	Als Loesung habe ich mich fuer eine Variante entschieden, mit der ich via Puppet die Keys verteile und der jeweilige Checkout seinen eigenen Deploy-Key nutzt. Der Key ist dabei fuer alle Server identisch aber fuer jedes Repository unterschiedlich.</p>
+<ol>
+	<li>
+		Es wird das Modul &quot;<a href="https://github.com/ripienaar/puppet-concat">puppet-concat</a>&quot; benoetigt.</li>
+	<li>
+		Zur Nutzung muss das PluginSync von Puppet eingeschaltet werden, da das Concat-Modul auf dem Puppet-Client ausgefuehrt wird</li>
+	<li>
+		Man legt eine fuer alle Server geltende SSH-Config an, die vom Concat-Modul geschrieben wird (Im Gist: global.pp)</li>
+	<li>
+		In die Concat-Umgebung kann in jedem Modul, welches ein VCSRepo-Deploy benoetigt ein SSH-Key eingehakt werden, der dann exklusiv fuer dieses Repository da ist (Im Gist: local.pp)</li>
+	<li>
+		Das Git-Repository wird in dem Fall dann auf den neu angelegten Hostname der SSH-Config gesetzt anstatt die originale URL zu nutzen</li>
+</ol>
+<p>
+	Im Code-Beispiel habe ich den Key als Content-Anweisung im Manifest stehen. Das sollte natuerlich nicht so gemacht werden und dient nur der Veranschaulichung ohne noch externe Dateien einzubinden.</p>
+<script src="https://gist.github.com/Luzifer/d179b0df86e9e5e90172.js"></script>

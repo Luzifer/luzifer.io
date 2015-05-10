@@ -1,0 +1,22 @@
+---
+title: "Autoantwort-Bot für ICQ"
+date: "2008-10-12T21:00:00+00:00"
+slug: "autoantwort-bot-fuer-icq"
+---
+
+Nachdem ich heute meine ICQ-Kontakte relativ weit dezimiert habe, habe ich ICQ inzwischen komplett aus Adium entfernt. F&uuml;r die Leute, die immer noch versuchen mich via ICQ zu erreichen habe ich einen kleinen Autoresponder gebaut, der sie darauf hinweist, dass ich kein ICQ mehr nutze.</p><p>Hier ist also eine kleine Anleitung um sich so etwas zu basteln:</p><p><!--more-->Als Software nutze ich f&uuml;r den Autoresponder CenterIM, ein Konsolenprogramm f&uuml;r Linux, welches auch ICQ unterst&uuml;tzt und sehr einfach zu scripten ist.</p><p>In CenterIM wird dann das ICQ-Konto eingerichtet, als ob man es selber benutzen m&ouml;chte. Zus&auml;tzlich wird im Verzeichnis <em>~/.centerim/</em> die Datei <em>external</em> angelegt und mit dem folgenden Script ausgestattet:
+<blockquote>
+<pre>%action Message
+event msg
+proto icq
+status all
+options stdin stdout
+%exec
+#!/bin/bash
+fname=`head -n 2 $CONTACT_INFODIR/info | tail -n 1`
+lname=`head -n 3 $CONTACT_INFODIR/info | tail -n 1`
+cat &lt;&lt;EOF
+Hallo, $fname $lname!</p><p>Mich gibt es nicht mehr.
+EOF</pre>
+</blockquote>
+Jetzt wird einmal CenterIM neu gestartet und unser Autoresponder ist fertig um selber Nachrichten zu werfen. Das Ganze wird dann in einen Screen gepackt und fungiert als permanenter Autoresponder, der bei jeder empfangenen Nachricht unseren Text zur&uuml;ck wirft.

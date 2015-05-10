@@ -1,0 +1,64 @@
+---
+title: "Postfix unter Gentoo mit DKIM ausrüsten"
+date: "2008-11-12T23:39:00+00:00"
+slug: "postfix-unter-gentoo-mit-dkim-ausruesten"
+---
+
+<blockquote>DomainKeys ist ein Identifikationsprotokoll zur Sicherstellung der Authentizit&auml;t von E-Mail-Absendern, das von Yahoo entwickelt wurde und seit Ende 2004 in Erprobung ist. Es wurde konzipiert, um bei der Eind&auml;mmung von unerw&uuml;nschter E-Mail wie Spam oder Phishing zu helfen.</p><p>[Quelle: <a href="http://de.wikipedia.org/wiki/DomainKeys">Wikipedia</a>]</blockquote>
+Dieses Protokoll wird inzwischen zum Beispiel von Google in GMail zur Identifizierung eingesetzt. Deswegen hier mal ein mini-HowTo zum Einbau von DKIM in Postfix unter Gentoo. Mit einigen &Auml;nderungen sollte das Ganze auch auf anderen Distributionen einsetzbar sein...</p><p><!--more-->Als erstes brauchen wir zur Einrichtung das Paket <strong>mail-filter/dkim-milter</strong>, welches die DKIM-Funktionalit&auml;t bereit stellt:
+<blockquote>
+<pre># echo "mail-filter/dkim-milter ~x86" &gt;&gt; /etc/portage/package.keywords
+# emerge mail-filter/dkim-milter</pre>
+</blockquote>
+Als n&auml;chstes muss, da es sich hierbei um eine Signierung mit Keyfiles handelt, ein Schl&uuml;ssel generiert werden:
+<blockquote>
+<pre># emerge --config mail-filter/dkim-milter</pre>
+</blockquote>
+Dabei wird nach dem Namen des "Selektor" gefragt. Dieser wird sp&auml;ter in der Konfiguration ebenfalls angegeben um den Schl&uuml;ssel auszuw&auml;hlen. Damit k&ouml;nnen f&uuml;r verschiedene Zwecke verschiedene Schl&uuml;ssel verwendet werden. Das ganze sieht dann ungef&auml;hr so aus:
+<blockquote>
+<pre>Enter the selector name (default YourHostname): default
+* Select the size of private key:
+*   [1] 512 bits
+*   [2] 1024 bits
+Press 1 or 2 on the keyboard to select the key size</pre>
+</blockquote>
+Ich verwende in dieser Anleitung den Namen "default" und einen 1024bit-Schl&uuml;ssel. Wenn bei der Generierung ein anderer Verwendet wird, m&uuml;sst Ihr nat&uuml;rlich diesen eintragen.</p><p>Die Generierung des Schl&uuml;sselpaars wird von einigen Anweisungen gefolgt, die eigentlich 1:1 &uuml;bernommen werden k&ouml;nnen:
+<blockquote>
+<pre>* Make sure you have the following settings in your dkim-filter.conf:
+*   Keyfile /etc/mail/dkim-filter/default.private
+*   Selector default</pre>
+</blockquote>
+Die hier erw&auml;hnte Datei ist die Datei "<strong>/etc/mail/dkim-filter/dkim-filter.conf</strong>". Dort sucht Ihr nach den oben erw&auml;hnten Anweisungen und &auml;ndert diese entsprechend. Was netterweise von den Scripten nicht erw&auml;hnt wird ist, dass die Anweisung "Domain" auch angepasst werden muss. Da wird Kommasepariert jede Domain eingetragen, f&uuml;r die die Signierung durchgef&uuml;hrt werden soll. Ohne die Liste gibt es keine Signierung. Sollen verschiedene Schl&uuml;ssel verwendet werden, muss die Anweisung "KeyList" angepasst werden. Darauf gehe ich hier allerdings nicht weiter ein.
+<blockquote>
+<pre>* If you are using Postfix, add following lines to your main.cf:
+*   smtpd_milters     = unix:/var/run/dkim-filter/dkim-filter.sock
+*   non_smtpd_milters = unix:/var/run/dkim-filter/dkim-filter.sock
+* After you configured your MTA, publish [...]</pre>
+</blockquote>
+Diese beiden Anweisungen habe ich nicht so &uuml;bernommen, da der Zugriff via Socket-Dateien aufgrund von Berechtigungsproblemen nicht funktionierte. Bei mir sehen die Anweisungen wie folgt aus:
+<blockquote>
+<pre>smtpd_milters         = inet:127.0.0.1:10050
+non_smtpd_milters     = inet:127.0.0.1:10050</pre>
+</blockquote>
+Dabei muss allerdings in der DKIM-Konfiguration die "Socket"-Anweisung ebenfalls angepasst werden:
+<blockquote>
+<pre>Socket                  inet:10050@127.0.0.1</pre>
+</blockquote>
+Danach kann dann der dkim-filter in den Autostart aufgenommen werden:
+<blockquote>
+<pre># rc-update add dkim-filter default</pre>
+</blockquote>
+Nat&uuml;rlich m&uuml;ssen die Dienste danach (neu)gestartet werden:
+<blockquote>
+<pre># /etc/init.d/dkim-filter start
+# /etc/init.d/postfix restart</pre>
+</blockquote>
+Als letzter Schritt wird dann f&uuml;r jede Domain, die in der "Domain"-Anweisung steht ein TXT-DNS Record angelegt. Da kommt der Inhalt rein, der vom Konfigurationsscript schon vorbereitet wurde:
+<blockquote>
+<pre>default._domainkey IN TXT "v=DKIM1; g=*; k=rsa; p=[...]"</pre>
+</blockquote>
+Der Record f&uuml;r die Domain example.com lautet dann halt "default._domainkey.example.com" mit dem Inhalt, der zwischen den Anf&uuml;hrungszeichen aufgelistet wurde. (Bitte nicht meine drei Punkte abschreiben sondern das, was Ihr vom Script in der Konsole stehen habt!)</p><p>Zum Testen des ganzen k&ouml;nnt Ihr dann nach einiger Zeit (DNS braucht ja nunmal seine Zeit) indem Ihr eine leere Mail (Oder mit komischem Zeugs drin) an die Adresse "<a href="mailto:autorespond+dkim@dk.elandsys.com">autorespond+dkim@dk.elandsys.com</a>" schickt. Ein paar Minuten sp&auml;ter kommt eine Antwort von dem Autoresponder in der er eure Mail mit den Headern eintr&auml;gt und sein Pr&uuml;fungsresultat. Das Resultat sollte dann so aussehen:
+<blockquote>
+<pre>DKIM Test: pass</pre>
+</blockquote>
+Wenn nicht sind weiter unten noch Meldungen enthalten anhand derer Ihr schauen k&ouml;nnt warum es nicht funktioniert. Sollte es wie erwartet geklappt haben: Herzlichen Gl&uuml;ckwunsch. Ihr habts geschafft!</p><p>(Wer Fehler im HowTo findet schiebt mir die bitte unauff&auml;llig unter dem Tisch durch zu damit ich sie korrigieren kann ;) )

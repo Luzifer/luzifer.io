@@ -1,0 +1,27 @@
+---
+title: "Zertifikate für Visual Studio Deploys"
+date: "2008-09-10T11:04:00+00:00"
+slug: "zertifikate-fuer-visual-studio-deploys"
+---
+
+Heute stand ich vor dem Problem, dass ich ein One-Click-Deploy im Visual Studio 2005 signieren musste, das tempor&auml;re Zertifikat vom Visual Studio aber nur f&uuml;r ein Jahr g&uuml;ltig ist. Da mir dieser Zeitraum nicht reichte (Es gibt immer wenn das Zertifikat abl&auml;uft Probleme damit) musste eine L&ouml;sung her dieses Zertifikat f&uuml;r eine l&auml;ngere Zeit zu generieren. Nach einiger Suche nach Windows-Methoden daf&uuml;r habe ich es dann aufgegeben und mich der Generierung auf einem Linux-System zugewandt.</p><p>Hier ist der Weg um sich ein solches Zertifikat zu generieren, mit dem man seine Deploys und Assemblys signieren kann:</p><p><!--more--></p><p>Die Schritte sollten in einem eigenen Ordner durchgef&uuml;hrt werden, damit keine Verwechslungen mit anderen Dateien auftreten k&ouml;nnen.</p><p><em><strong>Achtung: Die fettgedruckten Befehlszeilen m&uuml;ssen immer in einer Zeile liegen!</strong></em></p><p>Als erstes generieren wir einen privaten Schl&uuml;ssel f&uuml;r unser Zertifikat. Dazu verwenden wir OpenSSL und einen RSA-Schl&uuml;ssel ohne Passwort:
+<blockquote><strong>$ openssl genrsa -out privkey.pem 2048</strong>
+Generating RSA private key, 2048 bit long modulus
+......+++
+.........+++
+e is 65537 (0x10001)</blockquote>
+Zu diesem Schl&uuml;ssel wird dann ein Self-Signed-Zertifikat generiert. (An dieser Stelle kann nat&uuml;rlich auch ein CSR f&uuml;r z.B. CaCert erstellt werden)
+<blockquote><strong>$ openssl req -new -x509 -key privkey.pem -out cacert.pem -days 4000</strong>
+[...]
+Country Name (2 letter code) [AU]:DE
+State or Province Name (full name) [Some-State]:Niedersachsen
+Locality Name (eg, city) []:Weyhe
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:K. Ahlers
+Organizational Unit Name (eg, section) []:Software Development
+Common Name (eg, YOUR name) []:K. Ahlers
+Email Address []:knut@ahlers.me</blockquote>
+In diesem Fall wurde ein Zertifikat f&uuml;r 4000 Tage generiert. Die Daten unten sollten nat&uuml;rlich angepasst werden.</p><p>Im letzten Schritt wird dann aus den Schl&uuml;sseldateien ein PKCS#12-Zertifikat erstellt, welches vom Visual Studio verarbeitet werden kann:
+<blockquote><strong>$ openssl pkcs12 -export -in cacert.pem -inkey privkey.pem -out cert.pfx -name "MyAPP"</strong>
+Enter Export Password:
+Verifying - Enter Export Password:</blockquote>
+Achtung: An dieser Stelle muss ein Passwort eingegeben werden. Windows akzeptiert es nicht, wenn eine PKCS#12-Datei nicht passwortgesch&uuml;tzt ist.</p><p>Diese Datei wird dann in das Projekt kopiert und im Signierungs-Dialog ausgew&auml;hlt. Schon ist die Anwendung mit einem Zertifikat signiert, welches nahezu eine Ewigkeit g&uuml;ltig ist ;)

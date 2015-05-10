@@ -1,0 +1,7 @@
+---
+title: "Jabber-Logger in Ruby"
+date: "2009-04-24T23:07:00+00:00"
+slug: "jabber-logger-in-ruby"
+---
+
+Angeregt durch einen Artikel im "<a href="http://www.ende-der-vernunft.org/2009/04/24/der-eigene-jabberbot/">EDV - Ende der Vernunft</a>"-Blog heute Abend, wo eine M&ouml;glichkeit vorgestellt wurde aus einer FIFO (named pipe) Nachrichten an einen Jabber-Account zu senden habe ich mir das Thema auch einmal angeschaut.</p><p>Was mich am dort vorgeschlagenen "XMPPLogger" in Perl allerdings ziemlich st&ouml;rte ist, dass man zur Installation auf einem Debian-System erstmal diverse Dateien patchen soll. Das ist f&uuml;r mich nicht wirklich etwas was man Useability nennen kann. Somit habe ich in ein paar Minuten ein &Auml;quivalent zu dem dort vorgestellten Script eine kleine Ruby-L&ouml;sung gebaut.</p><p>Meine Ruby-L&ouml;sung hat als Abh&auml;ngigkeit nur das "xmpp4r"-ruby-gem und l&auml;uft dann nach kurzer Konfiguration out of the box. So kann man dann, genau wie es im Artikel im EDV-Blog vorgestellt wurde, einfach etwas in die FIFO schreiben und bekommt es in den Jabber-Account gesendet.</p><p>Wie der Header meines Scripts schon sagt habe ich das ganze unter keine Lizenz gestellt, halte mich aber aus der Verantwortlichkeit raus. Macht damit was Ihr wollt und freut euch, wenn es funktioniert :)</p><p>Hier gehts zum Download: <a href="http://github.com/Luzifer/kscripts/blob/master/xmppfifo.rb">GitHub</a>

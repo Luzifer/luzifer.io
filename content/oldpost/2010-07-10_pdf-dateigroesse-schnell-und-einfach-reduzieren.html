@@ -1,0 +1,25 @@
+---
+title: "PDF-Dateigröße schnell und einfach reduzieren"
+date: "2010-07-10T18:18:00+00:00"
+slug: "pdf-dateigroesse-schnell-und-einfach-reduzieren"
+---
+
+<em>Da ich absolut kein Freund von Papier im Office bin und m&ouml;glichst alles als PDF-Dokument auf der Platte und im Netz* aufbewahre, scanne ich fast alles, was hier an wichtigen Dingen in Papierform ankommt ein um es eben so zu archivieren. Allerdings ist die Dateigr&ouml;&szlig;e solcher gescannten Dokumente relativ gro&szlig; und so habe ich mich auf die Suche nach L&ouml;sungen gemacht:</em></p><p><strong>L&ouml;sung 1:</strong> Nach dem Scannen mit Preview.app im "Save-As"-Dialog einen Quarz-Filter ausw&auml;hlen um die Gr&ouml;&szlig;e zu verringern.
+<ul>
+	<li><em><span style="color: #339966;">Pro:</span></em> Built-In-L&ouml;sung, keine weiteren Apps n&ouml;tig, keine Anschaffungskosten</li>
+	<li><em><span style="color: #ff0000;">Contra:</span></em> nur via Automatorscript automatisierbar, OSX-Only, in meinem Test absolut grottige Qualit&auml;t, nicht auf Headless-System einsetzbar</li>
+</ul>
+<strong>L&ouml;sung 2:</strong> Adobe Acrobat hat eine integrierte Funktion um die Dateigr&ouml;&szlig;e zu verringern, die allerdings wie der Name schon sagt nur in der Bezahlversion vorhanden ist und nicht im Acrobat Reader.
+<ul>
+	<li><em><span style="color: #339966;">Pro:</span></em> sehr gute Verkleinerung der Dateien, sehr gute Qualit&auml;t des Dokuments nach der Verkleinerung, unterst&uuml;tzt zus&auml;tzlich Texterkennung</li>
+	<li><em><span style="color: #ff0000;">Contra:</span></em> sehr hohe Anschaffungskosten, nicht oder nur schlecht automatisierbar, hoher Resourcenverbrauch, nicht auf Headless-System einsetzbar, zus&auml;tzliche Software n&ouml;tig, kein Linux-Einsatz</li>
+</ul>
+<strong>L&ouml;sung 3:</strong> Ein kleines Bash-Script, welches GhostScript aufruft um die Dateien zu verkleinern. Dabei werden einige Parameter an GhostScript &uuml;bergeben und der Rest passiert in recht kurzer Zeit (abh&auml;ngig von der Ursprungsgr&ouml;&szlig;e) von alleine.
+<ul>
+	<li><em><span style="color: #339966;">Pro:</span></em> freie Software, zu 100% automatisierbar, lauff&auml;hig auf Headless-Systemen, minimale bis keine Qualit&auml;tsunterschiede zum Original, hohe Effizienz was die Verkleinerung der Dateigr&ouml;&szlig;e angeht</li>
+	<li><em><span style="color: #ff0000;">Contra:</span></em> ben&ouml;tigt auf einigen Systemen zus&auml;tzliche Software</li>
+</ul>
+Meine damit bevorzugte L&ouml;sung ist definitiv die L&ouml;sung 3, da ich sie Serverseitig ausf&uuml;hren kann, sie sowohl auf OSX als auch auf Linux nutzen kann und sie gute Resultate bringt. Die Kompression der Datei ist dabei nur minimal schlechter als beim Adobe Acrobat aber daf&uuml;r spart diese L&ouml;sung sowohl Zeit durch die Automatisierung als auch Geld dadurch, dass es freie Software ist.</p><p>Wen das bei mir eingesetzte Script interessiert, welches urspr&uuml;nglich aus dem <a href="http://ubuntuforums.org/showpost.php?p=9009756&amp;postcount=17">Ubuntu-Forum</a> stammt, der darf hier kopieren:
+<pre>#!/bin/bash
+gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile=${1%\.pdf}-small.pdf $1</pre>
+Der einzige Punkt, der mir damit noch fehlt ist, dass leider keine OCR-Erkennung f&uuml;r das Dokument gemacht wird und es somit nicht durchsuchbar ist. Leider sind allerdings nach meinen bisherigen Tests die OpenSource-OCR-Tools entweder nicht in der Lage den erkannten Text in die PDF einzusetzen und diese damit durchsuchbar zu machen oder aber sie liefern inakzeptable Resultate f&uuml;r Dokumente in deutscher Sprache.</p><p><strong>Wie handhabt Ihr das? Hebt Ihr alles an Papier auf oder bevorzugt Ihr auch die digitale Archivierung? Wenn ja, welche Software nutzt Ihr?</strong></p><p><small>* Nat&uuml;rlich werden die Dokumente dabei so aufbewahrt, dass ein Zugriff fremder Personen ohne ausdr&uuml;ckliche Einwilligung nicht m&ouml;glich ist.</small>

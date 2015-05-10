@@ -1,0 +1,32 @@
+---
+title: "Wie man bei Hetzner doch IPv6 nutzen kann"
+date: "2011-06-24T08:59:41+00:00"
+slug: "wie-man-bei-hetzner-doch-ipv6-nutzen-kann"
+---
+
+<p>
+	Nachdem ich im Februar hier im Blog dar&uuml;ber <a href="http://blog.knut.me/warum-man-bei-hetzner-kein-ipv6-nutzen-moechte.html">gemeckert</a> hatte, dass man bei Hetzner kein funktionierendes IPv6-Setup auf die Reihe bekommt, wenn man mit virtuellen Maschinen arbeitet, hat <a href="http://herzi.eu/">Sven</a> mir unter dem Artikel den rettenden Kommentar hinterlassen.</p>
+<p>
+	Es ist doch m&ouml;glich, wenn auch mit ein wenig Aufwand. Als erstes l&auml;sst man sich von Hetzner &uuml;ber den Robot ein zweites 64-er Subnetz zuweisen. Nachdem das passiert ist (sie wissen von den Routing-Problemen und machen das auch wiederstandslos) ist das Setup relativ einfach:</p>
+<p>
+	Der NIC des Routers, die am Netzwerk h&auml;ngt gibt man eine IP aus dem ersten Subnet, welches dann mit der etwas seltsamen Routing-Konfiguration an die Hetzner-Router geroutet wird. Damit sollte der Router zum Beispiel einen &quot;ping6 ipv6.google.com&quot; auf die Reihe bekommen.</p>
+<p>
+	Der NIC, die die VMs schon mit IPs versorgt, gibt man eine IP aus dem zweiten Subnet. Au&szlig;erdem installiert man sich einen radvd auf dem Router, der dann die weiteren IPs des zweiten Subnet an die ganzen VMs verteilt. Direkt nachdem er das getan hat, sollten alle VMs (so fern denn schon mit IPv6-IPs ausgestattet) ebenfalls den ipv6.google.com erreichen k&ouml;nnen und auch erreichbar sein.</p>
+<p>
+	Beispielhaft hier mal meine radvd.conf (Das Subnet stimmt nat&uuml;rlich nicht!):</p>
+<pre>
+interface eth2 {
+   AdvSendAdvert on;
+   prefix 2a01:ffff:ffff:ffff::/64
+   {
+        AdvOnLink on;
+        AdvAutonomous on;
+	AdvRouterAddr on;
+   };
+   route ::/0 
+   {
+   };
+};
+</pre>
+<p>
+	Wenn Ihr so weit seid: Gratulation! Jetzt m&uuml;sst Ihr euch nur noch Gedanken &uuml;ber die Sicherheit eurer VMs machen, da eure normalen Firewalls, die f&uuml;r IPv4 ausgelegt waren mit hoher Wahrscheinlichkeit keine Absicherung f&uuml;r IPv6-Zugriffe bieten...</p>

@@ -1,0 +1,7 @@
+---
+title: "Und schon wieder Probleme mit FeedBurner"
+date: "2008-11-08T21:11:00+00:00"
+slug: "und-schon-wieder-probleme-mit-feedburner"
+---
+
+Heute hatte ich schon wieder das "Gl&uuml;ck", dass FeedBurner meinen Feed nicht mehr lesen konnte, da der Timeout bei FeedBurner wesentlich unter dem liegt, was mein Blog zum Generieren des Feeds braucht. Somit waren aktuelle Posts wieder einmal nicht im Feed enthalten, der von FeedBurner ausgeliefert wurde.</p><p>Daf&uuml;r m&ouml;chte ich mich bei meinen Lesern - die das sicher inzwischen auch nervt - entschuldigen.</p><p>Gerade habe ich mir also eine L&ouml;sung f&uuml;r das Problem &uuml;berlegt und kurzerhand ein kleines Ruby-CGI-Caching-Script f&uuml;r FeedBurner und FeedValidator dazwischen geschraubt. Das Script fragt bei einem Zugriff meinen Feed ab und speichert das XML, was als Resultat generiert wird auf der Festplatte ab. Damit sinkt die Zugriffszeit wesentlich und FeedBurner meckert nicht mehr rum, dass mein Blog zu langsam antwortet. Problem gel&ouml;st.</p><p>Das Caching ist momentan so eingestellt, dass der Feed f&uuml;r 600 Sekunden, also 10 Minuten zwischengespeichert wird. Danach wird die Datei automatisch verworfen. Somit sollte mein Feed von FeedBurner in Zukunft auch immer brav gelesen werden.</p><p>Da die Rewrite-Rules daf&uuml;r entsprechend gesetzt sind werden die Leser meines Feeds auch weiterhin keine Probleme damit haben meinen Feed zu lesen. Sie kommen gar nicht in die N&auml;he dieses Scripts.

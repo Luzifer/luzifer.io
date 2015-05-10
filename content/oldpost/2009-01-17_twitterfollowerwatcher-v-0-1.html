@@ -1,0 +1,13 @@
+---
+title: "TwitterFollowerWatcher v.0.1"
+date: "2009-01-17T18:25:00+00:00"
+slug: "twitterfollowerwatcher-v-0-1"
+---
+
+Gerade habe ich wieder eins meiner Scripte f&uuml;r die &Ouml;ffentlichkeit aufbereitet und zur Verf&uuml;gung gestellt. Dabei handelt es sich diesmal um ein relativ kleines Script, welches von mir dazu genutzt wird um t&auml;glich einen Bericht zu erhalten, wer meinem Twitter-Account nicht mehr oder jetzt neu folgt bzw. wem ich pl&ouml;tzlich nicht mehr folge.</p><p>Dazu gibt es zwar auch mehrere Dienste, die genau das auch auswerten, allerdings gibt es dabei ja das Problem, dass wegen der fehlenden sicheren Authentifizierung das Passwort und der Username des Twitter-Accounts an einen fremden Dienst weiter gegeben werden m&uuml;ssen.</p><p>Das Problem l&auml;sst sich mit diesem Script f&uuml;r jeden vermeiden, der einen eigenen Server betreibt oder einen vertrauensw&uuml;rdigen Bekannten mit einem Server hat. Dort kann mit ein paar kleinen Voraussetzungen das Script als Cronjob eingerichtet werden und Ihr bekommt eine &Uuml;bersicht was sich bei euren Verfolgern und Verfolgten &auml;ndert.</p><p>Systemanforderungen:
+<ul>
+	<li>Ruby &gt;= 1.8.6 (andere k&ouml;nnten funktionieren, sind aber nicht getestet)</li>
+	<li>Ruby-Gem 'sequel'</li>
+	<li>Das entsprechende Ruby-Gem f&uuml;r die Datenbankverbindung (mysql / sqlite / etc.)</li>
+</ul>
+Ob und wie das Script unter Windows l&auml;uft kann ich nicht sagen, da ich es nur mit Ruby-Versionen auf OSX 10.5.6 und Gentoo Linux 2008.0 getestet habe.</p><p>Wer dazu Anmerkungen hat, darf sich gerne in den Kommentaren verewigen. Ich w&uuml;rde mich auch &uuml;ber einen kurzen Kommentar freuen, wenn Ihr das Script einsetzt.</p><p>Der Download erfolgt &uuml;ber GitHub: <a href="http://github.com/Luzifer/kscripts/blob/aebb23821395cc755ea10c2642e849ddb300832d/twitter_follower_watcher.rb">TwitterFollowerWatcher</a>

@@ -1,0 +1,21 @@
+---
+title: "Python Daemon für Lock / Unlock via USB-Stick"
+date: "2010-11-15T10:03:58+00:00"
+slug: "python-daemon-fuer-lock-unlock-via-usb-stick"
+---
+
+<p>
+	Wie den meisten bekannt sein d&uuml;rfte, sind USB-Tokens zum Sperren des Rechners meistens recht teuer und ben&ouml;tigen eine spezielle Software, die auf vielen Systemen nur sehr umst&auml;ndlich zu installieren ist bzw. erst gar nicht funktioniert. Es geht allerdings auch deutlich einfacher, indem man einen USB-Stick f&uuml;r diese Zwecke verwendet.</p>
+<p>
+	In meinem Fall benutze ich die Software &quot;slock&quot; um den Bildschirm und die Tastatur zu sperren und einen kleinen Python-Daemon um diese Sperre auszul&ouml;sen bzw. wieder aufzuheben. Der Daemon k&uuml;mmert sich um die Hardware-Erkennung und auch darum, dass slock wieder beendet wird. Eine Passworteingabe ist somit nicht mehr n&ouml;tig.</p>
+<p>
+	Um das ganze auf einem normalen Ubuntu-System zu nutzen m&uuml;ssen vorher noch zwei Pakete nachinstalliert werden, die daf&uuml;r n&ouml;tig sind:</p>
+<pre>
+$ sudo aptitude install slock python-daemon</pre>
+<p>
+	Sobald das geschehen ist, wird nur noch der Daemon, den ich unter einer MIT-Lizenz ver&ouml;ffentlicht habe ben&ouml;tigt. Dieser wird wie gewohnt mit dem Parameter &quot;start&quot; aufgerufen um ihn zu aktivieren. Mit dem Parameter &quot;stop&quot; wird er wieder beendet. Ansonsten l&auml;uft er im Hintergrund und &uuml;berwacht das System.</p>
+<p>
+	Was unbedingt beachtet werden sollte ist, dass man den &quot;vendor_key&quot; anpassen muss! Diesen erh&auml;lt man, wenn der USB-Stick angesteckt ist mit dem Befehl &quot;lsusb&quot;.</p>
+<p>
+	Schlussendlich hier also noch der Code f&uuml;r den Daemon:</p>
+<script src="https://gist.github.com/700211.js"> </script>

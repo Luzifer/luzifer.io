@@ -1,0 +1,7 @@
+---
+title: "Fix für das Multi-Mood-Problem"
+date: "2008-09-14T12:03:00+00:00"
+slug: "fix-fuer-das-multi-mood-problem"
+---
+
+Gerade habe ich mir das Problem, welches ich in meinem <a href="http://blog.knut.me/2008/09/neue-plugins/">Post</a> angemeckert habe, mal etwas genauer angesehen und daf&uuml;r eine Quick-And-Dirty L&ouml;sung gefunden, welche nicht viel Aufwand am Sourcecode braucht, allerdings das eigentliche Problem nur umgeht.</p><p>Die L&ouml;sung bewirkt zwar, dass ein Mood nicht mehrmals angezeigt wird. Sie verhindert allerdings nicht, dass ein Mood mehrmals abgespeichert wird, da ich keine gro&szlig;e Lust hatte die daf&uuml;r zust&auml;ndige Funktion umzuschreiben.</p><p>Mit meiner Methode wird die Ausgabe-Funktion dahingehend ge&auml;ndert, dass im Array, welches die Moods enth&auml;lt, die Eintr&auml;ge nach einzigartigkeit gefiltert werden und somit Duplikate nicht mehr da sind.</p><p>Wer meine L&ouml;sung bei sich einbauen m&ouml;chte um ebenfalls zu verhindern, dass die Moods doppelt angezeigt werden kann sich bei mir melden. Dann r&uuml;cke ich meine ge&auml;nderte PHP-Datei raus. Da nicht viel ge&auml;ndert wurde sollten sich keine anderen Seiteneffekte als beim Original-Plugin ergeben. Aber wie &uuml;blich: Alle Angaben ohne <span style="text-decoration: line-through;">Schusswaffe</span> <span style="text-decoration: line-through;">Gewehr</span> Gew&auml;hr. ;)

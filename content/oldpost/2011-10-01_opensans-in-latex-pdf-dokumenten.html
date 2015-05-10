@@ -1,0 +1,18 @@
+---
+title: "OpenSans in LaTeX-PDF-Dokumenten"
+date: "2011-10-01T12:07:59+00:00"
+slug: "opensans-in-latex-pdf-dokumenten"
+---
+
+<p style="text-align: center; ">
+	<a href="http://www.google.com/webfonts#UsePlace:use/Collection:Open+Sans"><img alt="" src="/uploads/2011/10/Test-2011-10-01-um-14.15.png" /></a></p>
+<p>
+	Nachdem ich in letzter Zeit immer lieber die <a href="http://www.google.com/webfonts#UsePlace:use/Collection:Open+Sans">OpenSans</a>-Schriftart f&uuml;r jegliche Dokumente verwende, da sie mir im Gegensatz zur fr&uuml;her verwendeten Helvetica besser gef&auml;llt brauchte ich eine L&ouml;sung auch meine mit LaTeX generierten Briefe und anderen Dokumente mit OpenSans schreiben zu k&ouml;nnen.</p>
+<p>
+	Damit das geht muss allerdings der LaTeX-Suite erst einmal die Schriftart bekannt gemacht werden. Gl&uuml;cklicherweise gibt es die Schriftart schon vorgeneriert, so dass man sie &quot;nur noch&quot; installieren muss. Leider ist da allerdings die <a href="http://ww.tug.org/texlive/devsrc/Master/texmf-dist/doc/fonts/opensans/opensans.pdf">Anleitung</a> so generisch gehalten, dass sie sehr viel Interpretationsspielraum offen l&auml;sst und auch nur f&uuml;r den User funktioniert, der gerade die Schriftart auf dem System installiert.</p>
+<p>
+	Da allerdings meine Briefe von einem Server automatisch generiert werden, brauche ich eine L&ouml;sung, die allen Usern des Systems die Nutzung der Schriftart erlaubt. Hierzu habe ich heute dann im 3. Anlauf ein kleines Debian-Paket gebaut, welches die Schriftart so installieren sollte, dass sie f&uuml;r alle User verf&uuml;gbar ist und auch nach dem n&auml;chsten Update der TeX-Suite nicht wieder verschwindet.</p>
+<p>
+	Wer das Paket gerne nutzen m&ouml;chte, kann es <a href="/uploads/2011/10/tex-opensans_1.1-1.deb">hier</a> herunter laden und dann einfach &uuml;ber das Package-Management selber installieren. Der Nachteil an der Methode ist allerdings, dass es keine automatischen Updates f&uuml;r das Paket gibt. Da ich allerdings kein &ouml;ffentliches Repository betreibe, muss die Methode reichen. (Zumal ich nicht denke, dass es Updates f&uuml;r das Paket geben wird.)</p>
+<p>
+	Voraussetzung f&uuml;r die Nutzung ist eine irgendwie geartete TeX-Suite, die mit der Schrift umgehen kann. Ich pers&ouml;nlich empfehle die Installation von &quot;texlive-full&quot;.</p>

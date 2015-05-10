@@ -1,0 +1,42 @@
+---
+title: "Renaming pictures using the captured data"
+date: "2008-05-06T20:33:00+00:00"
+slug: "renaming-pictures-using-the-captured-data"
+---
+
+I just read <a href="http://the-gay-bar.com/index.php?/archives/39-Renaming-files-based-on-EXIF-data/">Tantes post</a> regarding his script to rename pictures using the exif data written by the camera.</p><p>So I want to present my own script too. It works nearly the same way as Tantes but this script adds a check for existing pictures and not existing exif data.</p><p>See the script below the break.</p><p><!--more-->
+<pre lang="bash">#!/bin/bash</p><p>######
+## This program is free software; you can redistribute it and/or modify
+## it under the terms of the GNU General Public License as published by
+## the Free Software Foundation; version 2 of the License.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+## GNU General Public License for more details.
+######</p><p>######
+## This script requires the ubuntu package "exiftags". Other distros might
+## provide it with another name but it have to provide the command "exiftime"
+######</p><p># Hereingegebene Datei in $INFILE laden
+INFILE=$1</p><p># Sollte die Datei nicht existieren mit Status 1 aussteigen
+if ! [ -e "$INFILE" ]
+then
+	exit 1
+fi</p><p># Die Dateiendung des Opfers ermitteln und daf&uuml;r sorgen, dass sie lower-case ist
+TMP=$(echo "$INFILE" | sed "s/.*\.\([a-zA-Z]*\)$/\1/")
+SUFFIX=$(echo $TMP | sed "y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/")</p><p># Das Zielverzeichnis ermitteln
+SUBDIR=$(echo "$INFILE" | sed "s/^\(.*\/\)[^\/]*$/\1/")</p><p># Aus den Exif-Tags den neuen Dateinamen ermitteln
+NEWNAME=$(exiftime -tc "$INFILE" | sed 's/.*: \([0-9].*\)/\1/;s/:/-/g;s/ /_/g')</p><p># Sollte es nicht m&ouml;glich sein die Exif-Daten auszulesen dann Status 2 und raus.
+if ( test "$NEWNAME" == "" )
+then
+	exit 2
+fi</p><p># Standardm&auml;&szlig;ig den blanken Dateinamen ohne Counter verwenden
+RIGHTNAME=$NEWNAME </p><p># Counter initialisieren
+CT=0</p><p># Sollte es schon eine Datei mit genau diesem Namen geben wird ein Counter angeh&auml;ngt
+while [ -e $SUBDIR$RIGHTNAME.$SUFFIX ]
+do
+	CT=$(( $CT + 1 )) # Den counter erh&ouml;hen
+	RIGHTNAME=$NEWNAME"_"$CT # Den counter an den Dateinamen anh&auml;ngen
+done</p><p># Schlussendlich die Datei in ihren neuen Namen umbenennen
+mv --update "$INFILE" $SUBDIR$RIGHTNAME.$SUFFIX</p><p># Den R&uuml;ckgabestatus des mv zur&uuml;ck liefern
+exit $#</pre>

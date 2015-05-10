@@ -1,0 +1,20 @@
+---
+title: "Der Urlaub..."
+date: "2008-12-19T20:56:00+00:00"
+slug: "der-urlaub"
+---
+
+...ist endlich da. Ja genau ab heute habe ich Urlaub. Als erstes werde ich denke ich mal eine Woche Winterschlaf halten und mir dann &uuml;berlegen was ich machen kann.
+<h5>KBuchhaltung</h5>
+Falls &uuml;brigens irgendwer noch Anregungen f&uuml;r meine KBuchhaltung hat: Immer her damit! Momentan stehen nur einige Feature-Requests f&uuml;r eine sp&auml;tere Version an und die Version 0.7 taucht in der Roadmap gar nicht auf, da ihr keine Aufgaben zugewiesen sind. Oder anders gesagt: Ich brauche Tester! Wer meldet sich freiwillig?
+<h5>SPF-Tool</h5>
+Naja und die dritte News dieses Posts w&auml;re dann, dass ich gestern abend mal ein Tool fertig gemacht habe, mit dem sich ein "Sender Policy Framework"-Eintrag f&uuml;r eine Domain analysieren l&auml;sst. Das wird wahrscheinlich die meisten Leser hier jetzt zu einem Stirnrunzeln bewegen und sie sich fragen lassen, wovon ich eigentlich spreche aber f&uuml;r Admins, die t&auml;glich damit zu tun haben sollte das Tool relativ sinnvoll sein. Das Tool l&ouml;st die einzelnen Anweisungen der Records auf und analysiert dabei die Informationen. Im Endeffekt wird dann eine Ausgabe produziert, die alles f&uuml;r Menschen einfach lesbar anzeigt. Dabei werden auch Verweise gleich mit analysiert und auch angezeigt.</p><p>Wer das SPF-Tool ausprobieren oder nutzen will kann das (ganz kostenfrei) machen. Und zwar unter folgender URL:
+<a rel="nofollow" href="http://luzifer.knutshome.de/spfcheck.rb" target="_blank">http://luzifer.knutshome.de/spfcheck.rb</a> (Nutzungsanleitung wird vom Script selber ausgegeben)</p><p>Hier mal die Ausgabe f&uuml;r meine SPF-Records: (Sehr unspektakul&auml;r aber funktioniert)
+<pre>&gt;&gt; http://luzifer.knutshome.de/spfcheck.rb?domain=ahlers.me</p><p>SPFCheck v.0.1 (c) 2008 by K. Ahlers</p><p>This tool does not cover all the mechanisms specified by openspf.org
+So please use this tool with caution and see more information here:
+http://www.openspf.org/SPF_Record_Syntax</p><p>This report has been generated at 2008-12-19 20:51:11 by luzifer.knutshome.de
+using nameserver '81.169.148.34'</p><p>Querying TXT-records for 'ahlers.me'
+Found SPFv1 record: 'v=spf1 +mx ?all '
+- Allowed the following IPs via MX record for domain ahlers.me:
+  - (ahlers.me.) 85.214.107.219,
+- Unknown everything not mentioned here</pre>

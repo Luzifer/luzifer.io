@@ -1,0 +1,75 @@
+---
+title: "[Linux-Server] DKIM-Signaturen unter Ubuntu"
+date: "2009-12-22T18:55:00+00:00"
+slug: "linux-server-dkim-signaturen-unter-ubuntu"
+---
+
+<p style="text-align: center;"><img class="size-full wp-image-3099 aligncenter" title="Linux-Technik" src="/uploads/2009/12/linuxtech.png" alt="" width="506" height="176" /></p>
+E-Mail-Spam ist ein zeitfressendes Problem in unserer heutigen Gesellschaft und die Administratoren der Mailserver sind in einem permanenten Kopf-an-Kopf-Rennen mit den Versendern dieser unerw&uuml;nschten und zeitraubenden E-Mails. Leider ist das urspr&uuml;nglich genutzte SMTP-Protokoll selber nicht daf&uuml;r ausgelegt Spam zu bek&auml;mpfen. Allerdings haben sich vor etwa 5 Jahren einige Leute bei Yahoo hingesetzt und eine DNS-basierte Signaturm&ouml;glichkeit f&uuml;r Mailserver erarbeitet. Inzwischen wurde die damals erarbeitete L&ouml;sung durch das neuere DKIM abgel&ouml;st.</p><p>DKIM arbeitet auf dem Prinzip der asymmetrischen Verschl&uuml;sselung und f&uuml;gt der E-Mail serverseitig eine Signatur hinzu, die es erm&ouml;glicht zu pr&uuml;fen, ob der Mailserver, der f&uuml;r die entsprechende Domain zust&auml;ndig ist, auch wirklich der Versender der E-Mail ist. Somit kann kein anderer Server mehr behaupten, dass er im Auftrag des Domain-Eigent&uuml;mers E-Mails versendet, obwohl er dazu nicht befugt ist, denn dann w&uuml;rde er die richtige Signatur setzen k&ouml;nnen. (Mehr Informationen zur Funktionsweise gibt es in der <a href="http://de.wikipedia.org/wiki/DKIM">Wikipedia</a>)</p><p>Zwar ist DKIM auch nicht die L&ouml;sung auf alle Spamprobleme, allerdings kann man sichje weiter sich DKIM durchsetzt, mehr auf die Resultate dieser &Uuml;berpr&uuml;fung verlassen und es wird schwerer f&uuml;r Spammer von Domains, die nicht ihnen selbst geh&ouml;ren, Spam zu versenden.</p><p>Im folgenden m&ouml;chte ich die Einrichtung der DKIM-Signierung auf einem Ubuntu-Server zeigen. Ich setze dabei voraus, dass ein bereits vollst&auml;ndig laufender Postfix-Mailserver existiert. Weiterhin wird Zugriff auf das DNS ben&ouml;tigt, da einige Informationen im DNS abgelegt werden m&uuml;ssen. Alle hier aufgef&uuml;hrten Schritte und Befehle werden als Benutzer "root" durchgef&uuml;hrt.
+<!--more--><h3>Vorbereiten der Einrichtung</h3>
+Im ersten Schritt wird das einzige zus&auml;tzlich notwendige Paket auf dem Ubuntu-Server installiert:
+<pre># aptitude install dkim-filter</pre>
+Damit ist die Installation der neuen Pakete abgeschlossen und es kann mit der Konfiguration begonnen werden. Die Konfiguration besteht aus mehreren Schritten. Zuerst werden wir den DKIM-Deamon entsprechend einrichten, damit er die E-Mails signiert. Im zweiten Schritt binden wir den DKIM-Deamon in den schon bestehenden Postfix-Server ein. Der dritte Schritt dient der Konfiguration der Keys und des DNS.
+<h3>Schritt 1: Konfiguration des DKIM-Deamon</h3>
+Die Konfiguration besteht nach der Installation zuerst aus 2 Dateien. Die erste Datei befindet sich unter "<em>/etc/defaults/dkim-filter</em>" und legt fest, wie der DKIM-Deamon angesprochen werden kann. Hier sollte alles so gelassen werden wie es ist.</p><p>Die zweite Datei findet sich unter "<em>/etc/dkim-filter.conf</em>" und konfiguriert das eigentliche Verhalten des Servers. Hier werden wir einige &Auml;nderungen vornehmen. Hier als erstes eine Beispiel-Konfiguration, wie ich sie nutze:
+<pre># Log to syslog
+Syslog			yes</p><p># Weitere Domains mit Komma anf&uuml;gen
+Domain			example.com
+# Standard-Selektor f&uuml;r die DNS-Abfrage
+Selector		mail
+KeyList			/etc/dkim-keys.conf</p><p># Common settings. See dkim-filter.conf(5) for more information.
+AutoRestart		yes
+Background		yes
+Canonicalization	simple
+DNSTimeout		5
+Mode			sv
+SignatureAlgorithm	rsa-sha256
+SubDomains		no
+X-Header		no</p><p># Standardaktionen bei bestimmten Vorkommnissen
+On-Default              tempfail
+On-BadSignature         tempfail
+On-DNSError             tempfail
+On-InternalError        accept
+On-NoSignature          accept
+On-Security             tempfail</pre>
+Diese Konfiguration kann so &uuml;bernommen werden und muss dann nur im Wert "Domain" angepasst werden. Dort m&uuml;ssen alle Domains aufgelistet werden, f&uuml;r die sp&auml;ter eine Signatur gesetzt werden soll.</p><p>Weiterhin legen wir an dieser Stelle schon eine Datei und einen Ordner f&uuml;r die Verwendung in Schritt 3 an:
+<pre># touch /etc/dkim-keys.conf
+# mkdir -p /etc/dkim/</pre>
+<h3>Schritt 2: Einbinden in den Postfix-Mailserver</h3>
+Die Einbindung in den Postfix-Server gestaltet sich recht einfach. Hierzu werden einfach folgende Zeilen in die Datei "<em>/etc/postfix/main.cf</em>" eingef&uuml;gt: (Sollten schon vorher Milter konfiguriert gewesen sein, m&uuml;ssen die Zeilen entsprechend abge&auml;ndert werden!)
+<pre>milter_default_action = accept
+milter_protocol = 2
+smtpd_milters = inet:localhost:8891
+non_smtpd_milters = inet:localhost:8891</pre>
+Wenn Ihr im ersten Schritt die Datei "<em>/etc/defaults/dkim-filter</em>" ver&auml;ndert habt, m&uuml;ssen diese Zeilen hier entsprechend angepasst werden.
+<h3>Schritt 3: Konfiguration der Domains</h3>
+Als erstes legen wir f&uuml;r die Schl&uuml;ssel, die verwendet werden sollen, im Verzeichnis "/etc/dkim/" pro Domain einen Ordner an. Das ist deswegen n&ouml;tig, da die Schl&uuml;ssel f&uuml;r jede verwendete Domain immer exakt gleich benannt sein m&uuml;ssen wie der Selektor in der Konfiguration. Im Beispiel muss also der verwendete Schl&uuml;ssel immer "mail" hei&szlig;en.
+<pre>mkdir -p /etc/dkim/example.com/</pre>
+In diesem Ordner wird jetzt der Schl&uuml;ssel f&uuml;r die Domain erzeugt:
+<pre># cd /etc/dkim/example.com/
+# openssl genrsa -out mail 1024
+# openssl rsa -in mail -out public.key -pubout -outform PEM</pre>
+Damit ist die Erstellung der Keys abgeschlossen und wir k&ouml;nnen uns der Datei "<em>/etc/dkim-keys.conf</em>" zuwenden:</p><p>In dieser Datei wird pro Zeile ein Key der entsprechenden Domain zugeordnet, deren Mails mit diesem Key signiert werden sollen:
+<pre>*@example.com:example.com:/etc/dkim/example.com/mail</pre>
+Dabei ist schon zu sehen: Im ersten Feld werden die Absender-Adressen festgelegt, auf welche die Signierung angewandt werden soll. Im Normalfall d&uuml;rften das alle Adressen sein. Das zweite Feld enth&auml;lt die Signatur-Domain. Im dritten Feld steht der private Schl&uuml;ssel der Domain zum Erzeugen der Signatur.</p><p>Nachdem diese Schritte abgeschlossen sind, geht es an die Konfiguration des DNS um den fremden Mailservern mitzuteilen, welchen Schl&uuml;ssel wir verwenden und wie er mit den E-Mails verfahren soll. Dazu werden zwei TXT-DNS-Records angelegt:</p><p>1. Der DKIM-Eintrag:
+<pre>mail._domainkey.example.com. IN TXT "v=DKIM1; g=*; k=rsa; p=[...];"</pre>
+Hier muss das [...] durch den Public-Key in der Datei "<em>/etc/dkim/example.com/public.key</em>" ersetzt werden. Wenn also der Inhalt der "<em>public.key</em>"-Datei wie folgt aussieht:
+<pre>-----BEGIN PUBLIC KEY-----
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDgSDdeKxkVvr9myBLP66cMgLqb
+0zy7kbV2UzuRVj99t2LiNEQg/l6P9Cgj1BWrVrkbMnKjCTNQbBnY8ASUFMx37EDc
+Y1tpLshTMWcJ0piMNOPWyhpqe1QxbQYI2jLunxcgfHF4KjBAAZxI2Y0QHFCvlMdm
+MYtpdq0G0MzBfqTTYwIDAQAB
+-----END PUBLIC KEY-----</pre>
+Dann muss der DNS-Eintrag etwa wie folgt aussehen:
+<pre>mail._domainkey.example.com. IN TXT "v=DKIM1; g=*; k=rsa; p=MIGfMA...DAQAB;"</pre>
+(Nat&uuml;rlich muss der komplette Key in den DNS-Eintrag eingetragen werden. Ich habe ihn nur der &Uuml;bersichtlichkeit halber gek&uuml;rzt.)</p><p>2. Der Policy-Eintrag:
+<pre>_adsp._domainkey.example.com. IN TXT "dkim=all"</pre>
+An dieser Stelle sind die Werte "unknown","all" und "discardable" m&ouml;glich. "unknown" bedeutet, dass nicht bekannt ist welche E-Mails signiert werden. Damit ist das auch die niedrigste Sicherheitsstufe. Bei "all" m&uuml;ssen alle E-Mails signiert sein, werden aber bei einem Fehlen der Signatur nicht abgelehnt sondern einfach nur als suspekt eingestuft. Der Wert "discardable" sagt aus, dass eine nicht signierte E-Mail abgewiesen werden darf.
+<h3>Abschluss der Einrichtung</h3>
+Zum Abschluss der Einrichtung werden auf dem Mailserver noch die Dienste "postfix" und "dkim-filter" neu gestartet, damit alle &Auml;nderungen &uuml;bernommen werden:
+<pre># /etc/init.d/postfix restart
+# /etc/init.d/dkim-filter restart</pre>
+Damit ist die Einrichtung abgeschlossen und der folgende Test sollte erfolgreich verlaufen:</p><p>Zum Testen der Einrichtung kann eine E-Mail an den Autoresponder "autorespond+dkim@dk.elandsys.com" geschickt werden. Die Antwort auf diese E-Mail sollte dann folgenden Text enthalten:
+<pre>DKIM Signature validation: pass (1048-bit key)
+DKIM Author Domain Signing Practices: "dkim=all"</pre>
+Wobei bei euch nat&uuml;rlich die ADSP-Anweisung anders aussehen kann. Sollten diese Informationen nicht zur&uuml;ck kommen, kann es sein, dass die DNS-&Auml;nderung noch nicht bekannt ist. Dann muss entsprechend der TTL der Zone gewartet werden, bis der Key und die ADSP bereit stehen. Ansonsten gibt der Autoresponder auch Informationen dar&uuml;ber aus, warum die Validierung nicht funktioniert hat.

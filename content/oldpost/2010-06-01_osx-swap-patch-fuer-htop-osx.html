@@ -1,0 +1,26 @@
+---
+title: "[OSX] Swap-Patch für htop-osx"
+date: "2010-06-01T11:59:00+00:00"
+slug: "osx-swap-patch-fuer-htop-osx"
+---
+
+Wer neulich nach meiner <a href="http://blog.knut.me/2010/05/osx-ordentliche-prozessanalyse-mit-htop/">Anleitung</a> das htop-osx Projekt bei sich installiert hat, wird evtl. schon festgestellt haben, dass in dieser Version vom htop-osx keine Anzeige des Swap m&ouml;glich ist. Die beiden Werte stehen dauerhaft auf 0 anstatt sich den eigentlichen Systemwerten anzupassen. Damit verliert man nat&uuml;rlich ein wenig den &Uuml;berblick &uuml;ber seineRessourcen.</p><p>Ich habe mich heute mal daran gemacht einen kleinen aber feinen Patch f&uuml;r htop-osx zu schreiben, der das behebt und es ist mir gelungen. Wie man hier sehen kann zeigt mein htop jetzt brav meine Swap-Werte an und ich habe auch dar&uuml;ber einen &Uuml;berblick:
+<p style="text-align: center;"><a class="highslide" href="/uploads/2010/06/20100601-114257.png"><img class="size-large wp-image-4051 aligncenter" title="htop-osx mit Swap-Support" src="/uploads/2010/06/20100601-114257-500x133.png" alt="" width="500" height="133" /></a></p>
+Die Befehlsliste f&uuml;r die Installation &auml;ndert sich damit dann wie folgt:
+<pre>git clone git://github.com/AndyA/htop-osx.git
+cd htop-osx
+git checkout -b osx origin/osx
+curl http://gist.github.com/raw/420738/gistfile1.diff | git apply
+./autogen.sh
+export CFLAGS="-m32"
+./configure
+make
+sudo make install</pre>
+Damit wird in der 4. Zeile <a href="http://gist.github.com/420738">mein Patch</a> automatisch auf den Quellcode angewandt. Den Patch habe ich au&szlig;erdem noch an den Entwickler geschickt, damit er ihn fest in den Quellcode &uuml;bernehmen kann. Sobald das geschehen ist, wird die 4. Zeile der Befehlsliste 6 Fehlermeldungen produzieren:
+<blockquote>error: patch failed: ProcessList.c:864
+error: ProcessList.c: patch does not apply
+error: patch failed: ProcessList.h:196
+error: ProcessList.h: patch does not apply
+error: patch failed: htop.c:358
+error: htop.c: patch does not apply</blockquote>
+Das gleiche passiert, wenn Ihr versucht den Patch 2x auf den gleichen Quellcode anzuwenden.

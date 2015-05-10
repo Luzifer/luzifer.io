@@ -1,0 +1,41 @@
+---
+title: "Entwickeln für Jailbreak-iPhones mit OS3.0"
+date: "2009-08-21T20:39:00+00:00"
+slug: "entwickeln-fuer-jailbreak-iphones-mit-os3-0"
+---
+
+<em>Achtung: Diese Anleitung funktioniert <strong>nur</strong> f&uuml;r das <strong>iPhone-SDK 3.0</strong>! Im 3.1 scheinen einige Schritte wieder vollkommen anders zu sein. Das konnte ich allerdings noch nicht testen, da ich weder das iPhone-OS-3.1 noch das entsprechende SDK einsetze.</em></p><p>Wie der Titel schon sagt, besch&auml;ftigt sich dieser Artikel mit der Entwicklung von Software f&uuml;r ein iPhone mit iPhone-OS-3.0 und installiertem Jailbreak. Das unterscheidet sich in so fern von der normalen Entwicklung, da Apple uns dabei ein paar Steine in den Weg legt, die es zu umgehen gilt. Die Basis, auf der dieser Artikel basiert ist, dass kein Apple-Developer-Account besteht. Also Ihr zwar an das SDK herankommt, allerdings die 99 Euro nicht ausgebt um Software f&uuml;r den App-Store zu entwickeln. In dem Fall w&uuml;rden diverse Schritte wegfallen.</p><p>Vorausgesetztes Wissen f&uuml;r die Anleitung:
+<ul>
+	<li>Ihr wisst, wie man eine Anwendung f&uuml;r den iPhone-Simulator entwickelt</li>
+	<li>Ihr wisst, wo XCode welche Dateien im Projektverzeichnis anlegt</li>
+	<li>Ihr k&ouml;nnt mit dem Terminal umgehen</li>
+	<li>SSH ist euch ein Begriff</li>
+</ul>
+<!--more-->Ich gehe an dieser Stelle davon aus, dass Ihr eine im iPhone-Simulator lauff&auml;hige Anwendung mit der Entwicklungsumgebung f&uuml;r das iPhone-OS-3.0 fertiggestellt habt. Diese Anwendung nehmen wir jetzt als Basis f&uuml;r alle weiteren Aktionen. Einige davon m&uuml;ssen einmalig durchgef&uuml;hrt werden, einige f&uuml;r jede Anwendung erneut.</p><p>Als erstes stellen wir in der Anwendung, die ich gerade angesprochen habe im Men&uuml; "Project" die SDK-Umgebung auf das iPhone um, da die Simulator-Anwendungen leider nicht auf dem iPhone laufen:
+<p style="text-align: center; "><a class="highslide" href="/uploads/2009/08/20090821-195258.png"><img class="size-medium wp-image-2571 aligncenter" title="Entwicklungsumgebung umstellen" src="/uploads/2009/08/20090821-195258-300x18.png" alt="Entwicklungsumgebung umstellen" width="300" height="18" /></a></p></p><p>Wenn wir an dieser Stelle die Anwendung versuchen zu kompilieren, bekommen wir den Fehler "<em>CodeSign error: Code Signing Identity iPhone Developer does not match any code-signing certificate in your keychain. Once added to the keychain, touch a file or clean the project to continue.</em>" - Das ist kein gro&szlig;es Problem, da uns XCode nur mitteilen m&ouml;chte, dass wir kein Zertifikat haben. L&auml;stig aber sehr schnell behoben:
+<ol>
+	<li>&Ouml;ffnet die "Schl&uuml;sselbundverwaltung"</li>
+	<li>W&auml;hlt den Men&uuml;punkt "Zertifikat erstellen" aus dem Zertifikatsassistenten im Hauptmen&uuml;</li>
+	<li>Als Namen gebt Ihr den Namen "iPhone Developer" ein, der Typ bleibt auf Root, der Haken f&uuml;r "Standardwerte &uuml;berschreiben" muss gesetzt werden. (Fortfahren klicken, Warnung mit Fortfahren best&auml;tigen)</li>
+	<li>Die Seriennummer muss immer so erh&ouml;ht werden, dass sie nicht doppelt vorhanden ist. Da Ihr noch kein Zertifikat habt, sollte es hier die "1" tun. Im Zertifikatstyp w&auml;hlt Ihr "Code-Signierung" aus. (Fortfahren)</li>
+	<li>Die Zertifikatsinformationen f&uuml;llt Ihr einfach aus. (Namen bitte nicht &auml;ndern, dann fortfahren)</li>
+	<li>Alles weitere wird einfach mit "Fortfahren" best&auml;tigt und nicht weiter ver&auml;ndert.</li>
+</ol>
+Damit w&auml;re das erste Problem erschlagen und nach einem Neustart von XCode d&uuml;rfte der Fehler nicht wieder auftauchen. Daf&uuml;r haben wir jetzt Probleme mit dem n&auml;chsten Fehler: "<em>CodeSign error: a valid provisioning profile is required for product type Application in SDK Device - iPhone OS 3.0?</em>". Der Fix f&uuml;r dieses Problem ist - gelinde ausgedr&uuml;ckt - ekelhaft, funktioniert aber.</p><p>Im "<a rel="nofollow" href="http://www.iphonedevsdk.com/forum/iphone-sdk-tools-utilities/20983-sdk-3-0-xcode-3-1-3-build-go-jailbroken-device-2.html" target="_blank">iPhone Dev SDK Forum</a>" wird ein Script bereit gestellt, welches Ihr als root (sudo -s als Admin und Ihr habt eine root-Shell) ausf&uuml;hren m&uuml;sst:
+<pre>#!/bin/bash
+cd /Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Plug-ins/iPhoneOS\ Build\ System\ Support.xcplugin/Contents/MacOS/</p><p>dd if=iPhoneOS\ Build\ System\ Support of=working bs=500 count=255
+printf "\x8f\x2a\x00\x00" &gt;&gt; working
+dd if=iPhoneOS\ Build\ System\ Support of=working bs=1 skip=127504 seek=127504
+/bin/mv -n iPhoneOS\ Build\ System\ Support iPhoneOS\ Build\ System\ Support.original
+/bin/mv working iPhoneOS\ Build\ System\ Support
+chmod a+x iPhoneOS\ Build\ System\ Support</pre>
+Diese Script ver&auml;ndert eine Datei des XCode-iPhone-Build-Systems, speichert aber die Originaldatei zus&auml;tzlich zur Sicherheit ab. Auch diese &Auml;nderung erfordert wiederum einen Neustart von XCode.</p><p>An dieser Stelle sollte es jetzt problemlos m&ouml;glich sein die Anwendung f&uuml;r das iPhone SDK 3.0 zu kompilieren. Zumindest war das der Fall hier bei mir.</p><p>Der n&auml;chste Schritt ist, dass XCode sich weigert die Signatur f&uuml;r die Anwendung zu erstellen. Somit haben wir zwar eine theoretisch lauff&auml;hige Anwendung f&uuml;r das iPhone, allerdings wird das iPhone diese Anwendung sofort nach dem Start unweigerlich vom Kernel beenden lassen, da sie nicht signiert ist. Ohne einen Jailbreak w&uuml;rden wir an dieser Stelle verzweifeln, da der Jailbreak allerdings die Signatur&uuml;berpr&uuml;fung ver&auml;ndert, k&ouml;nnen wir mit jedem beliebigen Zertifikat die Signierung durchf&uuml;hren.
+<ol>
+	<li>&Ouml;ffnet ein Terminal und begebt euch in den Ordner, in dem XCode die build-Datei eurer Anwendung erstellt hat</li>
+	<li>F&uuml;hrt an dieser Stelle die folgenden Befehle aus: (Program.app nat&uuml;rlich durch euer Programm ersetzen!)
+<pre>platform=/Developer/Platforms/iPhoneOS.platform
+allocate=${platform}/Developer/usr/bin/codesign_allocate
+export CODESIGN_ALLOCATE=${allocate}</p><p>codesign -fs "iPhone Developer" Program.app</pre>
+</li>
+</ol>
+Damit ist das Programm signiert und kann auf das iPhone (z.B. via SSH) kopiert werden. Die Anwendung sollte somit normal starten und wir freuen uns. Dieser letzte Schritt - das Signieren - muss jedes mal erneut durchgef&uuml;hrt werden, wenn Ihr das Programm neu kompiliert. XCode ersetzt die Dateien einfach und &uuml;bernimmt wie oben gesagt keine Signatur.</p><p>Wie Ihr euer Programm mit Cydia installieren k&ouml;nnt, damit besch&auml;ftige ich mich in einem anderen Artikel, der sp&auml;ter erscheinen wird.

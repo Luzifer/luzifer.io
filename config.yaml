@@ -1,0 +1,18 @@
+---
+
+baseurl: https://blog.knut.me/
+config: config.yaml
+metaDataFormat: yaml
+permalinks:
+  post: /:slug.html
+  page: /:slug.html
+theme: blogknutme
+title: Knuts Blog
+uglyUrls: true
+watch: true
+blackfriday:
+  fractions: false
+  extensions:
+    - fencedCode
+    - autolink
+

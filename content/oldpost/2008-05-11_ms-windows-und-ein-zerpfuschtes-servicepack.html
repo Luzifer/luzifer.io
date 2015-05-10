@@ -1,0 +1,17 @@
+---
+title: "MS Windows und ein zerpfuschtes Servicepack"
+date: "2008-05-11T18:50:00+00:00"
+slug: "ms-windows-und-ein-zerpfuschtes-servicepack"
+---
+
+Heute war mal Zeit genug um mich mal wieder den Updates auf dem Rechner meiner Mutter an zu nehmen und da sowieso gerade ein ServicePack (Nummer 3) f&uuml;r Windows XP aktuell ist wurde dieses zur "Mach ich mal eben nebenbei mit"-Aufgabe erkoren.</p><p>Die Installation des ServicePacks: Kein Problem. Der Neustart ebenfalls nicht.</p><p>Nach dem Neustart allerdings folgte ein Neustart und ein Neustart usw... Somit lag doch sehr schnell die Vermutung nahe, dass es Bluescreen-Of-Death sein unwesen treibt. Dank der Funktionalit&auml;t diese automatischen Neustarts zu deaktivieren war der Grund relativ schnell ersichtlich:
+<blockquote>STOP: c0000139 {Entry Point Not Found}</p><p>The procedure entry point GdiGetBitmapBitSize could not be located in the dynamic link library GDI32.dll.</blockquote>
+Grandios... Die Microsoftler haben eine Funktion in ihrer GDI-Lib vergessen.</p><p>Dank dem <a href="http://www.tipandtrick.net/2008/windows-xp-sp3-bsod-endless-reboot-loop-with-stop-c0000139-on-gdi32dll-error/">Internet</a> war die L&ouml;sungsstrategie relativ schnell klar:
+<blockquote>
+<ol>
+	<li>Make a backup of existing GDI32.dll in system folder.</li>
+	<li>Then copy backup GDI32.dll from c:\windows\servicepackfiles\i386\gdi32.dll to the system folder.</li>
+	<li>Restart computer.</li>
+</ol>
+</blockquote>
+Da die Windows-CD sich grandioser Weise ganz hinten im Regal versteckt hatte musste also eine Knoppix-CD her und in K&uuml;rze waren die Dateien ausgetauscht und das System funktionierte wieder.</p><p>Aber mal ganz ehrlich: Warum? Wie kann man so eine Sch***** auf den Markt werfen? Ein Service-Pack was erstmal eine riesige Macke ins System schl&auml;gt kann es doch echt nicht sein oder? Vor allem war das kein Download von irgend einer Drittanbieter-Seite sondern ein normaler Download direkt von MS.</p><p>Schon ziemlich BITTER!

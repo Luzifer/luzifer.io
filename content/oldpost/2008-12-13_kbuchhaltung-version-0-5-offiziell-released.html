@@ -1,0 +1,22 @@
+---
+title: "KBuchhaltung: Version 0.5 offiziell released"
+date: "2008-12-13T21:57:00+00:00"
+slug: "kbuchhaltung-version-0-5-offiziell-released"
+---
+
+Heute ist es endlich so weit und ich habe die <a href="http://github.com/Luzifer/kbuchhaltung/tree/v.0.5">Version 0.5</a> meiner KBuchhaltung offiziell als Release freigegeben. Jeder der m&ouml;chte kann sich diese Version installieren und die neuen Funktionen mit dem umgestalteten User-Interface nutzen. Hier eine Liste der haupts&auml;chlichen &Auml;nderungen:
+<ul>
+	<li><strong>0000016: Update-Script f&uuml;r Datenbankupdates &lt;0.5 -&gt; 0.5 erstellen</strong>
+Die Datenbank kann jetzt mit einem Aufruf des Scripts "update.php" im Hauptverzeichnis auf den neusten Stand gebracht werden. Dieses Script ist allerdings nur f&uuml;r stabile Versionen gedacht und wird bei Entwicklerversionen nicht wie erwartet funktionieren.</li>
+	<li><strong>0000003: Konten editierbar machen</strong>
+Die Konten k&ouml;nnen mit einem Doppelklick auf den Kontennamen jetzt ver&auml;ndert werden. Das betrifft sowohl den Namen des Kontos, den Planwert (Siehe 0000007) als auch das L&ouml;schen eines Kontos. Beim L&ouml;schen sollte unbedingt der Hinweis im Dialog beachtet werden, da dieses unvorhergesehene Probleme bereiten k&ouml;nnte.</li>
+	<li><strong>0000007: Planwert f&uuml;r Gegenkonten</strong>
+Gegenkonten k&ouml;nnen jetzt einen Planwert haben. Das ist eine Zahl, die in der Kontoeinstellung definiert wird und anzeigt, wie viel Geld man selber f&uuml;r den aktuellen Monat f&uuml;r dieses Gegenkonto einkalkuliert hat. Es bietet somit nur einen Anhaltspunkt, ob man seine selbst gesteckten Ziele einh&auml;lt.</li>
+	<li><strong>0000013: Updatepr&uuml;fung einbauen</strong>
+Im Men&uuml; des neuen User-Interfaces gibt es unter "Infos" einen Men&uuml;punkt um nach Updates zu suchen. Dort wird man dann &uuml;ber neue Releases informiert. Entwicklerversionen werden in diesem Punkt <em>nicht</em> angezeigt.</li>
+	<li><strong>0000014: Jahressumme f&uuml;r Gegenkonten</strong>
+Man kann im Datumsselektor jetzt ein ganzes Jahr &uuml;ber die Jahreszahl ausw&auml;hlen. Das kann z.B. dazu verwendet werden um zu kontrollieren, wie viel im Jahr f&uuml;r eine bestimmte Kategorie ausgegeben wurde. Tip: Bei vielen Buchungen gro&szlig;e Zeitr&auml;ume nur ausw&auml;hlen, wenn kein Konto angew&auml;hlt wurde. Dann dauert das Laden nicht so lange.</li>
+	<li><strong>0000012: Einbau eines Installers</strong>
+Seit dieser Version ist ein rudiment&auml;rer Installer enthalten, der die Einrichtung der Datenbank &uuml;bernimmt und somit daf&uuml;r sorgt, dass das Grundger&uuml;st installiert wird. Die Installation wird automatisch aufgerufen, wenn keine Datenbank verf&uuml;gbar ist.</li>
+</ul>
+Weiterhin enth&auml;lt diese Version ein &uuml;berarbeitetes User-Interface, in dem die Anwendungs-Aktionen jetzt &uuml;ber ein Men&uuml; aufgerufen werden k&ouml;nnen. Weiterhin wurde die Performanz des Javascripts verbessert.</p><p>Sollten in der 0.5er Version Fehler festgestellt werden oder Feature-Requests auftauchen, k&ouml;nnen diese wie &uuml;blich an den <a href="http://bugs.knut.me">Bugtracker</a> gemeldet werden.</p><p>Zum Download steht die Anwendung als <a href="http://github.com/Luzifer/kbuchhaltung/zipball/v.0.5">ZIP-Datei</a> und <a href="http://github.com/Luzifer/kbuchhaltung/tarball/v.0.5">TAR-Archiv</a> direkt von GitHub.

@@ -1,0 +1,32 @@
+---
+title: "Radiostreams mit wenig Bandbreite"
+date: "2009-11-25T23:50:00+00:00"
+slug: "radiostreams-mit-wenig-bandbreite"
+---
+
+Nachdem ich heute vor dem Problem stand einen Radio-Stream h&ouml;ren zu wollen, der mit 128kbit/s sendet, meine Leitung hier das aber nicht vertr&auml;gt (ISDN) habe ich mal eine M&ouml;glichkeit gebastelt wie man das Problem umgehen kann. Diese Anleitung funktioniert nat&uuml;rlich auch, wenn Ihr z.B. euren Lieblingsstream unterwegs auf dem iPhone mit FStream &uuml;ber eine EDGE-Verbindung h&ouml;ren wollt. (Macht mit 128kbit auch keinen Spa&szlig;...)</p><p>Gleich vorweg: Diese Anleitung setzt im Endeffekt eine Kopie des originalen Streams auf. Ihr solltet das Ganze nur f&uuml;r euch pers&ouml;nlich aufsetzen. (Maximal noch eurem besten Freund erz&auml;hlen.) Ich habe keine Ahnung wie das in Deutschland mit der Kopie eines Streams rechtlich ausschaut. Selbst wenn der eigentliche Streambesitzer nichts dagegen hat, k&ouml;nnten da gewisse staatliche Stellen so ihre Einw&auml;nde haben. Solange Ihr das allerdings nur f&uuml;r euch pers&ouml;nlich baut sollte da nichts dagegen sprechen. (Hoffe ich...)</p><p><em>Die Anleitung ist im &Uuml;brigen f&uuml;r erfahrene Linux-Administratoren gedacht, da Software per Hand nachinstalliert werden muss. Solltet Ihr die entsprechende Erfahrung nicht haben, fragt bitte jemanden, der diese Ahnung hat.</em>
+<h3><!--more-->Voraussetzungen</h3>
+Fangen wir also mit dem ben&ouml;tigten "Material" an: Ihr braucht einen Server, der eine entsprechende Bandbreite (achtet auch auf den Traffic!) hat. Also z.B. eine g&uuml;nstige virtuelle B&uuml;chse in einem Rechenzentrum. Darauf sollte ein Ubuntu-System laufen. Wenn es ein Debian ist k&ouml;nnte die Anleitung auch noch 1:1 funktionieren.
+<h3>Vorbereiten</h3>
+Als ersten Schritt m&uuml;ssen wir auf dem Server einige Pakete installieren. Dazu wird der folgende Befehl ausgef&uuml;hrt:
+<pre>aptitude install libogg-dev libvorbis-dev libmad0-dev libmp3lame-dev libflac-dev icecast2 build-essential</pre>
+Damit wird einerseits der IceCast2-Server installiert, den wir sp&auml;ter nutzen um den runtergerechneten Stream wieder zur Verf&uuml;gung zu stellen. Andererseits legt der Befehl schon den Grundstein f&uuml;r die Installation vom Streamtranscoder. Den m&uuml;ssen wir auf Ubuntu leider manuell installieren, da es ihn nicht in der Paketverwaltung gibt.
+<h3>Installieren vom Streamtranscoder</h3>
+Im n&auml;chsten Schritt werden als root folgende Befehle ausgef&uuml;hrt:
+<pre>cd ~
+mkdir src
+cd src
+wget http://www.oddsock.org/tools/streamTranscoderV3/streamtranscoderv3-3.1.11.tar.gz
+tar xzf streamtranscoderv3-3.1.11.tar.gz
+cd streamtranscoderv3-3.1.11
+./configure</pre>
+Hierbei sollten bis jetzt keine Fehler auftreten. Falls doch fehlen wahrscheinlich Bibliotheken. Diese m&uuml;sst Ihr dann &uuml;ber die Paketverwaltung nachinstallieren.</p><p>Der Streamtranscoderv3 wird dann &uuml;ber die Befehle
+<pre>make
+make install</pre>
+installiert.
+<h3>Konfigurieren des IceCast2</h3>
+Die Dokumentation des IceCast2-Servers ist eigentlich relativ selbsterkl&auml;rend. Daher gehe ich da nicht detailliert drauf ein. Wichtig ist, dass Ihr in der Datei "<em>/etc/icecast2/icecast.xml</em>" die Passw&ouml;rter alle &auml;ndert. (Insgesamt 3 St&uuml;ck). Au&szlig;erdem m&uuml;sst Ihr in der "<em>/etc/default/icecast2</em>" in der letzten Zeile den IceCast-Server aktivieren. Danach l&auml;sst sich der IceCast-Server starten und ist bereit unsere Streams aufzunehmen.
+<h3>Konfigurieren des Streamtrancoderv3</h3>
+Der Streamtranscoderv3 wartet leider schon seit 2007 auf eine sinnvolle Dokumentation, die es aber bisher noch nicht gibt. Daher hier kurz das Vorgehen, wie man ihn einrichtet: Als Erstes wechselt Ihr auf einen normalen Benutzer. Der Streamtranscoder sollte nicht als Root laufen!</p><p>Jetzt f&uuml;hrt Ihr den Befehl "<strong>streamTranscoderv3</strong>" einmal aus. Dabei wird die Konfigurationsdatei "<em>streamTranscoder_0.cfg</em>" angelegt. In dieser Datei stellt Ihr den Quellstream ein und &auml;ndert ganz unten die Anzahl der Encoder auf mindestens 1.</p><p>Anschlie&szlig;end wird der Befehl "<strong>streamTranscoderv3</strong>" wieder aus. Jetzt wird die Konfigurationsdatei "<em>streamTranscoder_1.cfg</em>" automatisch erzeugt. In dieser Datei passt Ihr jetzt die Optionen f&uuml;r euren Stream an, wie er zum IceCast-Server gesendet werden soll. (Die Datei ist wieder selbsterkl&auml;rend).
+<h3>Streamtranscoder starten</h3>
+Wenn Ihr beide Konfigurationen angepasst habt, k&ouml;nnt Ihr den Befehl "<strong>streamTranscoderv3</strong>" zum dritten Mal ausf&uuml;hren und damit den Streamtranscoder starten. Jetzt solltet Ihr mit einem beliebigen Client zu eurem IceCast-Server verbinden und die Musik anh&ouml;ren k&ouml;nnen.</p><p>Sp&auml;ter k&ouml;nnt Ihr den Streamtranscoder mittels "<strong>streamTranscoderv3 -b</strong>" starten. Damit legt er sich in den Hintergrund und Ihr k&ouml;nnt die Verbindung zum Server schlie&szlig;en.

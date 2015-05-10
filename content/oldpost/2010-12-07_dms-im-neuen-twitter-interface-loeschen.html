@@ -1,0 +1,24 @@
+---
+title: "DMs im neuen Twitter-Interface löschen"
+date: "2010-12-07T15:22:18+00:00"
+slug: "dms-im-neuen-twitter-interface-loeschen"
+---
+
+<p>
+	Wer nur wenige DMs schreibt wird das Problem nicht kennen, welches ich hier gleich schildere aber ich denke die Leute, die Twitter genauso h&auml;ufig nutzen wie ich wissen genau wovon ich spreche: Man schreibt viele DMs mit einer Person, m&ouml;chte die aber aus irgend einem Grund mal wieder loswerden. So sind mit der Zeit mehr als 100 DMs zusammen gekommen, die also weg sollen.</p>
+<p>
+	Der von Twitter vorgegebene Weg: DM-Seite aufrufen, und f&uuml;r jede DM 2x klicken. (Einmal auf &quot;L&ouml;schen&quot; einmal auf &quot;OK&quot;) Oder mit anderen Worten mit einer Maus noch halbwegs machbar, mit einem Touchpad ist man sp&auml;testens nach der H&auml;lfte der DMs durch das Touchpad durch und braucht ein neues.</p>
+<p>
+	Nachdem es fr&uuml;her Javascript-L&ouml;sungen gab um DMs zu l&ouml;schen stellte ich vorhin, als ich genau das Problem hatte fest, dass die alle mit dem neuen Interface nicht funktionieren (logisch) und wohl auch nicht portiert werden. Der Usecase scheint also bei den meisten Leuten nicht mehr ben&ouml;tigt zu werden.</p>
+<p>
+	Aber es gibt Abhilfe! Ein kleines Javascript, welches ich in wenigen Minuten zusammengest&ouml;pselt habe und welches daf&uuml;r da ist alle DMs einer Konversation zu l&ouml;schen. Es ist keine L&ouml;sung f&uuml;r Leute, die mit 500 Personen je 2 DMs schreiben wohl aber f&uuml;r Personen, die mit 5 Personen je 200 DMs schreiben.</p>
+<p>
+	Im Endeffekt braucht Ihr nur folgende Zeile:</p>
+<pre>
+javascript:while($(&quot;.delete-action&quot;).length&gt;0){$(&quot;.delete-action&quot;).click();$(&quot;.twttr-prompt-ok&quot;).click();}</pre>
+<p>
+	Diese kopiert Ihr euch einfach in die Zwischenablage oder macht euch ein Lesezeichen draus und geht dann auf die Konversation mit dem entsprechenden User. (Also oben in Twitter auf &quot;Messages&quot; und dann links auf den User klicken.) Jetzt f&uuml;gt Ihr die Zeile, die Ihr hier gerade kopiert habt in eure Adresszeile ein und dr&uuml;ckt Enter.</p>
+<p>
+	Nach ein paar Sekunden (Je mehr DMs, desto l&auml;nger braucht das Script um diese &quot;tot zu klicken&quot;) ist die Konversation verschwunden. Fieser Weise zeigt Twitter nicht alle DMs einer Konversation an und l&auml;d die auch nicht nach. Somit m&uuml;sst Ihr einmal die Seite neu laden (F5, Strg+R, Command+R, was auch immer bei eurem System wirkt.) um zu sehen ob da nicht noch mehr DMs waren. Da allerdings immer etwa 100 DMs in einem Rutsch angezeigt werden seid Ihr in 5 Durchl&auml;ufen schon mit fast 500 DMs durch. Wer da noch meckert: Selbst schuld!</p>
+<p>
+	<strong>Zum Abschluss meines Artikels h&auml;tte ich gerne noch von euch gewusst, wie Ihr das mit den DMs handhabt: Lasst Ihr die einfach im Account liegen oder l&ouml;scht Ihr sie regelm&auml;&szlig;ig? Und vor allem: Warum macht Ihr das so?</strong></p>

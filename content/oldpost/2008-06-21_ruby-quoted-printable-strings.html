@@ -1,0 +1,7 @@
+---
+title: "Ruby: Quoted Printable Strings"
+date: "2008-06-21T15:14:00+00:00"
+slug: "ruby-quoted-printable-strings"
+---
+
+Momentan bin ich dabei mein Script, welches f&uuml;r die Verwaltung meiner Mailbox zust&auml;ndig ist, von Python auf Ruby umzustellen. Da ich dabei nach bestimmten Stichw&ouml;rtern im Betreff der Mail suche, sind mir Quoted Printable verschl&uuml;sselte Betreffs nicht willkommen und es musste eine L&ouml;sung her, die aus einem in einer Mail verschickten Quoted Printable-String einen normalen String macht, in dem man dann die Stichw&ouml;rter suchen kann.</p><p>So ist der folgende Code entstanden, den ich hier allen Lesern zur Verwendung bereit stellen m&ouml;chte. Ihr k&ouml;nnt die Funktion gerne nutzen, solltet sie aber verstehen um sicher zu stellen, dass es keine unerwarteten &Uuml;berraschungen gibt wenn Ihr sie nutzt:</p><p>Jetzt im Github als Gist zu finden: <a href="http://gist.github.com/280037">http://gist.github.com/280037</a></p><p>(Mir ist bekannt, dass die Funktion einige Macken hat und so nicht immer zuverl&auml;ssig funktioniert. Leider habe ich noch keine bessere M&ouml;glichkeit gefunden. Wer Verbesserungen hat, darf mir diese gerne zukommen lassen.)

@@ -1,0 +1,49 @@
+{{ partial "header.html" . }}
+
+{{ $pag := $.Paginate (where .Data.Pages "Type" "!=" "page") }}
+
+{{ range .Paginator.Pages }}
+<div class="post"> 
+	<div class="posttitle"> 
+		<h1><a href="{{ .Permalink }}" rel="bookmark" title="{{ .Title }}">{{ .Title }}</a></h1> 
+	</div> 
+	<div class="postcontent"> 
+        {{ .Content }}
+	</div> 
+	<div class="postmeta">
+	  <a href="{{ .Permalink }}" rel="bookmark" title="{{ .Title }}">
+	    <span class="published">{{ dateFormat "January 02, 2006" .Date }}</span>
+	  </a>
+	  <div style="float:right;">
+  	  <a class="FlattrButton" style="display:none;"
+          title="{{ .Title }}"
+          data-flattr-uid="luzifer"
+          data-flattr-button="compact"
+          href="{{ .Permalink }}">
+        {{ .Summary }}
+      </a>
+    </div>
+    <div style="float:right;">
+      <div class="g-plusone" data-size="medium" data-href="{{ .Permalink }}"></div>
+    </div>
+	</div> 
+</div> 
+{{ end }}
+
+{{ if gt $pag.TotalPages 1 }}
+<div id="pagination">
+    {{ if $pag.HasPrev }}
+      <a href="{{ $pag.Prev.URL }}">&laquo;</a>
+    {{ end }}
+    {{ range $pag.Pagers }}
+      {{ if eq . $pag }}
+        <a href="#" class="currentpage">{{ .PageNumber }}</a>
+      {{ end }}
+    {{ end }}
+    {{ if $pag.HasNext }}
+      <a href="{{ $pag.Next.URL }}">&raquo;</a>
+    {{ end }}
+</div>
+{{ end }}
+
+{{ partial "footer.html" . }}

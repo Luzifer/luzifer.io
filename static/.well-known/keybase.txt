@@ -1,0 +1,66 @@
+==================================================================
+https://keybase.io/luzifer
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://blog.knut.me
+  * I am luzifer (https://keybase.io/luzifer) on keybase.
+  * I have a public key with fingerprint 507E A9D8 14AA ACA8 A55A  249F DC27 29FD D34B E99E
+
+To claim this, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "fingerprint": "507ea9d814aaaca8a55a249fdc2729fdd34be99e",
+            "host": "keybase.io",
+            "key_id": "DC2729FDD34BE99E",
+            "uid": "ec84b8573599506e3a4f777ca008ab00",
+            "username": "luzifer"
+        },
+        "service": {
+            "hostname": "blog.knut.me",
+            "protocol": "https:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1397151844,
+    "expire_in": 157680000,
+    "prev": "78a48f35a8831607c680a24761ec7ad32a1c424205488316bf99bdd9042b7077",
+    "seqno": 11,
+    "tag": "signature"
+}
+
+with the aforementioned key, yielding the PGP signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: GnuPG v1
+Comment: GPGTools - http://gpgtools.org
+
+owE1kV1IFFEUx3c3vxKlRMoIEZsVJFllPvfObEiYqwitlIhSai13Zu6us7vOrLOj
+pbZmopZREAX5EBhlH1iC9aSEkEg9aN/og9VaPaxISFFLL4pGd8Tuy+Ge/+/8zzn3
+XsvcYbFZY4UHN+ePfh+2vppOiJbaykW5ixA1uYNwdRFBtBV8iupHelhXVINwERwJ
+EBRknmIhhBLkIcdBmhV8skQDGgeZYUUkCIhwEM1axKzANiKMoBJFwzl88SoyzrrL
+Tb7S7WbYIxWCUIG1ti0BSTwr8hxgOEHgSCdiIOsDAEiQJHkokqQJRpCuwhaE6VBb
+p+JDOhF1EDjZrkjIHNnsvA2IIc1fElTbjJIWc6awrhmapIWw0mwY4YjLrDQ6wiZ6
+BonebROvqKgy3htXtCM9omgq4aIwKRmK6UoxAqA4imdZB4HOhhUdeRWT4ICTJ/Ex
++6B2bAl4yPI+hoM8z1BOEkhYx88FnBSSAJQZGlISS7M0ybFbhOgTBFGWBZKlRUAC
+QJhrtaoa9qbwnNCPPSOKX4VGm46I6KA1N8litVlSkm3m11nSd+7+/6FPZtMsDzzH
+tOTg6aWpyL2l4NXEZF9W9erXifuTj6PFtZxa4Ln05lDVkIOusWd/qY+vjbY2VjcX
+fmroDjhnQpJHCvi9nt/j09a/zMu1lbyZpmImnnOzH6T9eZG+eCM2mLWruKq6/kds
+ZG1o5ODmqca7586fLKh5WjTcUf5uPXVyYSyjDuT32T/H54YPJ+S+ExIbyD3Qmf0w
+tpc9fkUbsDtbSqMf61av09HKiZ8rqaHRItr6LdlyeyTj9f4pZV/8Tq8r+1nSMsoP
+rPcP8Hx3/Qdnz/xGT9nlhczELW2PfWxzudeWUN+/ndtIGX90MSu+GkrPsa1fUMqa
+Sp//ypsVGtz/AA==
+=v1hp
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/luzifer
+
+==================================================================
+

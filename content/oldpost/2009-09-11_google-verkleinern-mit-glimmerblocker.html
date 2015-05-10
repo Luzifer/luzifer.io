@@ -1,0 +1,35 @@
+---
+title: "Google verkleinern mit GlimmerBlocker"
+date: "2009-09-11T15:04:00+00:00"
+slug: "google-verkleinern-mit-glimmerblocker"
+---
+
+Nachdem Google auf die seltsame Idee gekommen ist, dass sie ja mal das Design &auml;ndern k&ouml;nnten und alles ein wenig gr&ouml;&szlig;er schreiben m&uuml;ssten sind einige Leute - mich eingeschlossen - nicht mehr damit zufrieden, wie die Seite sich verh&auml;lt und wollen die alte Version zur&uuml;ck.</p><p>Nachdem es f&uuml;r die Firefox-Leute ein <a href="http://userscripts.org/scripts/show/57449">Greasemonkey-Script</a> gibt, was diese Arbeit &uuml;bernimmt, habe ich mich der Sache f&uuml;r die Safari-Fraktion auf dem Mac ebenfalls mal angenommen. Voraussetzung f&uuml;r den Filter ist dabei, dass der Werbefilter GlimmerBlocker installiert ist.</p><p><!--more-->Dort legt Ihr euch in den Systemeinstellungen einen eigenen Filter an. (Einfach auf den +-Button klicken und einen Namen vergeben.) Ich habe meinen Filter hier "GoogleResize" genannt. Falls Ihr schon f&uuml;r Werbezwecke einen eigenen Filter habt, k&ouml;nnt Ihr den nat&uuml;rlich weiter verwenden.
+<p style="text-align: center;"><a class="highslide" href="/uploads/2009/09/20090911-145804.png"><img class="size-thumbnail wp-image-2704 aligncenter" title="Der neue Filter" src="/uploads/2009/09/20090911-145804-150x150.png" alt="Der neue Filter" width="150" height="150" /></a></p></p><p>Im n&auml;chsten Schritt legt Ihr mit dem +-Button ganz unten eine neue Regel an und f&uuml;llt die Seite "rule type" wie folgt aus:
+<p style="text-align: center;"><a class="highslide" href="/uploads/2009/09/20090911-145849.png"><img class="size-thumbnail wp-image-2705 aligncenter" title="rule-type" src="/uploads/2009/09/20090911-145849-150x150.png" alt="rule-type" width="150" height="150" /></a></p></p><p>Im letzten Schritt wird in der Seite "css" folgender code eingef&uuml;gt um die Google-Seite wieder auf eine ordentliche Gr&ouml;&szlig;e zu bringen:
+<pre>.lst {
+  font-size:13px !important;
+  margin-bottom:0em !important;
+}</p><p>.lsb {
+  font-size:13px !important;
+  height:22px !important;
+  margin:0em !important;
+}</p><p>.gac_m {
+  -moz-background-clip:border !important;
+  -moz-background-inline-policy:continuous !important;
+  -moz-background-origin:padding !important;
+  background:white none repeat scroll 0 0 !important;
+  border:1px solid #666666 !important;
+  cursor:default !important;
+  font-size:13px !important;
+  line-height:17px !important;
+  margin:0 !important;
+  position:absolute !important;
+  z-index:99 !important;
+}</p><p>.gac_t {
+  font-size:13px !important;
+}</p><p>.gac_bt {
+  display:none !important;
+}</pre>
+Danach speichert Ihr die neue Regel und aktualisiert eure Google-Seite. Der Unterschied d&uuml;rfte dann direkt zu sehen sein:
+<p style="text-align: center;"><a class="highslide" href="/uploads/2009/09/20090911-145022.png"><img class="alignnone size-thumbnail wp-image-2706" title="Google alt" src="/uploads/2009/09/20090911-145022-150x150.png" alt="Google alt" width="150" height="150" /></a> <a class="highslide" href="/uploads/2009/09/20090911-145035.png"><img class="alignnone size-thumbnail wp-image-2707" title="Google neu" src="/uploads/2009/09/20090911-145035-150x150.png" alt="Google neu" width="150" height="150" /></a></p>

@@ -1,0 +1,26 @@
+---
+title: "HowTo: Easily break FileVault disk encryption to reinstall OSX"
+date: "2013-10-10T09:05:05+00:00"
+slug: "howto-easily-break-filevault-disk-encryption-to-reinstall-osx"
+---
+
+<p>
+	Most recent I had to deal with several MacBooks encrypted using the Apple FileVault2 mechanism which should be reinstalled. As the FileVault encryption locks the harddisk your need to know an administrators password on this computer or the FileVault key to decrypt the harddisk. Without decrypting it&#39;s not possible to reinstall OSX (too bad if you don&#39;t have both keys)&hellip;</p>
+<p>
+	But there is a much more simple solution if you <strong>don&#39;t need</strong> any of the data stored on the harddisk: You can boot the MacBook from an OSX-USB stick (hold Option while booting) or the recovery partition (hold Cmd+R while booting), then overwrite the &quot;GUID Partition Table (GPT)&quot; with a MBR which will destroy any information read by the installer to identify the harddisk as encrypted. After this the disk utility is able to erase the whole disk and prepare it for a new OSX installation.</p>
+<p>
+	To do this follow these steps:</p>
+<ol>
+	<li>
+		Open the Terminal from the Utilities menu in the recovery boot</li>
+	<li>
+		Search for the harddisk to erase using <span style="font-family: monospace; background-color: #ddd; padding: 1px;">diskutil list</span> (copy the device name like /dev/disk0)</li>
+	<li>
+		Write a MBR using <span style="font-family: monospace; background-color: #ddd; padding: 1px;">fdisk -i &lt;your device name&gt;</span></li>
+	<li>
+		Close the terminal (Cmd+Q)</li>
+	<li>
+		Open the disk utility and erase the harddisk</li>
+	<li>
+		Start a new install of OSX</li>
+</ol>

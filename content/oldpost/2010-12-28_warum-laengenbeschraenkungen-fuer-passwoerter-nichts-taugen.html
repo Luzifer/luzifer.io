@@ -1,0 +1,36 @@
+---
+title: "Warum Längenbeschränkungen für Passwörter nichts taugen"
+date: "2010-12-28T11:38:59+00:00"
+slug: "warum-laengenbeschraenkungen-fuer-passwoerter-nichts-taugen"
+---
+
+<p>
+	<em>Neulich hatte ich mich im Twitter wieder einmal dar&uuml;ber aufgeregt, dass ein Dienst die L&auml;nge meines Passworts auf 18 Zeichen beschr&auml;nkt. Dabei kamen von mehreren Leuten nachfragen, ob das denn nicht auch reichen w&uuml;rde. Deswegen hier mal eine kleine &Uuml;bersicht warum die L&auml;ngenbeschr&auml;nkungen immer sehr stark auf eine Sicherheitsl&uuml;cke hindeuten.</em></p>
+<p>
+	Fangen wir bei einem sehr generellen Thema an: Wie oft verwendet Ihr ein und das gleiche Passwort? Nutzt Ihr f&uuml;r alle Dienste (E-Mail Postfach, Facebook, Twitter, Dienst X) das gleiche Passwort oder habt Ihr f&uuml;r jeden Dienst ein eigenes Passwort? Ich nehme an, dass der Gro&szlig;teil meiner Leser jetzt in Gedanken antworten wird &quot;Nat&uuml;rlich nutze ich ein Passwort. Wie sollte ich mir das sonst merken?&quot;. Durchaus eine sehr logische Herangehensweise, hat aber leider einen gro&szlig;en Nachteil. Erstens werdet Ihr das Passwort wohl kaum wie es sich geh&ouml;rt alle paar Monate sp&auml;testens &auml;ndern, da Ihr euch dann &uuml;berall einloggen m&uuml;sst um es zu &auml;ndern und weil Ihr euch wieder ein neues Passwort merken m&uuml;sst.</p>
+<p>
+	Zweitens allerdings ist noch viel schlimmer: Gehen wir mal davon aus ich wollte an euer Passwort kommen. Ich k&ouml;nnte eine Webanwendung schreiben, die euch einen Mehrwert anbietet und daf&uuml;r eine Anmeldung haben m&ouml;chte. Ihr meldet euch also mit eurer E-Mail Adresse und eurem Passwort (was ja &uuml;berall gleich ist) an. Ich wiederum speichere das Passwort im Klartext zusammen mit der E-Mail Adresse in der Datenbank. Da das Passwort das gleiche ist wie f&uuml;r eure E-Mail Adresse gehe ich danach zu GMX, GMail oder wo auch immer eure E-Mail Adresse ist und logge mich mit dem Passwort und eurer E-Mail Adresse ein. Schon kann ich alle E-Mails lesen und wei&szlig; auch wo ihr sonst noch angemeldet seid. Da das Passwort dort auch gleich ist, kann ich s&auml;mtliche eurer Accounts &uuml;bernehmen, ohne dass Ihr gro&szlig; etwas dagegen tun k&ouml;nnt.</p>
+<p>
+	Nachdem Ihr also das Worst-Case-Szenario kennt werdet Ihr mir wahrscheinlich zustimmen, dass es nicht wirklich sch&ouml;n ist wenn das Passwort im Klartext in der Datenbank steht. Nat&uuml;rlich k&ouml;nnte man argumentieren, dass die Dienstebetreiber ja nicht b&ouml;se sind und das nicht machen. Ein Cracker hingegen kann durchaus in die Datenbank einbrechen und die Datens&auml;tze kopieren. Diese Person ist daran interessiert m&ouml;glichst gro&szlig;en Schaden anzurichten.</p>
+<p>
+	Warum gehe ich also jetzt davon aus, dass das Passwort im Klartext in der Datenbank steht wenn die L&auml;nge begrenzt ist? Ganz einfach: Normalerweise wird ein sogenannter &quot;Hash&quot; eures Passworts gespeichert. Das ist eine Pr&uuml;fsumme eures Passworts, aus der sich das Passwort nicht wieder errechnen l&auml;sst. Man kann die Pr&uuml;fsumme aus eurem Passwort errechnen, nicht jedoch das Passwort aus der Pr&uuml;fsumme. Im folgenden ein paar Beispiele mit der beliebtesten Methode (MD5-Summe) einen solchen Hash zu erzeugen:</p>
+<pre>
+Passwort: &#39;a&#39;
+Hash: 0cc175b9c0f1b6a831c399e269772661
+
+Passwort: &#39;c5uSFgqT&#39;
+Hash: d4f6db40cf62ee2df4dbe3cb9d98dfdb
+
+Passwort: &#39;XnGQD9LPAGf3FpRY9i6WxJAPCuArn4&#39;
+Hash: 8d58d08905dbffff3813880078083e43
+
+Passwort: &#39;o4LrhqU96H1Gw3mafomn1hxkr1Lm51Jwj9n3y7XK3vGc7nzg5JDof4U2fNHzr7x9&#39;
+Hash: 2c66831462501a4e06207a335e8ade3f</pre>
+<p>
+	Was man hieran sehr gut sehen kann: Die Hashs sind immer gleich lang. Es kommt dabei auch nicht darauf an, welche Methode man verwendet um diesen Hash zu erzeugen, da die meisten davon eine feste L&auml;nge des Hashs haben. Ergo es muss immer eine bestimmte Anzahl Zeichen in der Datenbank gespeichert werden, egal wie lang das Passwort vorher war. Welchen Grund gibt es also die Passwortl&auml;nge zu begrenzen? Richtig: Keinen!</p>
+<p>
+	Somit muss ich leider davon ausgehen, dass ein Dienst, der mir vorschreibt nur maximal 18 Zeichen im Passwort zu verwenden, ein Datenbankfeld mit der L&auml;nge 18 Zeichen hat, in dem er das Passwort im Klartext ablegt. In dem Fall w&uuml;rde er Probleme bekommen, wenn ich ein 20-Stelliges Passwort verwende, da es nicht mehr in das Datenbankfeld passt.</p>
+<p>
+	Genau hier sieht man auch recht deutlich warum ich allergisch darauf reagiere wenn ein Dienst meine Passwortl&auml;nge beschr&auml;nkt. Bei mir ist es zwar nicht m&ouml;glich sich mit dem Passwort f&uuml;r Dienst A auch bei Dienst B einzuloggen, da ich jedem Login ein individuelles Passwort zuweise aber leider handhaben das sehr viele Leute anders, so dass das Problem durchaus vorhanden ist.</p>
+<p>
+	<strong>Wie seht Ihr das? Habt Ihr &uuml;berall verschiedene oder f&uuml;r alle Dienste nur ein Passwort? Wenn Ihr nur ein Passwort habt, ist es euch egal, dass der Administrator jedes Dienstes, der das Passwort im Klartext speichert, in jeden eurer Accounts schauen kann?</strong></p>

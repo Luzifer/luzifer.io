@@ -1,0 +1,57 @@
+---
+title: "Hacking Tassimo: Beutel-Tee mit der Tassimo-Maschine"
+date: "2013-12-22T15:00:51+00:00"
+slug: "hacking-tassimo-beutel-tee-mit-der-tassimo-maschine"
+vgwort: "ae2d07cf1f714dabb1a959c7802aef72"
+---
+
+<p>
+	Vor einiger Zeit als ich noch regelmaessig Kaffee trank und durch die Selbststaendigkeit die meiste Zeit im Homeoffice verbrachte, kaufte ich mir eine Tassimo-Maschine. Das Prinzip duerfte hinreichend bekannt sein: Kapsel rein, Deckel zu, Knopf druecken und kurz spaeter kann man sein Heissgetraenk in der drunter gestellten Tasse finden und geniessen.</p>
+<p>
+	<img alt="" src="/uploads/2013/12/22/ab942d18b5345f4e4c6f7a66eadde7ee_Screen Shot 2013-12-22 at 15.39.31.png" style="width: 400px; float: right; margin: 0 0 0.5em 1em;" />Inzwischen bin ich allerdings in der Hauptsache auf den Genuss von Tee umgestiegen. Da mir allerdings sowohl Gruener als auch Schwarzer Tee nicht wirklich zusagen, ich allerdings Rotbusch-Tee mit Karamel oder Vanille mag, war in letzter Zeit meine Ueberlegung ob man nicht die Tassimo-Maschine dazu nutzen koennte einen Beutel-Tee in einer Tasse zuzubereiten, da es ja keine Rotbusch-T-Discs gibt.</p>
+<p>
+	Mein erster Versuch bestand darin, die Reinigungs-Disc dazu zu missbrauchen einfach nur heisses Wasser zu produzieren. Leider musste ich relativ schnell feststellen, dass die Disc nicht wirklich ein tolles Geschmackserlebnis bietet. Also wie sonst?</p>
+<p>
+	Da das System darauf basiert, dass ein Barcode ausgelesen wird und dieser der Maschine mitteilt, wie das entsprechende Getraenk zuzubereiten ist, musste es eine Moeglichkeit geben es zu manipulieren und die Maschine dazu zu bringen das zu tun was ich will. Gluecklicher Weise gibt es ein Patent fuer diese Kapseln und ein paar andere Menschen haben es gelesen und Hilfestellungen im Netz veroeffentlicht wie genau man damit umzugehen hat.</p>
+<p>
+	Technisch gesehen ist der verwendete Barcode ein &quot;ITF(I-2/5)&quot; Barcode mit 5 Stellen + Pruefziffer. Nimmt man also die ersten 5 Stellen des Barcode-Inhalts (Fuer die Reinigungsdisc z.B. 07879)&nbsp;und wandelt sie in eine 17-Stellige Binaerdarstellung um, kann man ablesen was genau die Maschine da eigentlich macht:</p>
+<pre>
+0000 11 110 1100 01 11 (07879)
+                    ^ Temperatur: 93 Grad
+                 ^ &quot;Ladung&quot; der T-Disc: Schnell laden, nicht ziehen lassen
+            ^ Wassermenge: 230ml
+        ^ Durchfluss-Rate in Prozent: 90
+     ^ Reinigung der Disc: Schnell durchfliessen lassen ueber eine lange Zeit
+^ Unbekannte(?) Informationen, die bei einigen Kaffees gesetzt sind
+</pre>
+<p>
+	Mit diesen Informationen kann man sich dann eigene Barcodes fuer die Reinigungs-Disc erstellen, die andere Konfigurationen fuer das durchgeleitete Wasser angeben. In meinem Fall bin ich bei dem Barcode &quot;060868&quot; angekommen:</p>
+<pre>
+0000 10 111 1100 01 10 (06086)
+                    ^ Temperatur: 83 Grad
+                 ^ &quot;Ladung&quot; der T-Disc: Schnell laden, nicht ziehen lassen
+            ^ Wassermenge: 230ml
+        ^ Durchfluss-Rate in Prozent: 100
+     ^ Reinigung der Disc: Schnell durchfliessen lassen ueber eine kurze Zeit
+^ Unbekannte(?) Informationen, die bei einigen Kaffees gesetzt sind
+</pre>
+<p>
+	Die Temperatur habe ich gesenkt, da fuer einen Rotbuschtee im Allgemeinen eine Temperatur von 80-90 Grad agegeben wird und man ausserdem so schneller eine trinkbare Temperatur bekommt. Bei der Wassermenge bin ich mir noch nicht ganz sicher aber es sieht so aus als waere das die am Besten geeignete Menge, da die naechst groessere Einheit (1101) mit 250ml meine Becher zum Ueberlaufen bringt. Ansonsten ist am Ende die Reinigung meiner Meinung nach relativ irrelevant, da ich durch die Verwendung der Reinigungsdisc keine Zusatzstoffe in der Kapsel habe und nur gefiltertes Wasser verwende.</p>
+<p>
+	Diesen Barcode habe ich dann mit einem Label-Drucker im Format 2.5&times;0.5cm drucken lassen, ausgeschnitten und statt des mitgelieferten Barcodes auf der Reinigungs-Disc befestigt. Dabei muss drauf geachtet werden, dass der Barcode mit der Unterseite zum aeusseren Rand der Disc zeigt, da sonst die Maschine verwirrt ist und zum Einlegen einer T-Disc auffordert.</p>
+<p style="text-align: center;">
+	<img alt="Reinigungs-Disc mit eigenem Barcode" src="/uploads/2013/12/22/f1638e3ed47f80c919af15685467c3b9_IMG_20131222_154524.jpg" style="width: 500px;" /></p>
+<p>
+	Quellen &amp; Tools:</p>
+<ul>
+	<li>
+		<a href="http://www.amazon.de/gp/product/B001FBPFX0/ref=as_li_ss_tl?ie=UTF8&amp;camp=1638&amp;creative=19454&amp;creativeASIN=B001FBPFX0&amp;linkCode=as2&amp;tag=knublo-21">Tassimo T65</a><img alt="" border="0" height="1" src="https://ir-de.amazon-adsystem.com/e/ir?t=knublo-21&amp;l=as2&amp;o=3&amp;a=B001FBPFX0" style="border:none !important; margin:0px !important;" width="1" /></li>
+	<li>
+		<a href="http://www.amazon.de/gp/product/B002GT7Y0M/ref=as_li_ss_tl?ie=UTF8&amp;camp=1638&amp;creative=19454&amp;creativeASIN=B002GT7Y0M&amp;linkCode=as2&amp;tag=knublo-21">Reinigungsdisc f&uuml;r Tassimo T65</a><img alt="" border="0" height="1" src="https://ir-de.amazon-adsystem.com/e/ir?t=knublo-21&amp;l=as2&amp;o=3&amp;a=B002GT7Y0M" style="border:none !important; margin:0px !important;" width="1" /></li>
+	<li>
+		<a href="http://anonym.to/?http://blog.chapmanconsulting.ca/wiki/Tassimo%20Hacking.ashx" rel="external nofollow">OneOfSix Wiki: Tassimo Hacking</a>&nbsp;(Uebersichtsartikel ueber diverse Resourcen)</li>
+	<li>
+		<a href="http://anonym.to/?http://blog.chapmanconsulting.ca/wiki/TDiscDecoding.ashx" rel="external nofollow">OneOfSix Wiki: T-DISC Decoding</a>&nbsp;(Aufschluesselung der Binardaten)</li>
+	<li>
+		<a href="http://www.amazon.de/gp/product/B001FQL2HI/ref=as_li_ss_tl?ie=UTF8&amp;camp=1638&amp;creative=19454&amp;creativeASIN=B001FQL2HI&amp;linkCode=as2&amp;tag=knublo-21">Brother P-Touch Etikettendrucker</a><img alt="" border="0" height="1" src="https://ir-de.amazon-adsystem.com/e/ir?t=knublo-21&amp;l=as2&amp;o=3&amp;a=B001FQL2HI" style="border:none !important; margin:0px !important;" width="1" /> (Zum Drucken der Labels)</li>
+</ul>

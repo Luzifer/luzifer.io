@@ -1,0 +1,26 @@
+---
+title: ""
+date: "2011-05-18T09:33:36+00:00"
+slug: "die-welt-wird-unter-gehen-und-ausnahmsweise-sind-einmal-nicht-die"
+---
+
+<p>
+	<img alt="Android Logo" src="/uploads/2011/05/android.jpg" style="margin-top: 0px; margin-right: 1em; margin-bottom: 1em; margin-left: 0px; float: left; width: 150px; height: 179px; " />Die Welt wird unter gehen und ausnahmsweise sind einmal nicht die Leute von Apple daran Schuld sondern Google hat sie vernichtet! Genauer genommen sind die b&ouml;sen Androiden diejenigen, die uns diesen Weltuntergang sponsoren. Wahrscheinlich arbeiten alle Android-Handys schon unter der Kontrolle von Skynet zusammen um uns zu vernichten!</p>
+<p>
+	Endlich haben die Apple-Anh&auml;nger einen Grund auch einmal gegen das Android-System zur&uuml;ckzuschlagen und m&uuml;ssen sich nicht immer die vollkommen Grundlosen Angriffe gegen ihr Lieblingssystem iOS gefallen lassen. Der Grund? Android ist von einer so riesigen Sicherheitsl&uuml;cke Betroffen, dass alle unsere Daten auf einen Schlag unsicher werden und garantiert b&ouml;sen Menschen in die H&auml;nde fallen.</p>
+<p>
+	Wie es dazu kommt? Relativ einfach: Google nutzt f&uuml;r seine Dienste &quot;<strong>Single Sign-on</strong>&quot; oder kurz SSO. Damit gibt es ein Access-Token, mit dem eine Anwendung auf die Daten eines Google-Accounts (Mails, Kalender, etc.) zugreifen kann (Allerdings nur wenn es daf&uuml;r authorisiert ist aber das ist ein anderes Thema). Diese Daten werden laut <a href="http://www.spiegel.de/netzwelt/web/0,1518,763176,00.html">Spiegel Online</a> unter Bezugnahme auf die <a href="http://www.uni-ulm.de/en/in/mi/staff/koenings/catching-authtokens.html">Universit&auml;t Ulm</a> unverschl&uuml;sselt &uuml;bertragen und sind somit potentiell auslesbar.</p>
+<p>
+	Nat&uuml;rlich wird auch gleich ein Fall konstruiert, mit dem das ganz einfach m&ouml;glich ist: Wir erstellen ein offenes Wlan, geben diesem einen Namen, den das Handy schon kennt und loggen den Netzwerkverkehr mit. Damit bekommen wir den Token, der f&uuml;r einige Zeit g&uuml;ltig ist und k&ouml;nnen ihn f&uuml;r weitere Zugriffe auf Google-Dienste nutzen.</p>
+<p>
+	Allerdings funktioniert das ganze schon, wenn das Handy den Namen des Wlan-Netzes schon kennt, denn nur dann verbindet es sich automatisch mit diesem. Da meine Wlans allerdings alle nicht &quot;FreePublicWifi&quot; (der Vorschlag aus dem Spiegel-Online-Artikel) hei&szlig;en, wird sich mein Handy nicht automatisch verbinden. Schade und schon funktioniert die Taktik nicht mehr.</p>
+<p>
+	Denkt man jetzt einmal genauer nach, mag die M&ouml;glichkeit zwar vorhanden sein aber wie wahrscheinlich ist es eigentlich, dass es passiert? Nur wenn ein Nutzer dumm genug ist sich mit einem offenen Wlan mit dem dubiosen Namen &quot;FreePublicWifi&quot; zu verbinden&hellip; Wo genau haben die Autoren eigentlich diesen Pfosten ausgegraben? Es ist so etwa seit Anbeginn der Existenz von Wlan bekannt, dass der Netzwerktransfer in einem offenen Wlan geloggt werden kann und somit nicht sicher ist.</p>
+<p>
+	Hat nur Android das Problem? N&ouml;. &ndash; Oh mein Gott! Windows ist unsicher! OSX ist unsicher! iOS ist unsicher! Android ist unsicher! Linux ist unsicher! ALLES ist unsicher! &ndash; &Uuml;bertrieben? Nein, denn jedes System, welches sich mit einem offenen Wlan verbinden kann erm&ouml;glicht es genau dieses Problem zu nutzen. Ist nur Google betroffen? Nein! Jeder Dienst, der zur Authentifikation Tokens nutzt und dessen Admins zu faul oder dumm waren sich ein SSL-Zertifikat zu leisten ist gleicherma&szlig;en betroffen.</p>
+<p>
+	Somit: Was lernen wir eigentlich daraus? Eigentlich nur, dass es dumme Coder gibt, die unverschl&uuml;sselte Verbindungen nutzen obwohl Google in allen Dokumentationen die Beispiele mit &quot;https&quot;-URLs versehen hat. Diese dummen Coder gibt es f&uuml;r Windows, iOS, OSX, Android, Linux und allen anderen Plattformen.</p>
+<p>
+	F&uuml;r mich das Fazit: Entweder ist schon wieder Sommerloch, dass man k&uuml;nstlich Skandale kontruieren muss oder aber die Apple-J&uuml;nger-Fraktion brauchte mal wieder eine Schlammschlacht um sich aus dem Fokus zu ziehen. Andere Erkl&auml;rungen fallen mir gerade nicht mehr ein.</p>
+<p>
+	<small>(Android-Bild ist von <a href="http://richd.com/2007/11/android.html" rel="nofollow">richd.com</a> geliehen und steht unter <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" rel="nofollow">CC-By-Nc-Sa-Lizenz</a>)</small></p>

@@ -1,0 +1,43 @@
+---
+title: "Ubuntu 11.04 Server: Automatisches Upgrade von 10.10"
+date: "2011-05-02T14:51:51+00:00"
+slug: "ubuntu-11-04-server-automatisches-upgrade-von-10-10"
+---
+
+<p>
+	<img alt="Ubuntu Logo" src="/uploads/2011/05/cof_orange_hex.png" style="width: 120px; height: 120px; margin-top: 0px; margin-right: 0px; margin-bottom: 1em; margin-left: 1em; float: right; " />Seit kurzem ist die neue Version &quot;<a href="http://releases.ubuntu.com/11.04/">Natty Narwhal</a>&quot; (11.04) von Ubuntu verf&uuml;gbar. Wie gewohnt gibt es eine Desktop-Version und eine Server-Version. Da ich pers&ouml;nlich nur die Server-Version einsetze, kann ich nichts &uuml;ber das Updateverhalten der Desktop-Version sagen aber zumindest in der Server-Version liegt meiner Beobachtung nach etwas im Argen.</p>
+<p>
+	Ich habe inzwischen mehreren Server das Update von 10.10 auf 11.04 mit dem internen Tool &quot;do-release-upgrade&quot; spendiert und bei allen festgestellt, dass die Maschinen danach nicht mehr sauber booten. Das mag daran liegen, dass es VMware VSphere-Clients sind oder an sonstigen seltsamen Begebenheiten aber wenn ein Problem &ouml;fter auftritt scheint es einen Grund zu haben.</p>
+<p>
+	Der Grund, den ich finden konnte ist, dass die Grub-Konfiguration nicht sauber erstellt wird und entweder einfach defekt ist oder aber nicht mehr zu einer neu installierten Version passt. Eine Abhilfe ist dabei nach dem ersten Reboot nach dem Update nicht mehr so einfach, da von einer Rettungs-CD gebootet werden muss um das Problem zu beheben. Das d&uuml;rfte bei den meisten Servern nicht so einfach m&ouml;glich sein.</p>
+<p>
+	<strong>Achtung: Die folgende Anleitung ist nur f&uuml;r erfahrene Administratoren von Serversystemen gedacht! Wenn Ihr selber einen Server administriert und hier an irgend einer Stelle unsicher seid: Lasst es! Dann kann euch ein Systemadministrator mit mehr Erfahrung sicher helfen!</strong></p>
+<p>
+	Hier aber mein Weg das Problem zu beheben. Wer den Neustart noch nicht ausgef&uuml;hrt hat (die letzte Frage des &quot;do-release-upgrade&quot; Scripts mit &quot;N&quot; beantworten) kann einfach zu Schritt 5 springen. Alle anderen m&uuml;ssen sich leider mit der Rettungs-CD herumplagen: <em>(Sollten Abweichungen von der Standard-Installation bestehen gehe ich davon aus, dass Ihr das selbst ber&uuml;cksichtigen k&ouml;nnt.)</em></p>
+<ol>
+	<li>
+		Das System von einer Linux-CD (ich nehme daf&uuml;r eine Gentoo-Minimal-CD) booten</li>
+	<li>
+		Die prim&auml;re Partition der Festplatte einmounten:<br />
+		<pre>$ mkdir /mnt/myhdd
+$ mount /dev/sda1 /mnt/myhdd</pre>
+	</li>
+	<li>
+		Das /dev-Dateisystem einmounten:<br />
+		<pre>$ mount -o bind /dev/ /mnt/myhdd/dev/</pre>
+	</li>
+	<li>
+		In das installierte Linux chrooten:<br />
+		<pre>$ chroot /mnt/myhdd /bin/bash</pre>
+	</li>
+	<li>
+		Die Grub-Konfiguration neu generieren lassen:<br />
+		<pre>$ grub-mkconfig &gt; /boot/grub/grub.cfg</pre>
+	</li>
+	<li>
+		Grub sicherheitshalber auf der prim&auml;ren Festplatte updaten lassen:<br />
+		<pre>$ grub-install /dev/sda</pre>
+	</li>
+</ol>
+<p>
+	Nach einem Reboot sollte jetzt alles wieder laufen. Nat&uuml;rlich sind alle Angaben ohne Gew&auml;hr aber zumindest half mir das die Probleme zu l&ouml;sen und daf&uuml;r zu sorgen, dass die Systeme wieder laufen.</p>

@@ -1,0 +1,20 @@
+---
+title: "Pingback-Ärger Reloaded"
+date: "2009-06-12T08:42:00+00:00"
+slug: "pingback-aerger-reloaded"
+---
+
+Vor einigen Monaten hatte ich hier einen <a href="http://blog.knut.me/2009/03/der-pingback-aerger-mit-wordpress/">Artikel</a> ver&ouml;ffentlicht, der sich damit besch&auml;ftigt, dass die Pingbacks in Wordpress 2.7.x nicht funktionieren, da dem Blog nicht genug Zeit bleibt sie zu versenden. Inzwischen haben viele von uns auf Wordpress 2.8 gewechselt und die Diskussion kommt wieder zum Tragen.</p><p>Auch in Wordpress 2.8 wurde der Fehler nicht behoben, sondern in der cron.php ist wieder 0.01 Sekunden eingetragen. Somit w&auml;ren wir wieder da wo wir waren bevor die &Auml;nderung, die ich in meinem Artikel vorschlage durchgef&uuml;hrt wurde.</p><p>Als Zitat aus dem Ticket w&auml;re hier wohl beispielhaft dieses zu nehmen:
+<blockquote>I doubt the timeout is going to be increased. Theres simply no need for it. However, Any transports which are not handling properly with a low connection timeout do need to be updated, Like Ryan said.</blockquote>
+Also mit anderern Worten: Wir denken, dass der Fehler irgendwo auf dem Transportweg liegt und nicht bei uns. Somit werden wir es nicht beheben.</p><p>Der letzte Eintrag betreffend Wordpress 2.8 ist dann auch dieser:
+<ul>
+	<li><strong>status</strong> changed from new to closed</li>
+	<li><strong>resolution</strong> set to wontfix</li>
+	<li><strong>milestone</strong> 2.8 deleted</li>
+</ul>
+<blockquote>let's close as wontfix until reporters re-open with feedback</blockquote>
+Also es wird in naher Zukunft nicht gefixed werden, da die Wordpress-Entwickler kein Bed&uuml;rfnis daf&uuml;r sehen. Bei wem also die Pingbacks nach dem Update auf 2.8 wieder nicht ankommen, dem wird wohl oder &uuml;bel wieder nichts anderes &uuml;brig bleiben als selber Hand an die cron.php zu legen und die entsprechende Einstellung manuell wieder auf 1 Sekunde zu setzen. Im Wordpress 2.8 findet man die entsprechende Zeile unter der Zeilennummer 229:
+<pre>229:  wp_remote_post( $cron_url, array('timeout' =&gt; 0.01,
+        'blocking' =&gt; false, 'sslverify' =&gt;
+        apply_filters('https_local_ssl_verify', true)) );</pre>
+(Nat&uuml;rlich auf einer Zeile, das h&auml;tte hier nur in der Breite nicht geklappt.)

@@ -1,0 +1,8 @@
+---
+title: "Ruby-Script: Webserver auf TRACE-Methode prüfen"
+date: "2008-11-14T15:56:00+00:00"
+slug: "ruby-script-webserver-auf-trace-methode-pruefen"
+---
+
+<blockquote>'TRACE' is a HTTP request method used for debugging which echo's back input back to the user. Jeremiah Grossman from Whitehatsec <a href="http://www.cgisecurity.com/whitehat-mirror/WH-WhitePaper_XST_ebook.pdf">posted a paper outlining</a> a risk allowing an attacker to steal information including Cookies, and possibly website credentials.</p><p>[Quelle: <a href="http://www.cgisecurity.com/questions/httptrace.shtml">CGISecurity</a>]</blockquote>
+Auf deutsch kurz zusammen gefasst: Mit der HTTP-Trace Methode kann ein Request zum Server gesendet werden, der unter Umst&auml;nden sogar Cookies auslesen kann. Daher wird von vielen Security-Scannern empfohlen diese Methode abzuschalten.</p><p>Heute ist aus der Not ein Script zu brauchen, welches &uuml;ber die Kommandozeile testen kann, ob TRACE eingeschaltet ist ein kleines Script entstanden, welches den Status der Serverantwort zur&uuml;ck liefert, die bei einem TRACE ausgel&ouml;st wird. [<a href="http://github.com/Luzifer/kscripts/blob/master/getTraceResponse.rb">GitHub</a>]</p><p>Sollte das Script eine "403" oder "405" ausgeben, ist TRACE verboten und die Anfrage nicht durchf&uuml;hrbar. Im Falle einer "200" wurde die Anfrage beantwortet. Dann kann mit der Anleitung, die z.B. auf dem <a href="http://www.adminlife.net/tipps/apache-http-trace-deaktivieren/">Adminlife-Blog</a> ver&ouml;ffentlicht wurde TRACE abgeschaltet werden.

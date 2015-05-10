@@ -1,0 +1,15 @@
+---
+title: "Blogoptimierung"
+date: "2008-10-02T20:52:00+00:00"
+slug: "blogoptimierung"
+---
+
+Gestern habe ich mich daran gemacht und versucht meinen Blog f&uuml;r mehr Benutzerfreundlichkeit ein wenig zu optimieren.</p><p>Dabei ging es nicht um Optimierung am Frontend, also dem was Ihr hier seht, sondern um den technischen Hintergrund. Dabei hatte ich Hilfe von zwei Firefox-Addons: Firebug und YSlow...</p><p><!--more--></p><p>Firebug ist eine Erweiterung, die eine Analyse der Seite incl. den weiteren Aufrufen z.B. per Javascript zu l&auml;sst. YSlow baut auf Firebug auf und analysiert selbstst&auml;ndig die Inhalte, so dass der User nicht mehr so viel nachdenken muss. ;)</p><p>Die Analyse von YSlow achtet dabei auf Details wie die Expire-Header (Diese sagen dem Browser wie lange z.B. ein Bild im Cache gehalten werden soll und nicht erneut vom Server geladen wird.), die GZIP-Komprimierung von z.B. CSS oder JavaScript Dateien (Damit wird die Downloadgr&ouml;&szlig;e zum Teil wesentlich verringert was auch in schnelleren Ladezeiten resultiert.) und anderen Details. Zu diesen Analysen gibt es dann auch immer eine Erkl&auml;rung auf der Seite von Yahoo (Hersteller des Tools).</p><p>Gestern also habe ich mit den ersten Schritten f&uuml;r eine Verbesserun begonnen. Der erste und wichtigste Punkt waren dabei die Expire-Header. Diese werden entweder im Server-VHost oder in einer .htaccess-Datei festgelegt. Falls Ihr diese Optimierungen auch durchf&uuml;hren wollt macht das bitte in Kooperation mit eurem Serveradministrator. Das erspart euch einiges an Arbeit wenn zum Beispiel die Module nicht verf&uuml;gbar sind, die der Server dazu braucht und hilft auch bei der Fehlerdiagnose.</p><p>F&uuml;r die Expire-Header habe ich folgende Einstellungen fest gelegt:
+<blockquote>ExpiresActive On
+ExpiresByType text/css A604800
+ExpiresByType image/gif A1209600
+ExpiresByType image/png A1209600
+ExpiresByType image/jpeg A1209600
+ExpiresByType application/x-javascript A604800
+ExpiresByType application/x-shockwave-flash A604800</blockquote>
+Das legt fest, dass CSS, JavaScript und Flashdateien ca. eine Woche im Browser-Cache bleiben und nicht neu geladen werden. Solltet Ihr diese Dateien &auml;ndern werden die &Auml;nderungen aber so lange auch nicht aktualisiert.</p><p>Durch ein Modul im Apache Webserver das "ModDeflate" wird dann zus&auml;tzlich noch eine Komprimierung der Dateien durchgef&uuml;hrt wenn der Browser dieses unterst&uuml;tzt.</p><p>Es fehlen jetzt zwar immer noch einige &Auml;nderungen hier um vom YSlow eine bessere Bewertung als "F" zu erhalten, was die schlechteste Note ist, allerdings hoffe ich, dass die Performanz der Seite sich durch die gestrigen &Auml;nderungen bei euch ein wenig verbessert hat.
