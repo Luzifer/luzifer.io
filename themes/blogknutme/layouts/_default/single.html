@@ -49,6 +49,9 @@
     if(disqus_loaded) {
       return true;
     }
+    if (window.location.hostname == "localhost") {
+      return;
+    }
     var pxleft = $(document).height() - $(window).scrollTop() - $(window).height();
     if(pxleft < 1000) {
       disqus_loaded = true;
