@@ -17,5 +17,7 @@ Said this: Please **do not** accept the "invitation" from my address to join tha
 
 Despite the fact I've broken my own rule not to click any link in a spam-mail I hope this does not cause a larger spam wave due to anyone subscribing to that service. Luckily the mail was sent in german language so all non-german speaking contacts in my address book will not even understand that mail and hopefully put it into trash as "foreign language spam"…
 
+**Update:** Looks like I'm not the only one who has fallen for this… Despite I didn't want to name the company sending out that mails here is an article about the same problem but from about two years ago: [A Year Of Spam: The Twoo Experience](http://techcrunch.com/2013/08/03/a-year-of-spam-twoo/) (And after [searching](https://www.google.com/search?q=twoo+spam) for more results there seems to be a huge list of people having the same problem…)
+
 
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
