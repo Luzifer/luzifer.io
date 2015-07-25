@@ -1,19 +1,17 @@
 ---
 
-baseurl: https://blog.knut.me/
+baseurl: https://luzifer.io/
 config: config.yaml
 metaDataFormat: yaml
 permalinks:
-  oldpost: /:slug.html
-  page: /:slug.html
-  post: /:year/:month/:slug.html
-theme: blogknutme
+  page: /blog/:slug
+  blog: /blog/:slug
+theme: luzifer.io
 title: Knuts Blog
-uglyUrls: true
+uglyUrls: false
 watch: true
 blackfriday:
   fractions: false
   extensions:
     - fencedCode
     - autolink
-

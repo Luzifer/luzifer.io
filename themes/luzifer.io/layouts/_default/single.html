@@ -1,0 +1,102 @@
+{{ partial "header.html" . }}
+
+<!-- ==============================================
+HEADER
+=============================================== -->
+<header id="home" class="color-bg light-typo padding-top-bottom">
+
+  <div class="container">
+
+    <h1 class="page-title">{{.Title}}</h1>
+
+  </div><!--End container -->
+
+</header><!--End header -->
+
+<!-- ==============================================
+SINGLE POST
+=============================================== -->
+<article class="post single-post">
+
+  <div class="container">
+
+    <div class="row">
+
+      <div class="col-sm-10 col-sm-offset-1">
+
+        {{ if .Params.media }}
+        <div class="post-media">
+          <img class="img-responsive" src="{{ .Params.media }}" alt=""/>
+        </div>
+        {{ end }}
+
+        <div class="post-content">
+
+          {{.Content}}
+
+        </div>
+
+        <footer class="post-footer">
+
+          <div class="post-meta clearfix">
+
+            <p class="post-date">{{ .Date.Format "Mon Jan 2, 2006" }}</p>
+
+            <p class="post-share">
+              Share:
+
+              <span class="social-media" data-title="{{.Title}}">
+                <span class="facebook"></span>
+                <span class="twitter" data-via="luzifer"></span>
+                <span class="plusone"></span>
+                <span class="pinterest"></span>
+              </span>
+            </p>
+
+          </div>
+
+          <nav class="posts-nav clearfix">
+            <ul>
+              {{ if .PrevInSection }}
+              <li class="prev-post">
+                <a href="{{.PrevInSection.Permalink}}">Previous Post</a>
+                <p>{{.PrevInSection.Title}}</p>
+              </li>
+              {{ end }}
+              {{ if .NextInSection }}
+              <li class="next-post">
+                <a href="{{.NextInSection.Permalink}}">Next Post</a>
+                <p>{{.NextInSection.Title}}</p>
+              </li>
+              {{ end }}
+            </ul>
+
+            <a class="all-posts" href="/blog/" data-toggle="tooltip" title="Back to Blog"><i class="fa fa-th-list"></i></a>
+
+          </nav>
+
+        </footer>
+
+      </div>
+
+    </div><!--End row -->
+
+  </div><!--End container -->
+
+
+
+</article><!--End post -->
+
+<article class="post single-post">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-10 col-sm-offset-1">
+
+        <div id="disqus_thread"></div>
+
+      </div>
+    </div><!--End row -->
+  </div><!--End container -->
+</article><!--End post -->
+
+{{ partial "footer.html" . }}
