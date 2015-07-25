@@ -2,6 +2,9 @@
 date: 2015-06-03T23:08:06+02:00
 title: "Kleine Tools erleichtern den Alltag"
 vgwort: 21cf8993c63a427b9b2362c9e55eb060
+aliases:
+  - /2015/06/kleine-tools-erleichtern-den-alltag.html
+  - /blog/2015/06/kleine-tools-erleichtern-den-alltag.html
 ---
 
 ![Terminal](/uploads/2015/06/03/terminal_820.png)
@@ -18,7 +21,7 @@ Nun erwaehnte ich ja schon, dass ich mir solche Aufgaben gerne vom Hals schaffe 
 
 ## [license](https://github.com/Luzifer/license)
 
-Wenn man wie ich viele kleine Projekte betreibt und auch immer wieder neue Projekte anfaengt, kommt man schnell dazu, dass diesen Projekten immer wieder Lizenzen zugewiesen werden sollten. Hier ging mir auf den Keks, dass ich immer wieder die Lizenztexte im Netz suchte bzw. mich erinnern musste in welchen Projekten ich die Lizenz schon einmal verwendet habe, um die jeweilige Lizenzdatei zu kopieren. So war ein wenig Zeit und ein paar Zeilen Quellcode spaeter `license` entstanden. 
+Wenn man wie ich viele kleine Projekte betreibt und auch immer wieder neue Projekte anfaengt, kommt man schnell dazu, dass diesen Projekten immer wieder Lizenzen zugewiesen werden sollten. Hier ging mir auf den Keks, dass ich immer wieder die Lizenztexte im Netz suchte bzw. mich erinnern musste in welchen Projekten ich die Lizenz schon einmal verwendet habe, um die jeweilige Lizenzdatei zu kopieren. So war ein wenig Zeit und ein paar Zeilen Quellcode spaeter `license` entstanden.
 
 `license` automatisiert das hinzufuegen dieser Lizenzdateien und uebernimmt dabei auch gleich noch das laestige Ausfuellen der Felder wie dem aktuellen Jahr und dem Author der Software. Die Daten dafuer kommen aus der git-Konfiguration des aktuellen users. Natuerlich muss man ein wenig dran editieren, wenn man die Datei fuer eine Organisation braucht aber nunja. Es ist halt doch nicht alles komplett automatisierbar.
 

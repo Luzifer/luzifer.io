@@ -2,6 +2,9 @@
 date: 2015-05-30T19:03:40+02:00
 title: "SmartSecure oder auch Hindernis Online-Banking"
 vgwort: cfc82197ad00459da04fd06c9c12b0bb
+aliases:
+  - /2015/05/smartsecure-oder-auch-hindernis-online-banking.html
+  - /blog/2015/05/smartsecure-oder-auch-hindernis-online-banking.html
 ---
 
 Seit einiger Zeit bin ich Kunde der [ING-DiBa](http://www.ing-diba.de/girokontokwk/a/gwhQVoi9QA), nachdem mich die Weigerung der DKB auf neue Technologien zu setzen zunehmend veraergert hat. Bei der DiBa kann ich nun endlich zum Beispiel das mTan-Verfahren nutzen und muss mich nicht mehr damit herum aergern eine iTan-Liste mit mir zu fuehren oder aber von unterwegs keine Ueberweisungen machen zu koennen…

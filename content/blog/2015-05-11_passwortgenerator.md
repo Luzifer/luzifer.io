@@ -2,6 +2,9 @@
 date: 2015-05-11T10:56:19+02:00
 title: "Projekt: Secure Password"
 vgwort: 1734a2da063a4278b40fce45e72c805c
+aliases:
+  - /2015/05/projekt-secure-password.html
+  - /blog/2015/05/projekt-secure-password.html
 ---
 
 _Der eine oder andere wird eventuell meinen alten Passwortgenerator noch kennen und sich an das grausame Design aus dem Jahr 2010 erinnern. Auch in der Technik dahinter war nicht alles so wie ich es gerne haette..._
