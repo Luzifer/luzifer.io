@@ -1,0 +1,2 @@
+/index.xml            /blog/index.xml
+/feed.xml             /blog/index.xml
