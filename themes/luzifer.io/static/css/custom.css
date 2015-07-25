@@ -5,3 +5,7 @@ body {
 .twitter-tweet-rendered {
   margin: 10px auto !important;
 }
+
+.img-responsive {
+  margin: 0 auto;
+}
