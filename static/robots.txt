@@ -1,4 +1,4 @@
 User-Agent: *
-Disallow: 
+Disallow:
 
-Sitemap: https://blog.knut.me/sitemap.xml
+Sitemap: https://luzifer.io/sitemap.xml
