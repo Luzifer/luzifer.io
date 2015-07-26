@@ -2415,6 +2415,11 @@ a:focus,
         line-height:24px;
 	}
 
+		.jumbotron h2 {
+			padding-top:10px;
+			line-height: 40px;
+		}
+
     .page-title{
         font-size:42px;
         line-height:52px;
