@@ -1,19 +1,19 @@
 default: generate
 
 clean:
-		rm -rf public
+	rm -rf public
 
 generate: clean
-		hugo
+	hugo
 
 develop:
-		hugo server --watch
+	hugo server --watch
 
 restore_static:
-		s3cmd sync s3://luzifer-io-static/ static/
+	s3sync s3://luzifer-io-static/ static/
 
 save_static:
-		s3cmd sync -P --delete-removed static/ s3://luzifer-io-static/
+	s3sync -P -d static/ s3://luzifer-io-static/
 
 container: clean hugo/hugo
 	docker build -t registry.luzifer.io/luzifer_io .
