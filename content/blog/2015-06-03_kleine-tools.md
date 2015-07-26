@@ -7,7 +7,7 @@ aliases:
   - /blog/2015/06/kleine-tools-erleichtern-den-alltag.html
 ---
 
-![Terminal](/uploads/2015/06/03/terminal_820.png)
+{{< img src="/uploads/2015/06/03/terminal_820.png" alt="Terminal" >}}
 
 Wer mich kennt, der weiss, dass ich mich beruflich und auch privat mit der Optimierung von Arbeitsprozessen beschaeftige und keine "Monkey-Tasks" mag. Wem ein Monkey-Task nichts sagt: Ein Monkey-Task ist eine Taetigkeit, die von Hand ausgefuehrt wird. Und zwar immer und immer wieder exakt das gleiche. In der Regel so anspruchsvoll, dass ein halbwegs trainierter Affe diesen Task auch machen koennte. Allerdings ist es ja wieder aufwaendig den Affen zu trainieren und ueberhaupt so mit Tierschutz und so...
 

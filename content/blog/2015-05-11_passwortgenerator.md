@@ -9,7 +9,8 @@ aliases:
 
 _Der eine oder andere wird eventuell meinen alten Passwortgenerator noch kennen und sich an das grausame Design aus dem Jahr 2010 erinnern. Auch in der Technik dahinter war nicht alles so wie ich es gerne haette..._
 
-[![Neues Interface im Passwortgenerator](/uploads/2015/05/11/pwd_luzifer_io.png)](https://pwd.luzifer.io/)
+[{{< img src="/uploads/2015/05/11/pwd_luzifer_io.png" alt="Neues Interface im Passwortgenerator" >}}](https://pwd.luzifer.io/)
+
 
 Im Endeffekt stand in meiner [Projektliste](https://trello.com/b/paMKbDFl) schon seit einer ganzen Weile der Task den [Passwortgenerator](https://pwd.luzifer.io/) mal "ordentlich" zu machen. Er sollte ein besseres Interface bekommen, der alte Python-Code in Python 2.5 sollte weg, dazu sollte das Projekt nicht mehr auf der AppEngine laufen, die Passwort-Generierung sollte schneller werden, die Seite sollte ausschliesslich via HTTPs erreichbar sein und schlussendlich sollte sie zuverlaessig gute Passwoerter liefern.
 
