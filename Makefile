@@ -9,11 +9,11 @@ generate: clean
 develop:
 		hugo server --watch
 
-fetch_uploads:
-		s3cmd sync s3://luzifer.io/uploads/ static/uploads/
+restore_static:
+		s3cmd sync s3://luzifer-io-static/ static/
 
-upload: generate
-		s3cmd sync -P --delete-removed public/ s3://luzifer.io/
+save_static:
+		s3cmd sync -P --delete-removed static/ s3://luzifer-io-static/
 
 container: clean hugo/hugo
 	docker build -t registry.luzifer.io/luzifer_io .
