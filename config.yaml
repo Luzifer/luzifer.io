@@ -4,7 +4,7 @@ baseurl: https://luzifer.io/
 config: config.yaml
 metaDataFormat: yaml
 permalinks:
-  page: /blog/:slug
+  page: /:slug/
   blog: /blog/:slug
 theme: luzifer.io
 title: Knuts Blog
