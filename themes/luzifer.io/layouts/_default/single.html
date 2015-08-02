@@ -34,6 +34,10 @@ SINGLE POST
 
           {{.Content}}
 
+          {{ if .Params.vgwort }}
+          <img src="https://ssl-vg03.met.vgwort.de/na/{{ .Params.vgwort }}" width="1" height="1" alt="">
+          {{ end }}
+
         </div>
 
         <footer class="post-footer">
