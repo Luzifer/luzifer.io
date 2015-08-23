@@ -10,10 +10,10 @@ develop:
 	hugo server --watch
 
 restore_static:
-	s3sync --loglevel=3 s3://luzifer-io-static/ static/
+	s3sync s3://luzifer-io-static/ static/
 
 save_static:
-	s3sync --loglevel=3 -P -d static/ s3://luzifer-io-static/
+	s3sync -P -d static/ s3://luzifer-io-static/
 
 container: clean hugo/hugo
 	docker build -t registry.luzifer.io/luzifer_io .
