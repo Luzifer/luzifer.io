@@ -1,3 +1,5 @@
 <p class="text-center">
+  {{ with .Get "href" }}<a href="{{.}}">{{ end }}
   <img class="img-responsive" src="{{.Get "src"}}" alt="{{.Get "alt"}}">
+  {{ with .Get "href" }}</a>{{ end }}
 </p>
