@@ -11,7 +11,7 @@ One approach would be to `godep save` those dependencies every time I change a p
 
 The approach I chose is a bit different and mainly the port of an [article by Herbert Fischer](http://hgfischer.org/article/managing-multiple-gopaths/) to the fish shell. It is fully interchangeable with his solution so if you are using bash and fish mixed at the same time you can use his version for bash and mine for fish.
 
-Like he explained in his article you just create a `.gopath` file in the directory above the current one you want to be the `$GOPATH`. So for example if you have your projects living in `~/gocode/src/...` you want to create a `.gopath` file in `~/gocode/`. Below is a small example what the results are if you have your `.gopath` files at `/tmp/test` and `~/gocode/`:
+Like he explained in his article you just create a `.gopath` file in a directory somewhere above the current one you want to be the `$GOPATH`. So for example if you have your projects living in `~/gocode/src/...` you want to create a `.gopath` file in `~/gocode/`. Below is a small example what the results are if you have your `.gopath` files at `/tmp/test` and `~/gocode/`:
 
 ```
 [13:39] luzifer ~> cd /tmp/test/foo/
