@@ -16,10 +16,10 @@ save_static:
 	s3sync -P -d static/ s3://luzifer-io-static/
 
 container: clean hugo/hugo
-	docker build -t registry.luzifer.io/luzifer_io .
+	docker build -t quay.io/luzifer/luzifer.io .
 
 push: container
-	docker push registry.luzifer.io/luzifer_io
+	docker push quay.io/luzifer/luzifer.io
 
 hugo/hugo:
 	wget https://gobuilder.me/get/github.com/spf13/hugo/hugo_master_linux-386.zip
