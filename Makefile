@@ -27,4 +27,4 @@ hugo/hugo:
 	rm hugo_master_linux-386.zip
 
 docker-login:
-		docker login -u="$(DOCKER_USERNAME)" -p="$(DOCKER_PASSWORD)" quay.io
+		@docker login -u="$(DOCKER_USERNAME)" -p="$(DOCKER_PASSWORD)" quay.io
