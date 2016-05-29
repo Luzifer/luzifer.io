@@ -10,7 +10,7 @@ develop:
 	hugo server --watch
 
 restore_static:
-	s3sync s3://luzifer-io-static/ static/
+	s3sync --loglevel=1 s3://luzifer-io-static/ static/
 
 save_static:
 	s3sync -P -d static/ s3://luzifer-io-static/
