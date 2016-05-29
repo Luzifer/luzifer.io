@@ -12,4 +12,4 @@ before_install:
 
 script:
   - export PATH="$(pwd):${PATH}"
-  - vault2env secret/ci/luzifer_io make docker_login restore_static push clean
+  - vault2env secret/ci/luzifer_io make docker-login restore_static push clean
