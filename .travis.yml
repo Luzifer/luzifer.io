@@ -1,0 +1,16 @@
+sudo: required
+
+services:
+  - docker
+
+language: go
+
+before_install:
+  - curl -sSLo s3sync https://gobuilder.me/get/github.com/Luzifer/s3sync/s3sync_v1.2.4_linux-amd64
+  - curl -sSLo vault2env https://gobuilder.me/get/github.com/Luzifer/vault2env/vault2env_v0.2.0_linux-amd64
+  - chmod +x vault2env s3sync
+
+script:
+  - export PATH="$(pwd):${PATH}"
+  - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}" quay.io
+  - vault2env secret/ci/luzifer_io make restore_static push clean
