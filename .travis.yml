@@ -12,5 +12,4 @@ before_install:
 
 script:
   - export PATH="$(pwd):${PATH}"
-  - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}" quay.io
-  - vault2env secret/ci/luzifer_io make restore_static push clean
+  - vault2env secret/ci/luzifer_io make docker_login restore_static push clean
