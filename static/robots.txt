@@ -1,4 +1,4 @@
 User-Agent: *
 Disallow:
 
-Sitemap: https://luzifer.io/sitemap.xml
+Sitemap: https://ahlers.me/sitemap.xml

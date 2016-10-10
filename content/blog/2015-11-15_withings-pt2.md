@@ -5,7 +5,7 @@ title: Three more months with Withings
 vgwort: 24c07deb32664f45a344c28c1725f94b
 ---
 
-On beginning August I already wrote a post about [my experiences with the Pulse Ox](https://luzifer.io/blog/my-experiences-with-the-pulse-ox). Since then there were three more months with experiences with Withings products, their support and also the attempt to integrate the data into the automation of my life.
+On beginning August I already wrote a post about [my experiences with the Pulse Ox](https://ahlers.me/blog/my-experiences-with-the-pulse-ox). Since then there were three more months with experiences with Withings products, their support and also the attempt to integrate the data into the automation of my life.
 
 Lets start with something positive: The broken widget on the web dashboard has been fixed! The reason for the widget to be broken was an error in the mobile app which didn't send the required data. (Don't ask me why one widget is able to show the data and one isn't. Obviously the app syncs data twice in different qualities...)
 

@@ -12,6 +12,6 @@ The "new" blog itself still contains all my posts starting 2008 until now (919 p
 
 {{< img src="/uploads/2015/07/26/bkm.png" alt="Old blog design" >}}
 
-The old blog will get migrated to the new version soon by redirecting the visitors towards this new version and then cease to exist. So if you linked the old version in your sidebar or something else please change that link to point to `https://luzifer.io/` in the future. (Though you don't need to go through all your posts to check whether you linked me in one of your articles, the redirects will remain in place for a long time…)
+The old blog will get migrated to the new version soon by redirecting the visitors towards this new version and then cease to exist. So if you linked the old version in your sidebar or something else please change that link to point to `https://ahlers.me/` in the future. (Though you don't need to go through all your posts to check whether you linked me in one of your articles, the redirects will remain in place for a long time…)
 
 What's your opinion on the new design? Do you like it? Please leave me a comment below…

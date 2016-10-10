@@ -6,7 +6,7 @@ slug: "datenschutz"
 
 ## Geltungsbereich
 
-Diese Datenschutzerklärung klärt Nutzer über die Art, den Umfang und Zwecke der Erhebung und Verwendung personenbezogener Daten durch den verantwortlichen Anbieter _Knut Ahlers, Rissener Str. 39, 22880 Wedel, knut@luzifer.io, 0049 157 757 366 14_ auf dieser Website (im folgenden “Angebot”) auf.
+Diese Datenschutzerklärung klärt Nutzer über die Art, den Umfang und Zwecke der Erhebung und Verwendung personenbezogener Daten durch den verantwortlichen Anbieter _Knut Ahlers, Rissener Str. 39, 22880 Wedel, knut@ahlers.me, 0049 157 757 366 14_ auf dieser Website (im folgenden “Angebot”) auf.
 
 Die rechtlichen Grundlagen des Datenschutzes finden sich im Bundesdatenschutzgesetz (BDSG) und dem Telemediengesetz (TMG).
 

@@ -1,6 +1,6 @@
 ---
 
-baseurl: https://luzifer.io/
+baseurl: https://ahlers.me/
 config: config.yaml
 metaDataFormat: yaml
 permalinks:
