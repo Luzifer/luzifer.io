@@ -6,10 +6,9 @@ services:
 language: go
 
 before_install:
-  - curl -sSLo s3sync https://gobuilder.me/get/github.com/Luzifer/s3sync/s3sync_v1.2.4_linux-amd64
-  - curl -sSLo vault2env https://gobuilder.me/get/github.com/Luzifer/vault2env/vault2env_v0.5.0_linux-amd64
-  - chmod +x vault2env s3sync
+  - curl -sSLo vault2env https://github.com/Luzifer/vault2env/releases/download/v0.6.1/vault2env_linux_amd64
+  - chmod +x vault2env
 
 script:
   - export PATH="$(pwd):${PATH}"
-  - vault2env secret/ci/luzifer_io make docker-login restore_static push clean
+  - vault2env secret/ci/luzifer_io make ci

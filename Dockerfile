@@ -1,9 +1,16 @@
-FROM scratch
+FROM nginx
+
+ENV HUGO_VERSION 0.17
+
+ADD https://github.com/spf13/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.tar.gz /tmp/hugo.tgz
+RUN set -ex \
+ && tar -C /usr/local/bin -xz -f /tmp/hugo.tgz --wildcards --strip-components=1 '*/hugo*' \
+ && ln -sf /usr/local/bin/hugo* /usr/local/bin/hugo \
+ && rm /tmp/hugo.tgz
 
 ADD . /src
-
-EXPOSE 1313
 WORKDIR /src
-ENTRYPOINT ["/src/hugo"]
-CMD ["server", "--bind=0.0.0.0", "--baseUrl=https://ahlers.me/", \
-     "--appendPort=false", "--disableLiveReload=true"]
+RUN set -ex \
+ && /usr/local/bin/hugo --baseUrl=https://ahlers.me/ --destination /opt/webroot
+
+ENTRYPOINT ["nginx", "-c", "/src/nginx.conf"]
