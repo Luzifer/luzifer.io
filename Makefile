@@ -1,3 +1,5 @@
+export AWS_REGION=eu-west-1
+
 default: generate
 
 clean:
@@ -24,5 +26,5 @@ push: container
 docker-login:
 		@docker login -e="." -u="$(DOCKER_USERNAME)" -p="$(DOCKER_PASSWORD)" quay.io
 
-auto-hook-pre-push: save_static
+auto-hook-pre-push: save_static 
 ci: docker-login push
