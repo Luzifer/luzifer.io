@@ -7,7 +7,7 @@ vgwort: 59ca4ecc6042477eaae9f7439bd7ea96
 
 As a huge fan of automating things (I'd automate everything if it would be possible) I'm using a chat-bot for quite a time doing something like "chat-ops" but for my home automation. Back when I heared about Amazon releasing Alexa together with the [Echo device series](http://amzn.to/2fDE7bT) I was amazed: Now I would no longer need to type my requests and use a format my bot understands (it does not have natural language processing)...
 
-Now fast forward 7 months to the future to the present day I've got more than half a year of experience with Alexa, not only using the Echo but also using [Reverb](https://play.google.com/store/apps/details?id=agency.rain.android.alexa) on my Android device and I think it's time to recap my experiences.
+Now fast forward 7 months to the present day I've got more than half a year of experience with Alexa, not only using the Echo but also using [Reverb](https://play.google.com/store/apps/details?id=agency.rain.android.alexa) on my Android device and I think it's time to recap my experiences.
 
 Lets start with porting my chat-bot to Alexa: That should be fairly easy, right? Or at least Alexa should be able to understand my keywords and trigger my bot to execute the appropriate actions, right? Nope. Just a plain nope. Sure, you can write own skills for Alexa: They have to exist on Lambda, they are summed up under the skill so you probably could tell "Alexa, tell ava to turn on the phone charger!" and Alexa might understand that...
 
