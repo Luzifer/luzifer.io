@@ -32,3 +32,5 @@ Then there is another thing I've experienced with Alexa: My trigger-word indeed 
 Another really cool feature: Sometimes I'm watching Twitch streams having the sound routed to my sound system and when the streamer decides to mess around with Alexa owners they just can do that! (There even are news articles about TV stations reporting about Alexa and triggering her in hundreds of flats...)
 
 Overall what did I buy when getting an Amazon Echo? I got a speaker, I'm not using to blast music because that's a job for my sound system, which is capable of misunderstanding my requests and most of the time isn't used because it can't trigger things I want to trigger. **Great deal!**
+
+_(Header image ["Robot" by william hartel](https://www.flickr.com/photos/132321727@N02/16863272554))_
