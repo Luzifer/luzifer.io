@@ -1,0 +1,7 @@
+---
+
+image: "quay.io/repo-runner/debian-docker"
+checkout_dir: /src
+
+commands:
+  - make ci

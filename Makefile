@@ -23,8 +23,5 @@ container: clean
 push: container
 	docker push quay.io/luzifer/luzifer.io
 
-docker-login:
-		@docker login -e="." -u="$(DOCKER_USERNAME)" -p="$(DOCKER_PASSWORD)" quay.io
-
 auto-hook-pre-push: save_static 
-ci: docker-login push
+ci: push
