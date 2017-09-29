@@ -12,10 +12,10 @@ develop:
 	hugo server --watch
 
 restore_static:
-	vault2env secret/aws/private -- s3sync --loglevel=1 s3://luzifer-io-static/ static/
+	vault2env --key=secret/aws/private -- s3sync --loglevel=1 s3://luzifer-io-static/ static/
 
 save_static:
-	vault2env secret/aws/private -- s3sync -P -d static/ s3://luzifer-io-static/
+	vault2env --key=secret/aws/private -- s3sync -P -d static/ s3://luzifer-io-static/
 
 container: clean
 	docker build -t quay.io/luzifer/luzifer.io .
