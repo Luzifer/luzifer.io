@@ -1,11 +1,10 @@
 FROM nginx
 
-ENV HUGO_VERSION 0.17
+ENV HUGO_VERSION 0.29
 
-ADD https://github.com/spf13/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.tar.gz /tmp/hugo.tgz
+ADD https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.tar.gz /tmp/hugo.tgz
 RUN set -ex \
- && tar -C /usr/local/bin -xz -f /tmp/hugo.tgz --wildcards --strip-components=1 '*/hugo*' \
- && ln -sf /usr/local/bin/hugo* /usr/local/bin/hugo \
+ && tar -C /usr/local/bin -xz -f /tmp/hugo.tgz 'hugo' \
  && rm /tmp/hugo.tgz
 
 ADD . /src
