@@ -75,120 +75,10 @@
     </section>
 
     <!-- ==============================================
-    PORTFOLIO
-    =============================================== -->
-    <section id="portfolio" class="gray-bg padding-top-bottom">
-
-      <div class="container">
-
-        <h1 class="section-title">My Projects</h1>
-        <p class="section-description">I'm doing a broad range of different projects, some are presented here:</p>
-
-        <!--==== Portfolio Filters ====-->
-
-        <div id="filter-works">
-
-          <ul>
-            <li class="active">
-              <a href="#" data-filter="*">All Categories</a>
-            </li>
-            <li>
-              <a href="#" data-filter=".web">Web Projects</a>
-            </li>
-            <li>
-              <a href="#" data-filter=".server">Server Projects</a>
-            </li>
-          </ul>
-
-        </div><!--End portfolio filters -->
-
-        <div class="projects-container scrollimation">
-
-          <div class="row">
-
-            {{ range first 6 (where .Data.Pages.ByDate.Reverse "Section" "project") }}
-            <!-- ==============================================
-            SINGLE PROJECT ITEM
-            =============================================== -->
-
-            <article class="col-md-4 col-sm-6 project-item {{.Params.project_tag}}">
-
-              <!--==== Project Thumbnail & Title ====-->
-
-              <div class="project-thumb">
-                <a href="{{.Params.project_link}}" class="main-link">
-                  <img class="img-responsive img-center" src="/projects/{{.Params.screenshot_prefix}}_400x300.png" alt=""/>
-                  <h2 class="project-title">{{.Title}}</h2>
-                  <span class="overlay-mask"></span>
-                </a>
-                <a class="enlarge" href="/projects/{{.Params.screenshot_prefix}}_1920x1080.png" title="{{.Title}}"><i class="fa fa-expand fa-fw"></i></a>
-                <a class="link" href="#"><i class="fa fa-eye fa-fw"></i></a>
-              </div><!-- End Thumbnail -->
-
-              <!--==== Project Preview Content ====-->
-
-              <div class="preview-content" data-images="/projects/{{.Params.screenshot_prefix}}_645x430.png">
-                <p class="preview-subtitle">{{.Params.subtitle}}</p>
-
-                {{.Content}}
-
-              </div><!-- End Project Preview -->
-
-            </article>
-            <!-- ==============================================
-            END PROJECT ITEM
-            =============================================== -->
-            {{ end }}
-
-
-          </div><!-- End Row -->
-
-        </div><!-- End Projects Container -->
-
-      </div><!-- End container -->
-
-      <!--==== Project Preview Panel (DO NOT REMOVE)====-->
-
-      <div id="preview-scroll"></div>
-
-      <div id="project-preview">
-
-        <div class="container">
-
-          <div class="preview-header text-center">
-            <a class="close-preview" href="#">&times;</a>
-            <h1 class="preview-title"></h1>
-            <p class="preview-subtitle"></p>
-          </div>
-
-          <div class="imac-frame">
-
-            <img class="img-responsive img-center" src="assets/imac.png" alt=""/>
-            <span class="loader"></span>
-            <div class="imac-screen imac-slider flexslider"></div>
-
-          </div>
-
-          <div class="row">
-            <div id="preview-content" class="col-sm-10 col-sm-offset-1"></div>
-          </div>
-
-          <div class="preview-footer text-center">
-            <a class="close-preview" href="#">&times;</a>
-          </div>
-
-
-        </div><!--End container -->
-
-      </div><!--End #project-preview panel-->
-
-    </section>
-
-    <!-- ==============================================
     ABOUT
     =============================================== -->
 
-    <section id="about" class="white-bg padding-top-bottom">
+    <section id="about" class="gray-bg padding-top-bottom">
 
       <div class="container">
 
@@ -214,7 +104,7 @@
     <!-- ==============================================
     CONTACT
     =============================================== -->
-    <section id="contact" class="gray-bg padding-top-bottom">
+    <section id="contact" class="white-bg padding-top-bottom">
 
       <div class="container">
 
