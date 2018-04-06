@@ -1,6 +1,6 @@
 ---
 
-image: "quay.io/repo-runner/debian-docker"
+image: reporunner/debian-docker
 checkout_dir: /src
 
 commands:
