@@ -1,6 +1,6 @@
 FROM alpine:latest as builder
 
-ENV HUGO_VERSION 0.29
+ENV HUGO_VERSION 0.40.1
 
 RUN set -ex \
  && apk --no-cache add curl \
