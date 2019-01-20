@@ -1842,7 +1842,7 @@ a:focus,
 .news-content .read-more:after{
     content:'\f054';
     padding-left:15px;
-    font-family:'FontAwesome';
+    font-family:"Font Awesome 5 Free";
     font-size:21px;
     line-height:21px;
     color:#5CC9DF;
@@ -1894,7 +1894,7 @@ a:focus,
     width:100%;
     top:0;
     left:0;
-    font-family:FontAwesome;
+    font-family:"Font Awesome 5 Free";
     font-size:32px;
     line-height:80px;
     text-align:center;
@@ -2390,7 +2390,7 @@ a:focus,
 
     #main-nav .nav li.submenu > a:after{
         content:'\f0d7';
-        font-family:FontAwesome;
+        font-family:"Font Awesome 5 Free";
         margin-left:5px;
         color:#5CC9DF;
     }
@@ -2474,7 +2474,7 @@ a:focus,
 
     #main-nav .nav li.submenu > a:after{
         content:'\f0d7';
-        font-family:FontAwesome;
+        font-family:"Font Awesome 5 Free";
         margin-left:5px;
         color:#5CC9DF;
     }
