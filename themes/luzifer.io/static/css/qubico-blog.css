@@ -354,7 +354,7 @@
 
 .social-likes__icon{
     margin:0 0 0 7px;
-    font-family:fontAwesome;
+    font-family:'Font Awesome 5 Brands';
     font-size:21px;
     line-height:21px;
     font-style:normal;
@@ -426,6 +426,7 @@
     padding-right:15px;
     font-family:'Font Awesome 5 Free';
     font-size:28px;
+    font-weight:900;
     line-height:28px;
     color:#5CC9DF;
     vertical-align:middle;
@@ -447,6 +448,7 @@
     padding-left:15px;
     font-family:'Font Awesome 5 Free';
     font-size:28px;
+    font-weight:900;
     line-height:28px;
     color:#5CC9DF;
     vertical-align:middle;
