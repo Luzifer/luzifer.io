@@ -30,6 +30,15 @@ SINGLE POST
         </div>
         {{ end }}
 
+        {{ if (.Date.Add (8760 | duration "hour")).Before now }}
+        <div class="alert alert-warning" role="alert">
+          <i class="fas fa-exclamation-triangle"></i> This article was written more than one year ago.
+          The information in here might be inaccurate or outdated by now which means if
+          this is an how-to or tutorial it might no longer work. Please remember that while
+          reading the article.
+        </div>
+        {{ end }}
+
         <div class="post-content">
 
           {{.Content}}

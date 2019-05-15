@@ -9,7 +9,7 @@ generate: clean
 	hugo
 
 develop:
-	hugo server --watch
+	hugo server --watch --disableFastRender
 
 restore_static:
 	vault2env --key=secret/aws/private -- s3sync --loglevel=1 s3://luzifer-io-static/ static/
