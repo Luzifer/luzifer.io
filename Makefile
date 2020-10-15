@@ -24,7 +24,7 @@ push: container
 	docker push quay.io/luzifer/luzifer.io
 
 update_gpg:
-	gpg --export 507EA9D814AAACA8A55A249FDC2729FDD34BE99E >static/.well-known/openpgpkey/hu/4m4uuzs67okqg1u914zd6mag9p8predd
+	gpg --export 43A4CD1C19DAE8558D40088E0066F03ED215AD7D >static/.well-known/openpgpkey/hu/4m4uuzs67okqg1u914zd6mag9p8predd
 	$(MAKE) save_static
 
 auto-hook-pre-push: save_static 
