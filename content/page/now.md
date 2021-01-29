@@ -1,6 +1,6 @@
 ---
 title: "What I'm doing now..."
-date: "2020-11-29T01:54:13+01:00"
+date: "2021-01-29T23:41:13+01:00"
 slug: "now"
 ---
 
@@ -11,8 +11,8 @@ My name is Knut and these are some facts about me and what I'm currently focussi
 - I'm a member of the [volunteer fire department of Wedel](http://www.wedel.de/rathaus-politik/kommunale-betriebe/freiwillige-feuerwehr.html)
 - I'm working on [open-source tools](https://knut.in/github) for (home-)automation
 - I'm spending some time on [gaming](https://knut.in/steam) and watching films and shows on Netflix
-- I'm [listening to music](https://knut.in/lastfm) on [Vox Noctem](http://www.voxnoctem.com/) and [Spotify](https://knut.in/spotify)
-- I'm often to be found on [Twitch](https://knut.in/twitch) as a viewer or moderator in several channels
+- I'm [listening to music](https://knut.in/lastfm) on [Spotify](https://knut.in/spotify)
+- I'm often to be found on [Twitch](https://knut.in/twitch) streaming myself or as a viewer and moderator in several channels
 
 If this list changes I'll update this page to the latest state.
 
